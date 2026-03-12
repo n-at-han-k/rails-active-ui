@@ -23,10 +23,9 @@
 
 # Spec Index
 
-...
-
-## Kubernetes
+## Core Components
 
 | Spec | Code | Purpose |
 |------|------|---------|
-|...|...|...|
+| [the-holy-view-spec.md](./the-holy-view-spec.md) | [app/lib/component.rb](../app/lib/component.rb) | Declarative view system — `.html.ruby` template handler, ancestral `Component` class, and commandments for component-based rendering |
+| [the-holy-slot-spec.md](./the-holy-slot-spec.md) | [app/lib/component.rb](../app/lib/component.rb) | Named slots — extends the view spec with multi-region content capture via yielded self and slot methods |
