@@ -15,11 +15,10 @@ ActionView::Template.register_template_handler :ruby, ->(template, source) {
       path: template.short_identifier,
       virtual_path: template.virtual_path,
       format: template.format,
-      locale: template.locale
-    }.to_json
+      variant: template.variant
+    }.to_json.gsub('"', '\\"')
 
     <<~RUBY
-      output_buffer = ActionView::OutputBuffer.new
       output_buffer << "<template data-view-meta='#{meta}'></template>\\n".html_safe
       output_buffer << "<!-- BEGIN #{template.short_identifier} -->\\n".html_safe
       #{source}
@@ -27,6 +26,6 @@ ActionView::Template.register_template_handler :ruby, ->(template, source) {
       output_buffer
     RUBY
   else
-    "output_buffer = ActionView::OutputBuffer.new;\n#{source}\noutput_buffer"
+    "#{source}\noutput_buffer"
   end
 }
