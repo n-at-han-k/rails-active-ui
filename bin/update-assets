@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Clones Fomantic-UI, builds it, and copies dist assets into this project.
+#
+#   dist/semantic.css        → app/assets/stylesheets.css
+#   dist/components/*.js     → app/javascript/
+#
+# Requirements: git, node, npm
+set -euo pipefail
+
+REPO_URL="https://github.com/fomantic/Fomantic-UI.git"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+WORK_DIR="$(mktemp -d)"
+
+cleanup() {
+  echo "Cleaning up $WORK_DIR ..."
+  rm -rf "$WORK_DIR"
+}
+trap cleanup EXIT
+
+echo "==> Cloning Fomantic-UI into $WORK_DIR ..."
+git clone --depth 1 "$REPO_URL" "$WORK_DIR/Fomantic-UI"
+
+echo "==> Installing dependencies ..."
+cd "$WORK_DIR/Fomantic-UI"
+npm install
+
+echo "==> Building (gulp build) ..."
+npx gulp build
+
+echo "==> Copying dist/semantic.css → app/assets/stylesheets.css"
+cp "$WORK_DIR/Fomantic-UI/dist/semantic.css" "$PROJECT_ROOT/app/assets/stylesheets.css"
+
+echo "==> Copying dist/components/*.js → app/javascript/"
+mkdir -p "$PROJECT_ROOT/app/javascript"
+cp "$WORK_DIR/Fomantic-UI/dist/components/"*.js "$PROJECT_ROOT/app/javascript/"
+
+echo "==> Done. Temp directory will be removed by EXIT trap."
