@@ -29,3 +29,5 @@
 |------|------|---------|
 | [the-holy-view-spec.md](./the-holy-view-spec.md) | [app/lib/component.rb](../app/lib/component.rb) | Declarative view system — `.html.ruby` template handler, ancestral `Component` class, and commandments for component-based rendering |
 | [the-holy-slot-spec.md](./the-holy-slot-spec.md) | [app/lib/component.rb](../app/lib/component.rb) | Named slots — extends the view spec with multi-region content capture via yielded self and slot methods |
+| [components.md](./components.md) | [app/components/](../app/components/) | Fomantic-UI component inventory — catalogs every element, collection, view, module, and behavior with SwiftUI equivalents |
+| [javascript.md](./javascript.md) | [app/javascript/ui/](../app/javascript/ui/) | JavaScript architecture — jQuery bridge pattern for Fomantic-UI Stimulus controllers, asset layout, and load order |

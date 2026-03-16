@@ -104,19 +104,45 @@ If a component is not in the registry, it does not exist. To create a new compon
 
 ### I. Thou shalt not write raw HTML in view files.
 
-Every `<div>`, `<span>`, `<p>`, and `<img>` shall be expressed through a component. The view file shall contain no angle brackets.
+Every `<div>`, `<span>`, `<p>`, `<a>`, `<tr>`, `<td>`, `<th>`, and `<img>` shall be expressed through a component. The view file shall contain **no angle brackets** and **no `.html_safe` calls**.
+
+The only permitted exception is `<style>` blocks for page-specific CSS, which have no component equivalent.
 
 **Transgression:**
-```erb
-<div class="flex gap-3 items-center">
-  <span class="text-sm text-primary">Hello</span>
-</div>
+```ruby
+text '<div class="ui segments">'.html_safe
+Segment { text "Top" }
+Segment { text "Bottom" }
+text '</div>'.html_safe
 ```
 
 **Righteousness:**
 ```ruby
-HStack(spacing: 12, align: :center) {
-  Text(style: :primary, size: :sm) { text "Hello" }
+SegmentGroup {
+  Segment { text "Top" }
+  Segment { text "Bottom" }
+}
+```
+
+### I-b. If a component does not exist, create it first.
+
+If the markup you need cannot be expressed through an existing component, **you must create the component before writing the view**. Add it to `app/components/`, register it in `app/helpers/component_helper.rb`, and write tests. Then use it in the view.
+
+Raw HTML is never an acceptable workaround — not temporarily, not as a TODO, not "just this once." The component must exist before the view can reference the markup it produces.
+
+**Transgression:**
+```ruby
+# "I'll make a component later"
+text '<div class="ui raised segments">'.html_safe
+Segment { text "Content" }
+text '</div>'.html_safe
+```
+
+**Righteousness:**
+```ruby
+# Create SegmentGroupComponent first, then use it
+SegmentGroup {
+  Segment(raised: true) { text "Content" }
 }
 ```
 
@@ -229,18 +255,18 @@ end
 
 The `tag` and `safe_join` private methods are provided by the ancestor. They delegate to `@view_context`. Every component inherits them. There is no reason to touch `.html_safe` in a `to_s` method. If you find yourself reaching for it, you have strayed from the path.
 
-### VIII. Thou shalt map Tailwind to component attributes, not to class strings.
+### VIII. Thou shalt map CSS framework classes to component attributes, not to class strings.
 
-The view layer shall never reference Tailwind utility classes directly. Tailwind is an implementation detail of the component. The view speaks in semantic attributes — `spacing`, `align`, `justify` — and the component translates.
+The view layer shall never reference Fomantic-UI CSS classes directly. CSS classes are an implementation detail of the component. The view speaks in semantic attributes — `raised`, `inverted`, `color` — and the component translates them to the correct class string.
 
 **Transgression:**
 ```ruby
-HStack(class: "flex gap-3 items-center justify-between p-3")
+Segment(class: "ui raised inverted blue segment")
 ```
 
 **Righteousness:**
 ```ruby
-HStack(spacing: 12, align: :center, justify: :between, padding: 12)
+Segment(raised: true, inverted: true, color: "blue")
 ```
 
 ### IX. Thou shalt nest with braces, not `do`/`end`.
@@ -267,38 +293,42 @@ When an existing ERB view is to be brought into the light, the following rites s
 
 ### Rite 1: Survey the Template
 
-Read the existing `.html.erb` file in its entirety. Identify all raw HTML elements. Classify each as either:
+Read the existing `.html.erb` or raw-HTML-laden `.html.ruby` file in its entirety. Identify all raw HTML elements. Classify each as either:
 
-- **Structural** — `div` used for layout (flex, grid, spacing). These become `VStack` or `HStack`.
-- **Textual** — `span`, `p` used for styled text. These become `Text`.
-- **Media** — `img` tags. These become `Image`.
-- **Existing components** — `render DS::Link.new(...)` and similar. These are already saved. Register them in the `COMPONENT_MAP` and move on.
+- **Grid structure** — `<div class="... column">`, `<div class="... row">`. These become `Column(...)`, `Row(...)`.
+- **Menu items** — `<a class="item">`, `<div class="item">`. These become `MenuItem(...)`.
+- **Table structure** — `<tr>`, `<td>`, `<th>`. These become `TableRow`, `TableCell`.
+- **Group wrappers** — `<div class="ui segments">`, `<div class="ui steps">`, `<div class="ui items">`. These become `SegmentGroup`, `StepGroup`, `ItemGroup`.
+- **Links** — `<a href="...">`. These become `Link(href: "...")`.
+- **Text** — `<p>`, `<span>` with no semantic class. These become `text "..."`.
+- **Missing components** — If the markup has a Fomantic CSS class pattern with no corresponding component, **create the component first** (Commandment I-b), then proceed.
 
 ### Rite 2: Rename the File
 
-Change the extension from `.html.erb` to `.html.ruby`. This is a point of no return. The old world is behind you.
+If converting from ERB, change the extension from `.html.erb` to `.html.ruby`. This is a point of no return. The old world is behind you.
 
 ### Rite 3: Convert Outside-In
 
 Begin with the outermost container and work inward. Replace each raw HTML element with its component equivalent. Preserve all conditional logic (`if`, `elsif`, `else`) — these are pure Ruby and need no translation.
 
 **Before:**
-```erb
-<div class="space-y-4">
-  <div class="flex justify-between items-center p-3 rounded-lg">
-    <div class="flex items-center gap-3">
-      <span class="text-sm text-primary">Hello</span>
-    </div>
-  </div>
-</div>
+```ruby
+text '<div class="ui stackable grid">'.html_safe
+text '<div class="four wide computer eight wide tablet sixteen wide mobile column">'.html_safe
+text '<div class="ui fluid card">'.html_safe
+text '<div class="content">'.html_safe
+Header(size: :h3, color: "red") { text "3958" }
+text '<div class="meta">orders</div>'.html_safe
+text '</div></div></div></div>'.html_safe
 ```
 
 **After:**
 ```ruby
-VStack(spacing: 16) {
-  HStack(justify: :between, align: :center, padding: 12, rounded: :lg) {
-    HStack(align: :center, spacing: 12) {
-      Text(size: :sm, style: :primary) { text "Hello" }
+Grid(stackable: true) {
+  Column(computer: 4, tablet: 8, mobile: 16) {
+    Card(fluid: true) { |c|
+      c.header { Header(size: :h3, color: "red") { text "3958" } }
+      c.meta { text "orders" }
     }
   }
 }
@@ -322,49 +352,88 @@ Run the component test suite. Ensure that no `<script>` tag, no `onerror` attrib
 
 ---
 
-## Book IV — The Primitive Components
+## Book IV — The Component Registry
 
-These are the foundational components. All views are constructed from these primitives and domain-specific components registered in the `COMPONENT_MAP`.
+All views are constructed from these components, registered in `app/helpers/component_helper.rb`. The authoritative list of available components is always the `COMPONENT_MAP` in that file. What follows is a structural guide to the categories.
 
-### VStack
-A vertical flex container.
+### Layout Primitives
 
-| Attribute | Type | Default | Maps To |
-|-----------|------|---------|---------|
-| `spacing` | integer | 0 | `space-y-{n}` |
-| `align` | string | `"start"` | `items-{value}` |
+Structural wrappers for page layout. These produce plain `<div>` elements with specific CSS classes.
 
-### HStack
-A horizontal flex container.
+| Component | Renders | Purpose |
+|-----------|---------|---------|
+| `Column` | `<div class="... column">` | Grid column with responsive widths (`computer:`, `tablet:`, `mobile:`) |
+| `Row` | `<div class="... row">` | Grid row with optional column count, alignment, device visibility |
+| `Pusher` | `<div class="pusher">` | Main content wrapper for Sidebar layouts |
+| `Overlay` | `<div class="overlay">` | Floating overlay wrapper |
+| `Link` | `<a href="...">` | Anchor element |
+| `SubHeader` | `<div class="sub header">` | Sub header text within a Header |
 
-| Attribute | Type | Default | Maps To |
-|-----------|------|---------|---------|
-| `spacing` | integer | 0 | `gap-{n}` |
-| `justify` | string | `"start"` | `justify-{value}` |
-| `align` | string | `"start"` | `items-{value}` |
-| `padding` | integer | nil | `p-{n}` |
-| `rounded` | string | nil | `rounded-{value}` |
-| `shadow` | string | nil | `shadow-border-{value}` |
-| `bg` | string | nil | `bg-{value}` |
+### Elements
 
-### Text
-An inline text container.
+Standalone UI building blocks. Each renders a Fomantic-UI element with `ui` prefix.
 
-| Attribute | Type | Default | Maps To |
-|-----------|------|---------|---------|
-| `style` | string | nil | `text-{value}` |
-| `size` | string | nil | `text-{value}` |
-| `weight` | string | nil | `font-{value}` |
+| Component | Renders | Key attributes |
+|-----------|---------|---------------|
+| `Button` | `<button class="ui button">` | `color`, `size`, `fluid`, `icon`, `inverted` |
+| `Container` | `<div class="ui container">` | `text`, `fluid` |
+| `Divider` | `<div class="ui divider">` | `horizontal`, `inverted`, `section` |
+| `Header` | `<h2 class="ui header">` | `size`, `color`, `dividing`, `inverted`, `image`, `aligned` |
+| `Icon` | `<i class="... icon">` | `name`, `size`, `color` |
+| `Image` | `<img class="ui image">` | `src`, `size`, `rounded`, `circular`, `centered` |
+| `Input` | `<div class="ui input">` | `placeholder`, `icon`, `action`, `size` |
+| `Label` | `<div class="ui label">` | `color`, `size`, `pointing` |
+| `Segment` | `<div class="ui segment">` | `raised`, `stacked`, `piled`, `inverted`, `color`, `attached` |
+| `SegmentGroup` | `<div class="ui segments">` | `horizontal`, `compact`, `basic` |
 
-### Image
-A media element.
+### Collections
 
-| Attribute | Type | Default | Maps To |
-|-----------|------|---------|---------|
-| `src` | string | required | `image_tag` source |
-| `width` | integer | nil | pixel width |
-| `height` | integer | nil | pixel height |
-| `shrink` | boolean | true | `shrink-0` when false |
+Composite components with internal structure. Many follow the **Group + Item** pattern.
+
+| Component | Renders | Key attributes |
+|-----------|---------|---------------|
+| `Grid` | `<div class="ui grid">` | `columns`, `stackable`, `divided`, `celled`, `centered`, `aligned` |
+| `Menu` | `<div class="ui menu">` | `vertical`, `inverted`, `fixed`, `pointing`, `stackable` |
+| `MenuItem` | `<div class="item">` or `<a class="item">` | `href`, `active`, `header`, `icon`, `value`, `dropdown` |
+| `MenuMenu` | `<div class="... menu">` | `position` ("left", "right") |
+| `Table` | `<table class="ui table">` | `celled`, `striped`, `definition`, `basic`, `attached` |
+| `TableRow` | `<tr>` | `active`, `positive`, `negative`, `warning` |
+| `TableCell` | `<td>` or `<th>` | `heading`, `aligned`, `collapsing`, `colspan`, `rowspan` |
+| `StepGroup` | `<div class="ui steps">` | `ordered`, `vertical`, `circular`, `stackable`, `size` |
+| `Step` | `<div class="step">` | `active`, `completed`, `disabled`, `icon`, `title`, `description` |
+
+### Views
+
+Content display components with slot-based internal structure.
+
+| Component | Renders | Slots |
+|-----------|---------|-------|
+| `Card` | `<div class="ui card">` | `header`, `meta`, `description`, `extra` |
+| `ItemGroup` | `<div class="ui items">` | — (wraps `Item` children) |
+| `Item` | `<div class="item">` | `image`, `header`, `meta`, `description`, `extra` |
+| `Statistic` | `<div class="ui statistic">` | `value`, `label` |
+
+### The Group + Item Pattern
+
+Many Fomantic-UI components follow a **group wrapper + individual item** pattern. The group renders the outer container with `ui` prefix; the item renders the inner element without it.
+
+```ruby
+# Group renders: <div class="ui steps">
+# Item renders:  <div class="step">
+StepGroup(ordered: true) {
+  Step(active: true, title: "Shipping", description: "Choose options")
+  Step(title: "Billing", description: "Enter billing info")
+  Step(disabled: true, title: "Confirm")
+}
+```
+
+Components that follow this pattern:
+- `SegmentGroup` + `Segment`
+- `StepGroup` + `Step`
+- `ItemGroup` + `Item`
+- `Grid` + `Column` (with `Row` as optional intermediate)
+- `Menu` + `MenuItem` (with `MenuMenu` for sub-menus)
+- `Table` + `TableRow` + `TableCell`
 
 ---
 
@@ -475,62 +544,83 @@ In production, annotations are absent. The output is clean. The user sees only t
 ## Appendix A — The Complete View Example
 
 ```ruby
-# app/views/settings/billing.html.ruby
-content_for :page_title, t(".page_title")
+# app/views/examples/dashboard.html.ruby
 
-SettingsSection(title: t(".subscription_title"), subtitle: t(".subscription_subtitle")) {
-  VStack(spacing: 16) {
-    HStack(justify: :between, align: :center, padding: 12, rounded: :lg, shadow: :xs, bg: :container) {
-      HStack(spacing: 12, align: :center) {
-        FilledIcon(icon: "gem", rounded: true, size: "lg")
+# -- Sidebar --
+Sidebar(direction: "left", inverted: true) {
+  MenuItem(header: true) {
+    text "General"
+    MenuMenu {
+      MenuItem(icon: "tachometer alternate") { text "Dashboard" }
+    }
+  }
+  MenuItem(icon: "chart line") { text "Charts" }
+}
 
-        VStack(spacing: 4) {
-          if @family.has_active_subscription?
-            Text(style: :primary, size: :sm) {
-              text "You are currently subscribed to the "
-              Text(weight: :medium) { text @family.subscription.name }
-              text "."
+# -- Top Nav --
+Menu(fixed: "top", inverted: true) {
+  MenuMenu(position: "left") {
+    MenuItem(href: "#") { Icon(name: "sidebar") }
+    MenuItem(href: "#") { Header(size: :h4) { text "My App" } }
+  }
+  MenuMenu(position: "right") {
+    MenuItem(href: "#") { Icon(name: "bell") }
+    Dropdown {
+      Icon(name: "user circle")
+      MenuMenu {
+        MenuItem(href: "#", icon: "sign-out") { text "Logout" }
+      }
+    }
+  }
+}
 
-              if @family.next_billing_date
-                text " Your plan renews on "
-                Text(weight: :medium) { text @family.next_billing_date.strftime("%B %d, %Y") }
-                text "."
-              end
-            }
-          elsif @family.trialing?
-            Text(style: :primary, size: :sm) {
-              text "You are currently trialing Maybe "
-              Text(style: :secondary) { text "(#{@family.days_left_in_trial} days remaining)" }
-            }
-          else
-            Text(style: :primary, size: :sm) {
-              text "You are currently "
-              Text(weight: :medium) { text "not subscribed" }
-            }
-            Text(style: :secondary, size: :sm) {
-              text "Once you subscribe to Maybe+, you'll see your billing settings here."
-            }
-          end
+# -- Main Content --
+Pusher {
+  Grid(stackable: true) {
+    Column(computer: 4, tablet: 8, mobile: 16) {
+      Card(fluid: true) { |c|
+        c.header { Header(size: :h3, color: "red") { text "3958" } }
+        c.meta { text "orders" }
+        c.description { text "Elliot requested permission to view your contact details" }
+        c.extra { Button(color: "red") { text "More Info" } }
+      }
+    }
+  }
+
+  Grid(stackable: true) {
+    Column {
+      Table(celled: true, striped: true) { |c|
+        c.header {
+          TableRow {
+            TableCell(heading: true, colspan: 3) { text "Git Repository" }
+          }
+        }
+        TableRow {
+          TableCell(collapsing: true) { Icon(name: "folder"); text " src" }
+          TableCell { text "Initial commit" }
+          TableCell(aligned: "right") { text "10 hours ago" }
         }
       }
-
-      if @family.has_active_subscription?
-        Link(text: "Manage", icon: "external-link", variant: "primary",
-             icon_position: "right", href: subscription_path, rel: "noopener")
-      else
-        Link(text: "Choose plan", variant: "primary", icon: "plus",
-             icon_position: "right", href: upgrade_subscription_path(view: "upgrade"),
-             rel: "noopener")
-      end
     }
+  }
 
-    HStack(spacing: 8, align: :center) {
-      Image(src: "stripe-logo.svg", width: 20, height: 20, shrink: false)
-      Text(style: :secondary, size: :sm) { text "Billing via Stripe" }
+  Grid(stackable: true) {
+    Column(computer: 4, tablet: 8, mobile: 16, aligned: "center") {
+      Statistic(color: "teal") { |c|
+        c.value { text "5,550" }
+        c.label { text "Downloads" }
+      }
     }
   }
 }
 ```
+
+This example demonstrates:
+- **No raw HTML** — every element is a component call
+- **Group + Item** pattern — `Menu` + `MenuItem` + `MenuMenu`, `Table` + `TableRow` + `TableCell`
+- **Slot-based components** — `Card { |c| c.header { } }`, `Statistic { |c| c.value { } }`
+- **Responsive columns** — `Column(computer: 4, tablet: 8, mobile: 16)`
+- **Nested composition** — components inside components, all through blocks
 
 ---
 
