@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Clones Fomantic-UI, builds it, and copies dist assets into this project.
+# Clones Fomantic-UI, builds it from source, and copies dist assets into
+# this project.
 #
 #   dist/semantic.css        → app/assets/stylesheets.css
 #   dist/components/*.js     → app/javascript/
@@ -11,28 +12,33 @@ REPO_URL="https://github.com/fomantic/Fomantic-UI.git"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORK_DIR="$(mktemp -d)"
+CLONE_DIR="$WORK_DIR/Fomantic-UI"
 
 cleanup() {
-  echo "Cleaning up $WORK_DIR ..."
+  echo "==> Cleaning up $WORK_DIR ..."
   rm -rf "$WORK_DIR"
 }
 trap cleanup EXIT
 
-echo "==> Cloning Fomantic-UI into $WORK_DIR ..."
-git clone --depth 1 "$REPO_URL" "$WORK_DIR/Fomantic-UI"
+echo "==> Cloning Fomantic-UI ..."
+git clone --depth 1 "$REPO_URL" "$CLONE_DIR"
+
+echo "==> Configuring build ..."
+cp "$CLONE_DIR/semantic.json.example" "$CLONE_DIR/semantic.json"
+cp "$CLONE_DIR/src/theme.config.example" "$CLONE_DIR/src/theme.config"
 
 echo "==> Installing dependencies ..."
-cd "$WORK_DIR/Fomantic-UI"
-npm install
+cd "$CLONE_DIR"
+npm install --legacy-peer-deps
 
 echo "==> Building (gulp build) ..."
 npx gulp build
 
 echo "==> Copying dist/semantic.css → app/assets/stylesheets.css"
-cp "$WORK_DIR/Fomantic-UI/dist/semantic.css" "$PROJECT_ROOT/app/assets/stylesheets.css"
+cp "$CLONE_DIR/dist/semantic.css" "$PROJECT_ROOT/app/assets/stylesheets.css"
 
 echo "==> Copying dist/components/*.js → app/javascript/"
 mkdir -p "$PROJECT_ROOT/app/javascript"
-cp "$WORK_DIR/Fomantic-UI/dist/components/"*.js "$PROJECT_ROOT/app/javascript/"
+cp "$CLONE_DIR/dist/components/"*.js "$PROJECT_ROOT/app/javascript/"
 
-echo "==> Done. Temp directory will be removed by EXIT trap."
+echo "==> Done."
