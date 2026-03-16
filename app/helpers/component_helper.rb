@@ -15,6 +15,12 @@ module ComponentHelper
     # Layout Primitives
     VStack:      VStackComponent,
     HStack:      HStackComponent,
+    Column:      ColumnComponent,
+    Row:         RowComponent,
+    Pusher:      PusherComponent,
+    Overlay:     OverlayComponent,
+    Link:        LinkComponent,
+    SubHeader:   SubHeaderComponent,
 
     # Globals
     Reset:       ResetComponent,
@@ -36,8 +42,10 @@ module ComponentHelper
     Placeholder: PlaceholderComponent,
     Rail:        RailComponent,
     Reveal:      RevealComponent,
-    Segment:     SegmentComponent,
+    Segment:      SegmentComponent,
+    SegmentGroup: SegmentGroupComponent,
     Step:        StepComponent,
+    StepGroup:   StepGroupComponent,
     Text:        TextComponent,
 
     # Collections
@@ -45,11 +53,16 @@ module ComponentHelper
     Form:        FormComponent,
     Grid:        GridComponent,
     Menu:        MenuComponent,
+    MenuItem:    MenuItemComponent,
+    MenuMenu:    MenuMenuComponent,
     Message:     MessageComponent,
     Table:       TableComponent,
+    TableRow:    TableRowComponent,
+    TableCell:   TableCellComponent,
 
     # Views
     Ad:          AdComponent,
+    ItemGroup:   ItemGroupComponent,
     Card:        CardComponent,
     Comment:     CommentComponent,
     Feed:        FeedComponent,

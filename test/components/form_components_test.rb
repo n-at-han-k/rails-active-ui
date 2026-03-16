@@ -238,15 +238,14 @@ class FormComponentsTest < ComponentTestCase
     assert_includes html, "fui-rating"
   end
 
-  test "rating renders correct number of star icons" do
+  test "rating max-rating value" do
     html = render_inline(RatingComponent, max_rating: 5, rating: 3)
-    # 5 <i> tags for stars
-    assert_equal 5, html.scan("<i").length
+    assert_includes html, "fui-rating-max-rating-value=\"5\""
   end
 
-  test "rating active icons" do
+  test "rating initial-rating value" do
     html = render_inline(RatingComponent, max_rating: 5, rating: 3)
-    assert_equal 3, html.scan("active").length
+    assert_includes html, "fui-rating-initial-rating-value=\"3\""
   end
 
   test "rating heart icon" do

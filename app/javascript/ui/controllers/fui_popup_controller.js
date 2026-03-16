@@ -1,27 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Fomantic-UI Popup — tooltips and popup content.
-// Replaces: $.fn.popup
+// Bridges: $.fn.popup
 //
 // Usage:
 //   <span data-controller="fui-popup"
 //         data-fui-popup-content-value="Tooltip text"
-//         data-fui-popup-position-value="top center"
-//         data-action="mouseenter->fui-popup#show mouseleave->fui-popup#hide">
+//         data-fui-popup-position-value="top center">
 //     Hover me
 //   </span>
 //
-//   <!-- Or with an explicit popup target: -->
-//   <span data-controller="fui-popup"
-//         data-action="click->fui-popup#toggle">
-//     Click me
-//     <div class="ui popup" data-fui-popup-target="popup">
-//       <p>Rich popup content</p>
-//     </div>
-//   </span>
-//
 export default class extends Controller {
-  static targets = ["popup"]
   static values = {
     content:   { type: String, default: "" },
     title:     { type: String, default: "" },
@@ -33,95 +22,37 @@ export default class extends Controller {
     variation: { type: String, default: "" },
   }
 
-  connect() {}
+  connect() {
+    $(this.element).popup(this._options())
+  }
 
   disconnect() {
-    this._removeCreatedPopup()
+    $(this.element).popup("destroy")
   }
 
-  show() {
-    const popup = this._getOrCreatePopup()
-    if (!popup) return
-
-    popup.classList.add("visible")
-    this.dispatch("show")
-  }
-
-  hide() {
-    const popup = this._getOrCreatePopup()
-    if (!popup) return
-
-    if (this.hoverableValue) {
-      this._hideTimer = setTimeout(() => {
-        popup.classList.remove("visible")
-        this.dispatch("hide")
-      }, 70)
-    } else {
-      popup.classList.remove("visible")
-      this.dispatch("hide")
-    }
-  }
-
-  toggle() {
-    const popup = this._getOrCreatePopup()
-    if (!popup) return
-
-    popup.classList.contains("visible") ? this.hide() : this.show()
-  }
-
-  cancelHide() {
-    if (this._hideTimer) clearTimeout(this._hideTimer)
-  }
+  show()   { $(this.element).popup("show") }
+  hide()   { $(this.element).popup("hide") }
+  toggle() { $(this.element).popup("toggle") }
 
   // -- Private --
 
-  _getOrCreatePopup() {
-    if (this.hasPopupTarget) return this.popupTarget
-
-    if (this._createdPopup) return this._createdPopup
-
-    const content = this.htmlValue || this.contentValue
-    if (!content && !this.titleValue) return null
-
-    const popup = document.createElement("div")
-    popup.classList.add("ui", "popup")
-    if (this.variationValue) {
-      this.variationValue.split(" ").forEach((cls) => popup.classList.add(cls))
+  _options() {
+    const opts = {
+      position:  this.positionValue,
+      on:        this.onValue,
+      hoverable: this.hoverableValue,
+      closable:  this.closableValue,
+      variation: this.variationValue || false,
+      onShow:    () => { this.dispatch("show") },
+      onVisible: () => { this.dispatch("visible") },
+      onHide:    () => { this.dispatch("hide") },
+      onHidden:  () => { this.dispatch("hidden") },
     }
 
-    if (this.titleValue) {
-      const header = document.createElement("div")
-      header.classList.add("header")
-      header.textContent = this.titleValue
-      popup.appendChild(header)
-    }
+    if (this.contentValue) opts.content = this.contentValue
+    if (this.titleValue)   opts.title = this.titleValue
+    if (this.htmlValue)    opts.html = this.htmlValue
 
-    if (content) {
-      if (this.htmlValue) {
-        popup.innerHTML += this.htmlValue
-      } else {
-        const contentEl = document.createElement("div")
-        contentEl.classList.add("content")
-        contentEl.textContent = content
-        popup.appendChild(contentEl)
-      }
-    }
-
-    if (this.hoverableValue) {
-      popup.addEventListener("mouseenter", () => this.cancelHide())
-      popup.addEventListener("mouseleave", () => this.hide())
-    }
-
-    this.element.style.position = this.element.style.position || "relative"
-    this.element.appendChild(popup)
-    this._createdPopup = popup
-    return popup
-  }
-
-  _removeCreatedPopup() {
-    if (this._createdPopup) {
-      this._createdPopup.remove()
-      this._createdPopup = null
-    }
+    return opts
   }
 }

@@ -22,18 +22,8 @@ class PopupComponent < Component
     data[:fui_popup_title_value] = title if title
     data[:fui_popup_hoverable_value] = "true" if hoverable
     data[:fui_popup_variation_value] = variation if variation
-    data[:action] = action_string
+    data[:fui_popup_on_value] = on if on != "hover"
 
     tag.span(data: data) { @content }
-  end
-
-  private
-
-  def action_string
-    case on
-    when "hover" then "mouseenter->fui-popup#show mouseleave->fui-popup#hide"
-    when "click" then "click->fui-popup#toggle"
-    when "focus" then "focus->fui-popup#show blur->fui-popup#hide"
-    end
   end
 end

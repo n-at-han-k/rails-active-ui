@@ -17,26 +17,25 @@ class RatingComponent < Component
   attribute :name,       :string,  default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       icon,
       size,
-      ("disabled" if disabled),
+      { "disabled" => disabled },
       "rating"
-    ].compact.join(" ")
+    )
 
-    data = { controller: "fui-rating", rating: rating, max_rating: max_rating }
-    data[:fui_rating_clearable_value] = "true" if clearable
-
-    icons = (1..max_rating).map { |i|
-      active_class = i <= rating ? "#{icon} icon active" : "#{icon} icon"
-      tag.i(class: active_class)
+    data = {
+      controller: "fui-rating",
+      fui_rating_max_rating_value: max_rating,
+      fui_rating_initial_rating_value: rating
     }
+    data[:fui_rating_clearable_value] = "true" if clearable
 
     name_el = name ? tag.input(type: "hidden", name: name, value: rating) : nil
 
     tag.div(class: classes, data: data) {
-      safe_join(icons + [ name_el ])
+      safe_join([ name_el, @content ])
     }
   end
 end

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Fomantic-UI State — UI state management for elements.
-// Replaces: $.fn.state
+// Bridges: $.fn.state
 //
 // Usage:
 //   <button data-controller="fui-state"
@@ -22,69 +22,42 @@ export default class extends Controller {
   }
 
   connect() {
-    this._originalText = this.element.textContent.trim()
-    this._active = this.element.classList.contains("active")
+    $(this.element).state(this._options())
   }
 
-  disconnect() {}
-
-  toggle() {
-    this._active ? this.deactivate() : this.activate()
+  disconnect() {
+    $(this.element).state("destroy")
   }
 
-  activate() {
-    this._active = true
-    this.element.classList.add("active")
-    this.element.classList.remove("inactive")
-
-    if (this.activeTextValue) {
-      this.element.textContent = this.activeTextValue
-    }
-
-    this.dispatch("activate")
-    this.dispatch("change", { detail: { active: true } })
-  }
-
-  deactivate() {
-    this._active = false
-    this.element.classList.remove("active")
-    this.element.classList.add("inactive")
-
-    if (this.inactiveTextValue) {
-      this.element.textContent = this.inactiveTextValue
-    }
-
-    this.dispatch("deactivate")
-    this.dispatch("change", { detail: { active: false } })
-  }
-
-  enable() {
-    this.element.classList.remove("disabled")
-    this.dispatch("enable")
-  }
-
-  disable() {
-    this.element.classList.add("disabled")
-    this.dispatch("disable")
-  }
-
-  setLoading() {
-    this.element.classList.add("loading")
-  }
-
-  removeLoading() {
-    this.element.classList.remove("loading")
-  }
+  toggle()     { $(this.element).state("toggle") }
+  activate()   { $(this.element).state("activate") }
+  deactivate() { $(this.element).state("deactivate") }
+  enable()     { $(this.element).state("enable") }
+  disable()    { $(this.element).state("disable") }
 
   flash(text) {
-    const original = this.element.textContent
-    this.element.textContent = text || this.flashTextValue || ""
-    setTimeout(() => {
-      this.element.textContent = original
-    }, this.flashDurationValue)
+    $(this.element).state("flash text", text || this.flashTextValue)
   }
 
-  get isActive() { return this._active }
-  get isDisabled() { return this.element.classList.contains("disabled") }
-  get isLoading() { return this.element.classList.contains("loading") }
+  // -- Private --
+
+  _options() {
+    const opts = {}
+
+    const text = {}
+    if (this.activeTextValue)     text.active = this.activeTextValue
+    if (this.inactiveTextValue)   text.inactive = this.inactiveTextValue
+    if (this.activateTextValue)   text.activate = this.activateTextValue
+    if (this.deactivateTextValue) text.deactivate = this.deactivateTextValue
+    if (this.flashTextValue)      text.flash = this.flashTextValue
+    if (Object.keys(text).length > 0) opts.text = text
+
+    if (this.flashDurationValue !== 1000) opts.flashDuration = this.flashDurationValue
+
+    opts.onChange = () => { this.dispatch("change") }
+    opts.onActivate = () => { this.dispatch("activate") }
+    opts.onDeactivate = () => { this.dispatch("deactivate") }
+
+    return opts
+  }
 }

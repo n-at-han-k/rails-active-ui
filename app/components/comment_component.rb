@@ -22,10 +22,10 @@ class CommentComponent < Component
   slot :actions
 
   def to_s
-    classes = [
-      ("collapsed" if collapsed),
+    classes = class_names(
+      { "collapsed" => collapsed },
       "comment"
-    ].compact.join(" ")
+    )
 
     avatar_el = @slots[:avatar] ? tag.a(class: "avatar") { @slots[:avatar] } : nil
 

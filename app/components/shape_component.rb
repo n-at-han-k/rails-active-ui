@@ -14,11 +14,11 @@ class ShapeComponent < Component
   attribute :type, :string, default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       type,
       "shape"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes, data: { controller: "fui-shape" }) { @content }
   end

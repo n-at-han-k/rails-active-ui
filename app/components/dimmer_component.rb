@@ -16,15 +16,12 @@ class DimmerComponent < Component
   attribute :page,     :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("active" if active),
-      ("inverted" if inverted),
-      ("blurring" if blurring),
-      ("simple" if simple),
-      ("page" if page),
+      { "active" => active, "inverted" => inverted, "blurring" => blurring,
+        "simple" => simple, "page" => page },
       "dimmer"
-    ].compact.join(" ")
+    )
 
     content_el = @content.present? ? tag.div(class: "content") { @content } : nil
 

@@ -26,21 +26,15 @@ class ImageComponent < Component
   attribute :inline,   :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
-      ("rounded" if rounded),
-      ("circular" if circular),
-      ("bordered" if bordered),
-      ("fluid" if fluid),
-      ("avatar" if avatar),
-      ("centered" if centered),
-      ("hidden" if hidden),
-      ("disabled" if disabled),
-      ("inline" if inline),
-      (spaced && "#{spaced} spaced"),
+      spaced && "#{spaced} spaced",
+      { "rounded" => rounded, "circular" => circular, "bordered" => bordered,
+        "fluid" => fluid, "avatar" => avatar, "centered" => centered,
+        "hidden" => hidden, "disabled" => disabled, "inline" => inline },
       "image"
-    ].compact.join(" ")
+    )
 
     opts = { class: classes, src: src, alt: alt }
     opts[:width] = width if width

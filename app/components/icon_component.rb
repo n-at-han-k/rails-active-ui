@@ -23,22 +23,18 @@ class IconComponent < Component
   attribute :corner,   :string,  default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       name,
       size,
       color,
-      ("disabled" if disabled),
-      ("loading" if loading),
-      ("fitted" if fitted),
-      ("link" if link),
-      ("circular" if circular),
-      ("bordered" if bordered),
-      ("inverted" if inverted),
-      (flipped && "#{flipped} flipped"),
-      (rotated && "#{rotated} rotated"),
-      (corner && "#{corner} corner"),
+      flipped && "#{flipped} flipped",
+      rotated && "#{rotated} rotated",
+      corner && "#{corner} corner",
+      { "disabled" => disabled, "loading" => loading, "fitted" => fitted,
+        "link" => link, "circular" => circular, "bordered" => bordered,
+        "inverted" => inverted },
       "icon"
-    ].compact.join(" ")
+    )
 
     tag.i(class: classes)
   end

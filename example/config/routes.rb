@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get "examples/grid"         => "examples#grid"
   get "examples/bootstrap"    => "examples#bootstrap"
   get "examples/responsive"   => "examples#responsive"
+  get "examples/dashboard"    => "examples#dashboard"
 end

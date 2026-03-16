@@ -26,15 +26,13 @@ class CardComponent < Component
   slot :extra
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
-      ("fluid" if fluid),
-      ("centered" if centered),
-      ("raised" if raised),
-      ("link" if link || href),
+      { "fluid" => fluid, "centered" => centered, "raised" => raised,
+        "link" => link || href },
       "card"
-    ].compact.join(" ")
+    )
 
     image_el = @slots[:image] ? tag.div(class: "image") { @slots[:image] } : nil
 

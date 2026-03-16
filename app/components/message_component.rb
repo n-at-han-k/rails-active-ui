@@ -25,19 +25,19 @@ class MessageComponent < Component
   slot :header
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
       color,
       type,
-      ("icon" if icon),
-      ("floating" if floating),
-      ("compact" if compact),
-      ("hidden" if hidden),
-      ("visible" if visible),
-      (attached && "#{attached} attached"),
+      attached && "#{attached} attached",
+      { "icon" => icon,
+        "floating" => floating,
+        "compact" => compact,
+        "hidden" => hidden,
+        "visible" => visible },
       "message"
-    ].compact.join(" ")
+    )
 
     close_el = dismissible ? tag.i(class: "close icon") : nil
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil

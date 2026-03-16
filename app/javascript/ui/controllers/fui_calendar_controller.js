@@ -1,72 +1,66 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Fomantic-UI Calendar — date/time picker popup.
-// Replaces: $.fn.calendar
+// Bridges: $.fn.calendar
 //
 // Usage:
 //   <div class="ui calendar" data-controller="fui-calendar"
 //        data-fui-calendar-type-value="date">
-//     <div class="ui input">
-//       <input type="text" data-fui-calendar-target="input"
-//              data-action="focus->fui-calendar#show">
-//     </div>
-//     <div class="ui popup" data-fui-calendar-target="popup">
-//       <!-- calendar grid rendered here -->
+//     <div class="ui input left icon">
+//       <i class="calendar icon"></i>
+//       <input type="text" placeholder="Date">
 //     </div>
 //   </div>
 //
 export default class extends Controller {
-  static targets = ["input", "popup"]
   static values = {
-    type:       { type: String, default: "date" },
-    closable:   { type: Boolean, default: true },
-    monthFirst: { type: Boolean, default: true },
+    type:         { type: String, default: "date" },
+    closable:     { type: Boolean, default: true },
+    monthFirst:   { type: Boolean, default: true },
+    firstDayOfWeek: { type: Number, default: 0 },
+    today:        { type: Boolean, default: false },
+    formatInput:  { type: Boolean, default: true },
+    minDate:      { type: String, default: "" },
+    maxDate:      { type: String, default: "" },
   }
 
   connect() {
-    this._onDocumentClick = this._handleDocumentClick.bind(this)
-    document.addEventListener("click", this._onDocumentClick)
+    $(this.element).calendar(this._options())
   }
 
   disconnect() {
-    document.removeEventListener("click", this._onDocumentClick)
+    $(this.element).calendar("destroy")
   }
 
-  show() {
-    if (!this.hasPopupTarget) return
-    this.popupTarget.classList.add("visible")
-    this.element.classList.add("active")
-    this.dispatch("show")
-  }
+  show()   { $(this.element).calendar("popup", "show") }
+  hide()   { $(this.element).calendar("popup", "hide") }
+  toggle() { $(this.element).calendar("popup", "toggle") }
+  clear()  { $(this.element).calendar("clear") }
+  focus()  { $(this.element).calendar("focus") }
 
-  hide() {
-    if (!this.hasPopupTarget) return
-    this.popupTarget.classList.remove("visible")
-    this.element.classList.remove("active")
-    this.dispatch("hide")
-  }
-
-  toggle() {
-    if (this.element.classList.contains("active")) {
-      this.hide()
-    } else {
-      this.show()
-    }
-  }
-
-  clear() {
-    if (this.hasInputTarget) {
-      this.inputTarget.value = ""
-    }
-    this.hide()
-    this.dispatch("change", { detail: { date: null, text: "" } })
-  }
+  getDate()    { return $(this.element).calendar("get date") }
+  setDate(d)   { $(this.element).calendar("set date", d) }
 
   // -- Private --
 
-  _handleDocumentClick(event) {
-    if (this.closableValue && !this.element.contains(event.target)) {
-      this.hide()
+  _options() {
+    const opts = {
+      type:           this.typeValue,
+      closable:       this.closableValue,
+      monthFirst:     this.monthFirstValue,
+      firstDayOfWeek: this.firstDayOfWeekValue,
+      today:          this.todayValue,
+      formatInput:    this.formatInputValue,
+      onChange: (date, text) => {
+        this.dispatch("change", { detail: { date, text } })
+      },
+      onShow: () => { this.dispatch("show") },
+      onHide: () => { this.dispatch("hide") },
     }
+
+    if (this.minDateValue) opts.minDate = new Date(this.minDateValue)
+    if (this.maxDateValue) opts.maxDate = new Date(this.maxDateValue)
+
+    return opts
   }
 }

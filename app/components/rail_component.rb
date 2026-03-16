@@ -14,15 +14,15 @@ class RailComponent < Component
   attribute :internal, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       position,
-      ("close" if close),
-      ("attached" if attached),
-      ("dividing" if dividing),
-      ("internal" if internal),
+      { "close" => close,
+        "attached" => attached,
+        "dividing" => dividing,
+        "internal" => internal },
       "rail"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

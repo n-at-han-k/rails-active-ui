@@ -49,4 +49,8 @@ class Component
   def safe_join(parts, sep = nil)
     @view_context.safe_join(parts.compact, sep)
   end
+
+  def class_names(*args)
+    @view_context.class_names(*args)
+  end
 end

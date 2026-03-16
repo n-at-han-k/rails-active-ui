@@ -10,11 +10,11 @@ class TabComponent < Component
   attribute :path,   :string,  default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("active" if active),
+      { "active" => active },
       "tab"
-    ].compact.join(" ")
+    )
 
     data = { controller: "fui-tab" }
     data[:tab] = path if path

@@ -25,21 +25,16 @@ class InputComponent < Component
   attribute :value,         :string,  default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
-      ("left icon" if icon && icon_position == "left"),
-      ("icon" if icon && icon_position != "left"),
-      ("labeled" if labeled),
-      ("action" if action),
-      ("transparent" if transparent),
-      ("fluid" if fluid),
-      ("loading" if loading),
-      ("disabled" if disabled),
-      ("error" if error),
-      ("inverted" if inverted),
+      { "left icon" => icon && icon_position == "left",
+        "icon" => icon && icon_position != "left",
+        "labeled" => labeled, "action" => action, "transparent" => transparent,
+        "fluid" => fluid, "loading" => loading, "disabled" => disabled,
+        "error" => error, "inverted" => inverted },
       "input"
-    ].compact.join(" ")
+    )
 
     input_opts = { type: input_type }
     input_opts[:placeholder] = placeholder if placeholder

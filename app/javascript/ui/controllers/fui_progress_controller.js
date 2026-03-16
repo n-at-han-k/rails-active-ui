@@ -1,111 +1,60 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Fomantic-UI Progress — progress bars with labels.
-// Replaces: $.fn.progress
+// Bridges: $.fn.progress
 //
 // Usage:
 //   <div class="ui progress" data-controller="fui-progress"
-//        data-fui-progress-percent-value="45"
-//        data-fui-progress-total-value="100">
-//     <div class="bar" data-fui-progress-target="bar">
-//       <div class="progress" data-fui-progress-target="label"></div>
+//        data-percent="45">
+//     <div class="bar">
+//       <div class="progress"></div>
 //     </div>
 //   </div>
 //
 export default class extends Controller {
-  static targets = ["bar", "label"]
   static values = {
     percent:     { type: Number, default: 0 },
     total:       { type: Number, default: 0 },
     value:       { type: Number, default: 0 },
     autoSuccess: { type: Boolean, default: true },
     showActivity: { type: Boolean, default: true },
-    labelType:   { type: String, default: "percent" },
+    label:       { type: String, default: "percent" },
     precision:   { type: Number, default: 0 },
   }
 
   connect() {
-    this._update()
+    $(this.element).progress(this._options())
   }
 
-  disconnect() {}
-
-  percentValueChanged() { this._update() }
-  valueValueChanged()   { this._update() }
-  totalValueChanged()   { this._update() }
-
-  setPercent(percent) {
-    this.percentValue = Math.max(0, Math.min(100, percent))
+  disconnect() {
+    $(this.element).progress("destroy")
   }
 
-  setValue(value) {
-    this.valueValue = value
-    if (this.totalValue > 0) {
-      this.percentValue = (value / this.totalValue) * 100
-    }
-  }
-
-  increment(amount = 1) {
-    if (this.totalValue > 0) {
-      this.setValue(this.valueValue + amount)
-    } else {
-      this.setPercent(this.percentValue + amount)
-    }
-  }
-
-  decrement(amount = 1) {
-    if (this.totalValue > 0) {
-      this.setValue(this.valueValue - amount)
-    } else {
-      this.setPercent(this.percentValue - amount)
-    }
-  }
-
-  complete() {
-    this.setPercent(100)
-  }
-
-  reset() {
-    this.percentValue = 0
-    this.valueValue = 0
-    this.element.classList.remove("success", "warning", "error", "active")
-  }
+  setPercent(pct)  { $(this.element).progress("set percent", pct) }
+  setValue(val)     { $(this.element).progress("set progress", val) }
+  increment(amt)   { $(this.element).progress("increment", amt) }
+  decrement(amt)   { $(this.element).progress("decrement", amt) }
+  complete()       { $(this.element).progress("complete") }
+  reset()          { $(this.element).progress("reset") }
 
   // -- Private --
 
-  _update() {
-    const percent = Math.max(0, Math.min(100, this.percentValue)).toFixed(this.precisionValue)
-
-    if (this.hasBarTarget) {
-      this.barTarget.style.width = `${percent}%`
+  _options() {
+    const opts = {
+      autoSuccess:  this.autoSuccessValue,
+      showActivity: this.showActivityValue,
+      label:        this.labelValue,
+      precision:    this.precisionValue,
+      onChange: (percent, value, total) => {
+        this.dispatch("change", { detail: { percent, value, total } })
+      },
+      onSuccess: (total) => { this.dispatch("success", { detail: { total } }) },
     }
 
-    if (this.hasLabelTarget) {
-      switch (this.labelTypeValue) {
-        case "ratio":
-          this.labelTarget.textContent = `${this.valueValue} of ${this.totalValue}`
-          break
-        case "percent":
-        default:
-          this.labelTarget.textContent = `${percent}%`
-          break
-      }
-    }
+    if (this.totalValue > 0) opts.total = this.totalValue
+    if (this.valueValue > 0) opts.value = this.valueValue
+    if (this.percentValue > 0) opts.percent = this.percentValue
 
-    this.element.setAttribute("data-percent", percent)
-
-    if (this.autoSuccessValue && parseFloat(percent) >= 100) {
-      this.element.classList.add("success")
-    }
-
-    if (this.showActivityValue && parseFloat(percent) < 100 && parseFloat(percent) > 0) {
-      this.element.classList.add("active")
-    } else {
-      this.element.classList.remove("active")
-    }
-
-    this.dispatch("change", {
-      detail: { percent: parseFloat(percent), value: this.valueValue, total: this.totalValue }
-    })
+    return opts
   }
 }

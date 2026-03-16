@@ -21,12 +21,12 @@ class PlaceholderComponent < Component
   slot :image_slot
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("fluid" if fluid),
-      ("inverted" if inverted),
+      { "fluid" => fluid,
+        "inverted" => inverted },
       "placeholder"
-    ].compact.join(" ")
+    )
 
     header_el = @slots[:header_slot] ? tag.div(class: "header") { @slots[:header_slot] } : nil
     para_el = @slots[:paragraph] ? tag.div(class: "paragraph") { @slots[:paragraph] } : nil

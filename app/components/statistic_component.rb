@@ -23,15 +23,15 @@ class StatisticComponent < Component
   slot :label
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
       size,
-      ("horizontal" if horizontal),
-      ("inverted" if inverted),
-      (floated && "#{floated} floated"),
+      floated && "#{floated} floated",
+      { "horizontal" => horizontal,
+        "inverted" => inverted },
       "statistic"
-    ].compact.join(" ")
+    )
 
     value_el = @slots[:value] ? tag.div(class: "value") { @slots[:value] } : nil
     label_el = @slots[:label] ? tag.div(class: "label") { @slots[:label] } : nil

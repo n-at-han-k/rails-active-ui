@@ -7,100 +7,100 @@ text '<style>
 
 # Sidebar
 Sidebar(inverted: true, visible: false) {
-  text '<a class="item">1</a>'.html_safe
-  text '<a class="item">2</a>'.html_safe
-  text '<a class="item">3</a>'.html_safe
+  MenuItem(href: "#") { text "1" }
+  MenuItem(href: "#") { text "2" }
+  MenuItem(href: "#") { text "3" }
 }
 
-text '<div class="pusher">'.html_safe
-
-# Fixed menu
-Menu(fixed: "top", inverted: true) {
-  Container {
-    text '<a href="#" class="header item">'.html_safe
-    Image(src: "/icon.png", size: "mini")
-    text " Project Name"
-    text '</a>'.html_safe
-    text '<a href="#" class="item">Home</a>'.html_safe
-    text '<a href="#" class="item">Work</a>'.html_safe
-    text '<a href="#" class="item">Company</a>'.html_safe
-    text '<a href="#" class="item">Careers</a>'.html_safe
-
-    text '<div class="ui simple dropdown item">'.html_safe
-    text 'Dropdown '
-    Icon(name: "dropdown")
-    text '<div class="menu">'.html_safe
-    text '<a class="item" href="#">Link Item</a>'.html_safe
-    text '<a class="item" href="#">Link Item</a>'.html_safe
-    text '<div class="divider"></div>'.html_safe
-    text '<div class="header">Header Item</div>'.html_safe
-    text '<div class="item"><i class="dropdown icon"></i>Sub Menu'.html_safe
-    text '<div class="menu"><a class="item" href="#">Link Item</a><a class="item" href="#">Link Item</a></div>'.html_safe
-    text '</div>'.html_safe
-    text '<a class="item" href="#">Link Item</a>'.html_safe
-    text '</div></div>'.html_safe
-  }
-}
-
-# Main content
-Container(text: true) {
-  text '<div class="main container" style="margin-top:7em">'.html_safe
-
-  Header(size: :h1) { text "Heading" }
-  text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>".html_safe
-
-  Header(size: :h2) { text "First Article" }
-  Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
-  text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>".html_safe
-  text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper.</p>".html_safe
-
-  Header(size: :h2) { text "Second Article" }
-  Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
-  text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>".html_safe
-  text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper.</p>".html_safe
-
-  text '</div>'.html_safe
-}
-
-# Footer
-Segment(inverted: true, vertical: true) {
-  Container {
-    Grid(divided: "true", inverted: true, stackable: true) {
-      text '<div class="three wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "About" }
-      List(link: true, inverted: true) {
-        text '<a href="#" class="item">Sitemap</a>'.html_safe
-        text '<a href="#" class="item">Contact Us</a>'.html_safe
-        text '<a href="#" class="item">Religious Coverage</a>'.html_safe
-        text '<a href="#" class="item">Gazettes</a>'.html_safe
+Pusher {
+  # Fixed menu
+  Menu(fixed: "top", inverted: true) {
+    Container {
+      MenuItem(header: true, href: "#") {
+        Image(src: "/icon.png", size: "mini")
+        text " Project Name"
       }
-      text '</div>'.html_safe
+      MenuItem(href: "#") { text "Home" }
+      MenuItem(href: "#") { text "Work" }
+      MenuItem(href: "#") { text "Company" }
+      MenuItem(href: "#") { text "Careers" }
 
-      text '<div class="three wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Services" }
-      List(link: true, inverted: true) {
-        text '<a href="#" class="item">Banana Pre-Order</a>'.html_safe
-        text '<a href="#" class="item">DNA FAQ</a>'.html_safe
-        text '<a href="#" class="item">How To Access</a>'.html_safe
-        text '<a href="#" class="item">Favorite X-Men</a>'.html_safe
+      MenuItem(dropdown: true) {
+        text "Dropdown "
+        Icon(name: "dropdown")
+        MenuMenu {
+          MenuItem(href: "#") { text "Link Item" }
+          MenuItem(href: "#") { text "Link Item" }
+          Divider()
+          Header(size: :h4) { text "Header Item" }
+          MenuItem(dropdown: true) {
+            Icon(name: "dropdown")
+            text "Sub Menu"
+            MenuMenu {
+              MenuItem(href: "#") { text "Link Item" }
+              MenuItem(href: "#") { text "Link Item" }
+            }
+          }
+          MenuItem(href: "#") { text "Link Item" }
+        }
       }
-      text '</div>'.html_safe
-
-      text '<div class="seven wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Footer Header" }
-      text "<p>Extra space for a call to action inside the footer that could help re-engage users.</p>".html_safe
-      text '</div>'.html_safe
-    }
-
-    Divider(inverted: true, section: true)
-    Image(src: "/icon.png", size: "mini", centered: true)
-    List(horizontal: true, inverted: true, divided: true, link: true, size: "small") {
-      text '<a class="item" href="#">Site Map</a>'.html_safe
-      text '<a class="item" href="#">Contact Us</a>'.html_safe
-      text '<a class="item" href="#">Terms and Conditions</a>'.html_safe
-      text '<a class="item" href="#">Privacy Policy</a>'.html_safe
     }
   }
-}
 
-text '</div>'.html_safe
+  # Main content
+  Container(text: true) {
+    Header(size: :h1) { text "Heading" }
+    text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+
+    Header(size: :h2) { text "First Article" }
+    Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
+    text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+    text " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper."
+
+    Header(size: :h2) { text "Second Article" }
+    Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
+    text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+    text " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper."
+  }
+
+  # Footer
+  Segment(inverted: true, vertical: true) {
+    Container {
+      Grid(divided: "true", inverted: true, stackable: true) {
+        Column(width: 3) {
+          Header(size: :h4, inverted: true) { text "About" }
+          List(link: true, inverted: true) {
+            MenuItem(href: "#") { text "Sitemap" }
+            MenuItem(href: "#") { text "Contact Us" }
+            MenuItem(href: "#") { text "Religious Coverage" }
+            MenuItem(href: "#") { text "Gazettes" }
+          }
+        }
+
+        Column(width: 3) {
+          Header(size: :h4, inverted: true) { text "Services" }
+          List(link: true, inverted: true) {
+            MenuItem(href: "#") { text "Banana Pre-Order" }
+            MenuItem(href: "#") { text "DNA FAQ" }
+            MenuItem(href: "#") { text "How To Access" }
+            MenuItem(href: "#") { text "Favorite X-Men" }
+          }
+        }
+
+        Column(width: 7) {
+          Header(size: :h4, inverted: true) { text "Footer Header" }
+          text "Extra space for a call to action inside the footer that could help re-engage users."
+        }
+      }
+
+      Divider(inverted: true, section: true)
+      Image(src: "/icon.png", size: "mini", centered: true)
+      List(horizontal: true, inverted: true, divided: true, link: true, size: "small") {
+        MenuItem(href: "#") { text "Site Map" }
+        MenuItem(href: "#") { text "Contact Us" }
+        MenuItem(href: "#") { text "Terms and Conditions" }
+        MenuItem(href: "#") { text "Privacy Policy" }
+      }
+    }
+  }
+}

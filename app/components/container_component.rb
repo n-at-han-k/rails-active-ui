@@ -12,12 +12,11 @@ class ContainerComponent < Component
   attribute :fluid, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("text" if text),
-      ("fluid" if fluid),
+      { "text" => text, "fluid" => fluid },
       "container"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

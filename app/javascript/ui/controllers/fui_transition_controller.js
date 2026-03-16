@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Fomantic-UI Transition — CSS animation framework.
-// Replaces: $.fn.transition
+// Bridges: $.fn.transition
 //
 // Usage:
 //   <div data-controller="fui-transition"
@@ -10,9 +10,6 @@ import { Controller } from "@hotwired/stimulus"
 //     Content to animate
 //   </div>
 //
-//   <button data-action="click->fui-transition#animate">Animate</button>
-//   <button data-action="click->fui-transition#toggle">Toggle</button>
-//
 export default class extends Controller {
   static values = {
     animation: { type: String, default: "fade" },
@@ -20,87 +17,44 @@ export default class extends Controller {
     queue:     { type: Boolean, default: true },
   }
 
-  connect() {
-    this._animating = false
-    this._queue = []
-    this._onAnimationEnd = this._handleAnimationEnd.bind(this)
-    this.element.addEventListener("animationend", this._onAnimationEnd)
-  }
+  connect() {}
+  disconnect() {}
 
-  disconnect() {
-    this.element.removeEventListener("animationend", this._onAnimationEnd)
-    this._queue = []
-  }
-
-  animate(event) {
-    const animation = (event && event.params && event.params.animation) || this.animationValue
-    this._runAnimation(animation)
+  animate() {
+    $(this.element).transition({
+      animation: this.animationValue,
+      duration:  this.durationValue,
+      queue:     this.queueValue,
+      onStart:    () => { this.dispatch("start") },
+      onComplete: () => { this.dispatch("complete") },
+    })
   }
 
   show() {
-    this._runAnimation(`${this.animationValue} in`)
-    this.element.classList.remove("hidden")
-    this.element.classList.add("visible")
+    $(this.element).transition({
+      animation: this.animationValue + " in",
+      duration:  this.durationValue,
+      onComplete: () => { this.dispatch("show") },
+    })
   }
 
   hide() {
-    this._runAnimation(`${this.animationValue} out`)
-    this.element.classList.remove("visible")
-    this.element.classList.add("hidden")
+    $(this.element).transition({
+      animation: this.animationValue + " out",
+      duration:  this.durationValue,
+      onComplete: () => { this.dispatch("hide") },
+    })
   }
 
   toggle() {
-    if (this.element.classList.contains("hidden") ||
-        getComputedStyle(this.element).display === "none") {
-      this.show()
-    } else {
-      this.hide()
-    }
+    $(this.element).transition({
+      animation: this.animationValue,
+      duration:  this.durationValue,
+      onComplete: () => { this.dispatch("toggle") },
+    })
   }
 
   stop() {
-    this._cleanup()
-    this._queue = []
-  }
-
-  // -- Private --
-
-  _runAnimation(animation) {
-    if (this._animating && this.queueValue) {
-      this._queue.push(animation)
-      return
-    }
-
-    this._animating = true
-    this.element.classList.add("animating", "transition", ...animation.split(" "))
-    this.element.style.animationDuration = `${this.durationValue}ms`
-
-    this.dispatch("start", { detail: { animation } })
-
-    // Failsafe in case animationend never fires
-    this._failsafe = setTimeout(() => this._handleAnimationEnd(), this.durationValue + 100)
-  }
-
-  _handleAnimationEnd() {
-    if (this._failsafe) clearTimeout(this._failsafe)
-    this._cleanup()
-    this.dispatch("complete")
-
-    if (this._queue.length > 0) {
-      const next = this._queue.shift()
-      this._runAnimation(next)
-    }
-  }
-
-  _cleanup() {
-    this._animating = false
-    this.element.classList.remove("animating")
-    this.element.style.animationDuration = ""
-
-    // Remove animation-specific classes (fade, scale, slide, etc.)
-    // Keep structural classes (transition, visible, hidden)
-    const animClasses = this.animationValue.split(" ")
-    animClasses.forEach((cls) => this.element.classList.remove(cls))
-    this.element.classList.remove("in", "out")
+    $(this.element).transition("stop all")
   }
 }

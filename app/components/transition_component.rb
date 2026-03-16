@@ -12,12 +12,12 @@ class TransitionComponent < Component
   attribute :visible,   :boolean, default: true
 
   def to_s
-    classes = [
-      "transition",
+    classes = class_names(
       animation,
-      ("visible" if visible),
-      ("hidden" unless visible)
-    ].compact.join(" ")
+      { "visible" => visible,
+        "hidden" => !visible },
+      "transition"
+    )
 
     tag.div(
       class: classes,

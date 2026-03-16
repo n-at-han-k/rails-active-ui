@@ -26,17 +26,17 @@ class ProgressComponent < Component
   def to_s
     percent = total > 0 ? ((value.to_f / total) * 100).round : 0
 
-    classes = [
+    classes = class_names(
       "ui",
       color,
       size,
-      ("indicating" if indicating),
-      ("active" if active),
-      ("inverted" if inverted),
-      ("disabled" if disabled),
-      (attached && "#{attached} attached"),
+      attached && "#{attached} attached",
+      { "indicating" => indicating,
+        "active" => active,
+        "inverted" => inverted,
+        "disabled" => disabled },
       "progress"
-    ].compact.join(" ")
+    )
 
     bar_el = tag.div(class: "bar", style: "width:#{percent}%") { @slots[:bar] }
     label_el = @slots[:label] ? tag.div(class: "label") { @slots[:label] } : nil

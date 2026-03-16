@@ -15,11 +15,11 @@ class BreadcrumbComponent < Component
   attribute :divider, :string, default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
       "breadcrumb"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

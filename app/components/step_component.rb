@@ -1,35 +1,56 @@
 # frozen_string_literal: true
 
-# Step — step indicators for multi-step workflows.
+# Step — individual step within a StepGroup.
 #
 # Usage:
-#   Step(ordered: true) {
-#     text '<div class="active step">Shipping</div>'.html_safe
-#     text '<div class="step">Billing</div>'.html_safe
+#   StepGroup {
+#     Step(active: true, icon: "truck", title: "Shipping", description: "Choose shipping")
+#     Step(title: "Billing", description: "Enter billing info")
+#     Step(disabled: true, title: "Confirm Order")
+#   }
+#
+#   StepGroup {
+#     Step(completed: true) {
+#       text "Custom content"
+#     }
 #   }
 
 class StepComponent < Component
-  attribute :ordered,     :boolean, default: false
-  attribute :vertical,    :boolean, default: false
-  attribute :fluid,       :boolean, default: false
-  attribute :attached,    :string,  default: nil
-  attribute :unstackable, :boolean, default: false
-  attribute :size,        :string,  default: nil
-  attribute :stackable,   :boolean, default: false
+  attribute :active,      :boolean, default: false
+  attribute :completed,   :boolean, default: false
+  attribute :disabled,    :boolean, default: false
+  attribute :icon,        :string,  default: nil
+  attribute :title,       :string,  default: nil
+  attribute :description, :string,  default: nil
+  attribute :href,        :string,  default: nil
 
   def to_s
-    classes = [
-      "ui",
-      size,
-      ("ordered" if ordered),
-      ("vertical" if vertical),
-      ("fluid" if fluid),
-      ("unstackable" if unstackable),
-      ("stackable" if stackable),
-      (attached && "#{attached} attached"),
-      "steps"
-    ].compact.join(" ")
+    classes = class_names(
+      { "active" => active, "completed" => completed, "disabled" => disabled },
+      "step"
+    )
 
-    tag.div(class: classes) { @content }
+    icon_el = icon ? tag.i(class: "#{icon} icon") : nil
+
+    content_parts = [
+      (title ? tag.div(class: "title") { title } : nil),
+      (description ? tag.div(class: "description") { description } : nil)
+    ].compact
+
+    content_el = if content_parts.any?
+      tag.div(class: "content") { safe_join(content_parts) }
+    end
+
+    inner = if @content.present?
+      @content
+    else
+      safe_join([ icon_el, content_el ])
+    end
+
+    if href
+      tag.a(class: classes, href: href) { inner }
+    else
+      tag.div(class: classes) { inner }
+    end
   end
 end

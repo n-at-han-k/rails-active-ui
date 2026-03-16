@@ -64,31 +64,73 @@ class NavigationComponentsTest < ComponentTestCase
     assert_includes html, "trail"
   end
 
-  # --- StepComponent ---
+  # --- StepGroupComponent ---
 
-  test "step renders with default classes" do
-    html = render_inline(StepComponent)
+  test "step group renders with default classes" do
+    html = render_inline(StepGroupComponent)
     assert_includes html, 'class="ui steps"'
   end
 
-  test "step ordered" do
-    html = render_inline(StepComponent, ordered: true)
+  test "step group ordered" do
+    html = render_inline(StepGroupComponent, ordered: true)
     assert_includes html, "ordered"
   end
 
-  test "step vertical" do
-    html = render_inline(StepComponent, vertical: true)
+  test "step group vertical" do
+    html = render_inline(StepGroupComponent, vertical: true)
     assert_includes html, "vertical"
   end
 
-  test "step with size" do
-    html = render_inline(StepComponent, size: "small")
+  test "step group with size" do
+    html = render_inline(StepGroupComponent, size: "small")
     assert_includes html, "small"
   end
 
-  test "step attached" do
-    html = render_inline(StepComponent, attached: "top")
+  test "step group attached" do
+    html = render_inline(StepGroupComponent, attached: "top")
     assert_includes html, "top attached"
+  end
+
+  # --- StepComponent ---
+
+  test "step renders with default class" do
+    html = render_inline(StepComponent)
+    assert_includes html, 'class="step"'
+  end
+
+  test "step active" do
+    html = render_inline(StepComponent, active: true)
+    assert_includes html, "active step"
+  end
+
+  test "step disabled" do
+    html = render_inline(StepComponent, disabled: true)
+    assert_includes html, "disabled step"
+  end
+
+  test "step completed" do
+    html = render_inline(StepComponent, completed: true)
+    assert_includes html, "completed step"
+  end
+
+  test "step with title and description" do
+    html = render_inline(StepComponent, title: "Shipping", description: "Choose options")
+    assert_includes html, "Shipping"
+    assert_includes html, "Choose options"
+    assert_includes html, "title"
+    assert_includes html, "description"
+    assert_includes html, "content"
+  end
+
+  test "step with icon" do
+    html = render_inline(StepComponent, icon: "truck", title: "Shipping")
+    assert_includes html, "truck icon"
+  end
+
+  test "step as link" do
+    html = render_inline(StepComponent, href: "/shipping", title: "Shipping")
+    assert_includes html, "<a"
+    assert_includes html, 'href="/shipping"'
   end
 
   # --- TabComponent ---
@@ -150,5 +192,54 @@ class NavigationComponentsTest < ComponentTestCase
   test "sidebar transition value" do
     html = render_inline(SidebarComponent, transition: "push")
     assert_includes html, "push"
+  end
+
+  # --- MenuItemComponent ---
+
+  test "menu item renders as div by default" do
+    html = render_inline(MenuItemComponent) { ctx.output_buffer << "Home" }
+    assert_includes html, "<div"
+    assert_includes html, 'class="item"'
+    assert_includes html, "Home"
+  end
+
+  test "menu item renders as anchor with href" do
+    html = render_inline(MenuItemComponent, href: "/home") { ctx.output_buffer << "Home" }
+    assert_includes html, "<a"
+    assert_includes html, 'href="/home"'
+  end
+
+  test "menu item active" do
+    html = render_inline(MenuItemComponent, active: true)
+    assert_includes html, "active item"
+  end
+
+  test "menu item header" do
+    html = render_inline(MenuItemComponent, header: true) { ctx.output_buffer << "Section" }
+    assert_includes html, "header item"
+  end
+
+  test "menu item with icon" do
+    html = render_inline(MenuItemComponent, icon: "home") { ctx.output_buffer << "Home" }
+    assert_includes html, "home icon"
+    assert_includes html, "Home"
+  end
+
+  # --- MenuMenuComponent ---
+
+  test "menu menu renders with class" do
+    html = render_inline(MenuMenuComponent)
+    assert_includes html, 'class="menu"'
+  end
+
+  test "menu menu with position" do
+    html = render_inline(MenuMenuComponent, position: "right")
+    assert_includes html, "right menu"
+  end
+
+  test "menu menu wraps content" do
+    html = render_inline(MenuMenuComponent, position: "left") { ctx.output_buffer << "items" }
+    assert_includes html, "items"
+    assert_includes html, "left menu"
   end
 end

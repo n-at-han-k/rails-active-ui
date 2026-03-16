@@ -10,4 +10,5 @@ class ExamplesController < ApplicationController
   def grid;       end
   def bootstrap;  end
   def responsive; end
+  def dashboard;  end
 end

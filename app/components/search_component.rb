@@ -17,14 +17,14 @@ class SearchComponent < Component
   attribute :aligned,        :string,  default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
-      ("category" if category),
-      ("fluid" if fluid),
-      (aligned && "#{aligned} aligned"),
+      aligned && "#{aligned} aligned",
+      { "category" => category,
+        "fluid" => fluid },
       "search"
-    ].compact.join(" ")
+    )
 
     data = { controller: "fui-search" }
     data[:fui_search_url_value] = url if url

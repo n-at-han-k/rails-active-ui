@@ -18,14 +18,12 @@ class CheckboxComponent < Component
   attribute :fitted,     :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       (type unless type == "checkbox"),
-      ("fitted" if fitted),
-      ("read-only" if read_only),
-      ("disabled" if disabled),
+      { "fitted" => fitted, "read-only" => read_only, "disabled" => disabled },
       "checkbox"
-    ].compact.join(" ")
+    )
 
     field_type = type == "radio" ? "radio" : "checkbox"
     input_opts = { type: field_type }

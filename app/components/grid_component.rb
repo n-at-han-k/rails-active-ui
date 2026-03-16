@@ -4,9 +4,9 @@
 #
 # Usage:
 #   Grid(columns: 3, stackable: true) {
-#     text '<div class="column">A</div>'.html_safe
-#     text '<div class="column">B</div>'.html_safe
-#     text '<div class="column">C</div>'.html_safe
+#     Column { text "A" }
+#     Column { text "B" }
+#     Column { text "C" }
 #   }
 
 class GridComponent < Component
@@ -24,26 +24,26 @@ class GridComponent < Component
   attribute :reversed,    :string,  default: nil
   attribute :container,   :boolean, default: false
   attribute :internal,    :boolean, default: false
+  attribute :inverted,   :boolean, default: false
+  attribute :aligned,    :string,  default: nil
 
   def to_s
     col_word = columns && columns.between?(1, 16) ? NUMBERS[columns - 1] : nil
 
-    classes = [
+    classes = class_names(
       "ui",
-      (col_word && "#{col_word} column"),
-      ("stackable" if stackable),
-      ("doubling" if doubling),
-      ("centered" if centered),
-      (divided_class),
-      (celled_class),
-      (padded_class),
-      (relaxed_class),
-      ("equal width" if equal_width),
-      (reversed && "#{reversed} reversed"),
-      ("container" if container),
-      ("internally" if internal),
+      col_word && "#{col_word} column",
+      aligned && "#{aligned} aligned",
+      divided_class,
+      celled_class,
+      padded_class,
+      relaxed_class,
+      reversed && "#{reversed} reversed",
+      { "stackable" => stackable, "doubling" => doubling, "centered" => centered,
+        "equal width" => equal_width, "container" => container,
+        "internally" => internal, "inverted" => inverted },
       "grid"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

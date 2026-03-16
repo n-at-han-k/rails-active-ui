@@ -4,8 +4,8 @@
 #
 # Usage:
 #   Dropdown(selection: true, placeholder: "Select...", name: "country") {
-#     text '<div class="item" data-value="us" data-action="click->fui-dropdown#select">United States</div>'.html_safe
-#     text '<div class="item" data-value="ca" data-action="click->fui-dropdown#select">Canada</div>'.html_safe
+#     MenuItem { text "United States" }
+#     MenuItem { text "Canada" }
 #   }
 
 class DropdownComponent < Component
@@ -28,35 +28,27 @@ class DropdownComponent < Component
   attribute :disabled,      :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("selection" if selection),
-      ("search" if search),
-      ("multiple" if multiple),
-      ("clearable" if clearable),
-      ("fluid" if fluid),
-      ("compact" if compact),
-      ("scrolling" if scrolling),
-      ("inline" if inline),
-      ("floating" if floating),
-      ("button" if button),
-      ("labeled" if labeled),
-      ("loading" if loading),
-      ("disabled" if disabled),
-      (pointing && "#{pointing} pointing"),
+      pointing && "#{pointing} pointing",
+      { "selection" => selection, "search" => search, "multiple" => multiple,
+        "clearable" => clearable, "fluid" => fluid, "compact" => compact,
+        "scrolling" => scrolling, "inline" => inline, "floating" => floating,
+        "button" => button, "labeled" => labeled, "loading" => loading,
+        "disabled" => disabled },
       "dropdown"
-    ].compact.join(" ")
+    )
 
-    data = { controller: "fui-dropdown", action: "click->fui-dropdown#toggle" }
+    data = { controller: "fui-dropdown" }
     data[:fui_dropdown_clearable_value] = "true" if clearable
     data[:fui_dropdown_placeholder_value] = placeholder if placeholder
 
-    hidden_opts = { type: "hidden", value: default_value || "", data: { fui_dropdown_target: "input" } }
+    hidden_opts = { type: "hidden", value: default_value || "" }
     hidden_opts[:name] = name if name
 
-    search_el = search ? tag.input(class: "search", data: { fui_dropdown_target: "search" }) : nil
-    text_el = tag.div(class: "default text", data: { fui_dropdown_target: "text" }) { placeholder || "" }
-    menu_el = tag.div(class: "menu", data: { fui_dropdown_target: "menu" }) { @content }
+    search_el = search ? tag.input(class: "search") : nil
+    text_el = tag.div(class: "default text") { placeholder || "" }
+    menu_el = tag.div(class: "menu") { @content }
 
     tag.div(class: classes, data: data) {
       safe_join([

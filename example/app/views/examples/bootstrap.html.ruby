@@ -1,245 +1,366 @@
 Grid(container: true) {
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Bootstrap Migration" }
-  text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Bootstrap Migration" }
+    }
+  }
 
   # Jumbotron
-  text '<div class="row"><div class="column">'.html_safe
-  Message {
-    Header(size: :h1) { text "Hello, world!" }
-    text "<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>".html_safe
-    Button(color: "blue", href: "#") { text "Learn more &raquo;".html_safe }
+  Row {
+    Column {
+      Message {
+        Header(size: :h1) { text "Hello, world!" }
+        text "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique."
+        Button(color: "blue", href: "#") { text "Learn more \u00BB" }
+      }
+    }
   }
-  text '</div></div>'.html_safe
 
   # Buttons
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Buttons" }
-  Button(href: "#") { text "Default" }
-  Button(variant: "primary", href: "#") { text "Primary" }
-  Button(href: "#") { text "Basic" }
-  Button(href: "#", color: "green") { text "Success" }
-  Button(href: "#", color: "red") { text "Error" }
-  text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Buttons" }
+      Button(href: "#") { text "Default" }
+      Button(variant: "primary", href: "#") { text "Primary" }
+      Button(href: "#") { text "Basic" }
+      Button(href: "#", color: "green") { text "Success" }
+      Button(href: "#", color: "red") { text "Error" }
+    }
+  }
 
   # Thumbnails
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Thumbnails" }
-  Divider()
-  Image(src: "https://fomantic-ui.com/images/wireframe/image.png", size: "small")
-  text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Thumbnails" }
+      Divider()
+      Image(src: "https://fomantic-ui.com/images/wireframe/image.png", size: "small")
+    }
+  }
 
   # Dropdown
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Dropdown" }
-  Divider()
-  Dropdown(selection: true, placeholder: "Select", name: "selection") {
-    text '<div class="item" data-value="male">Male</div>'.html_safe
-    text '<div class="item" data-value="female">Female</div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Dropdown" }
+      Divider()
+      Dropdown(selection: true, placeholder: "Select", name: "selection") {
+        MenuItem(value: "male") { text "Male" }
+        MenuItem(value: "female") { text "Female" }
+      }
+      Menu(vertical: true) {
+        MenuItem(href: "#", active: true) { text "Friends" }
+        MenuItem(href: "#") { text "Messages" }
+        MenuItem(dropdown: true) {
+          Icon(name: "dropdown")
+          text " More"
+          MenuMenu {
+            MenuItem(href: "#") { text "Edit Profile" }
+            MenuItem(href: "#") { text "Choose Language" }
+            MenuItem(href: "#") { text "Account Settings" }
+          }
+        }
+      }
+    }
   }
-  Menu(vertical: true) {
-    text '<a class="active item">Friends</a>'.html_safe
-    text '<a class="item">Messages</a>'.html_safe
-    text '<div class="ui dropdown item">'.html_safe
-    Icon(name: "dropdown")
-    text " More"
-    text '<div class="menu">'.html_safe
-    text '<a class="item">Edit Profile</a>'.html_safe
-    text '<a class="item">Choose Language</a>'.html_safe
-    text '<a class="item">Account Settings</a>'.html_safe
-    text '</div></div>'.html_safe
-  }
-  text '</div></div>'.html_safe
 
   # Badges
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Badges" }
-  Divider()
-  Menu(vertical: true) {
-    text '<div class="item">One '.html_safe
-    Label { text "2" }
-    text '</div>'.html_safe
-    text '<div class="item">Two '.html_safe
-    Label { text "2" }
-    text '</div>'.html_safe
-    text '<div class="item">Three '.html_safe
-    Label { text "2" }
-    text '</div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Badges" }
+      Divider()
+      Menu(vertical: true) {
+        MenuItem {
+          text "One "
+          Label { text "2" }
+        }
+        MenuItem {
+          text "Two "
+          Label { text "2" }
+        }
+        MenuItem {
+          text "Three "
+          Label { text "2" }
+        }
+      }
+    }
   }
-  text '</div></div>'.html_safe
 
   # Tables
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Tables" }
-  Grid(columns: 2) {
-    text '<div class="column">'.html_safe
-    Table { |c|
-      c.header { text '<tr><th>Name</th><th>Premium Plan</th></tr>'.html_safe }
-      text '<tr><td>John</td><td>No</td></tr>'.html_safe
-      text '<tr><td>Jamie</td><td>Yes</td></tr>'.html_safe
-      text '<tr><td>Jill</td><td>Yes</td></tr>'.html_safe
-    }
-    text '</div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Tables" }
+      Grid(columns: 2) {
+        Column {
+          Table { |c|
+            c.header {
+              TableRow {
+                TableCell(heading: true) { text "Name" }
+                TableCell(heading: true) { text "Premium Plan" }
+              }
+            }
+            TableRow {
+              TableCell { text "John" }
+              TableCell { text "No" }
+            }
+            TableRow {
+              TableCell { text "Jamie" }
+              TableCell { text "Yes" }
+            }
+            TableRow {
+              TableCell { text "Jill" }
+              TableCell { text "Yes" }
+            }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Table(basic: "true") { |c|
-      c.header { text '<tr><th>Name</th><th>Premium Plan</th></tr>'.html_safe }
-      text '<tr><td>John</td><td>No</td></tr>'.html_safe
-      text '<tr><td>Jamie</td><td>Yes</td></tr>'.html_safe
-      text '<tr><td>Jill</td><td>Yes</td></tr>'.html_safe
-    }
-    text '</div>'.html_safe
+        Column {
+          Table(basic: "true") { |c|
+            c.header {
+              TableRow {
+                TableCell(heading: true) { text "Name" }
+                TableCell(heading: true) { text "Premium Plan" }
+              }
+            }
+            TableRow {
+              TableCell { text "John" }
+              TableCell { text "No" }
+            }
+            TableRow {
+              TableCell { text "Jamie" }
+              TableCell { text "Yes" }
+            }
+            TableRow {
+              TableCell { text "Jill" }
+              TableCell { text "Yes" }
+            }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Table(definition: true) { |c|
-      c.header { text '<tr><th>Name</th><th>Premium Plan</th></tr>'.html_safe }
-      text '<tr><td>John</td><td>No</td></tr>'.html_safe
-      text '<tr><td>Jamie</td><td>Yes</td></tr>'.html_safe
-      text '<tr><td>Jill</td><td>Yes</td></tr>'.html_safe
-    }
-    text '</div>'.html_safe
+        Column {
+          Table(definition: true) { |c|
+            c.header {
+              TableRow {
+                TableCell(heading: true) { text "Name" }
+                TableCell(heading: true) { text "Premium Plan" }
+              }
+            }
+            TableRow {
+              TableCell { text "John" }
+              TableCell { text "No" }
+            }
+            TableRow {
+              TableCell { text "Jamie" }
+              TableCell { text "Yes" }
+            }
+            TableRow {
+              TableCell { text "Jill" }
+              TableCell { text "Yes" }
+            }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Table(basic: "very") { |c|
-      c.header { text '<tr><th>Name</th><th>Premium Plan</th></tr>'.html_safe }
-      text '<tr><td>John</td><td>No</td></tr>'.html_safe
-      text '<tr><td>Jamie</td><td>Yes</td></tr>'.html_safe
-      text '<tr><td>Jill</td><td>Yes</td></tr>'.html_safe
-    }
-    text '</div>'.html_safe
+        Column {
+          Table(basic: "very") { |c|
+            c.header {
+              TableRow {
+                TableCell(heading: true) { text "Name" }
+                TableCell(heading: true) { text "Premium Plan" }
+              }
+            }
+            TableRow {
+              TableCell { text "John" }
+              TableCell { text "No" }
+            }
+            TableRow {
+              TableCell { text "Jamie" }
+              TableCell { text "Yes" }
+            }
+            TableRow {
+              TableCell { text "Jill" }
+              TableCell { text "Yes" }
+            }
+          }
+        }
 
-    text '<div class="sixteen wide column">'.html_safe
-    Table(celled: true, structured: true) { |c|
-      c.header {
-        text '<tr><th rowspan="2">Name</th><th rowspan="2">Type</th><th rowspan="2">Files</th><th colspan="3">Languages</th></tr>'.html_safe
-        text '<tr><th>Ruby</th><th>JavaScript</th><th>Python</th></tr>'.html_safe
+        Column(width: 16) {
+          Table(celled: true, structured: true) { |c|
+            c.header {
+              TableRow {
+                TableCell(heading: true, rowspan: 2) { text "Name" }
+                TableCell(heading: true, rowspan: 2) { text "Type" }
+                TableCell(heading: true, rowspan: 2) { text "Files" }
+                TableCell(heading: true, colspan: 3) { text "Languages" }
+              }
+              TableRow {
+                TableCell(heading: true) { text "Ruby" }
+                TableCell(heading: true) { text "JavaScript" }
+                TableCell(heading: true) { text "Python" }
+              }
+            }
+            TableRow {
+              TableCell { text "Alpha Team" }
+              TableCell { text "Project 1" }
+              TableCell { text "2" }
+              TableCell { Icon(name: "checkmark", size: "large", color: "green") }
+              TableCell {}
+              TableCell {}
+            }
+            TableRow {
+              TableCell(rowspan: 3) { text "Beta Team" }
+              TableCell { text "Project 1" }
+              TableCell { text "52" }
+              TableCell { Icon(name: "checkmark", size: "large", color: "green") }
+              TableCell {}
+              TableCell {}
+            }
+            TableRow {
+              TableCell { text "Project 2" }
+              TableCell { text "12" }
+              TableCell {}
+              TableCell { Icon(name: "checkmark", size: "large", color: "green") }
+              TableCell {}
+            }
+            TableRow {
+              TableCell { text "Project 3" }
+              TableCell { text "21" }
+              TableCell { Icon(name: "checkmark", size: "large", color: "green") }
+              TableCell {}
+              TableCell {}
+            }
+          }
+        }
       }
-      text '<tr><td>Alpha Team</td><td>Project 1</td><td>2</td><td><i class="large green checkmark icon"></i></td><td></td><td></td></tr>'.html_safe
-      text '<tr><td rowspan="3">Beta Team</td><td>Project 1</td><td>52</td><td><i class="large green checkmark icon"></i></td><td></td><td></td></tr>'.html_safe
-      text '<tr><td>Project 2</td><td>12</td><td></td><td><i class="large green checkmark icon"></i></td><td></td></tr>'.html_safe
-      text '<tr><td>Project 3</td><td>21</td><td><i class="large green checkmark icon"></i></td><td></td><td></td></tr>'.html_safe
     }
-    text '</div>'.html_safe
   }
-  text '</div></div>'.html_safe
 
   # Alerts
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Alerts" }
-  Divider()
-  Message(type: "positive") { text "Well done! You successfully read this important alert message." }
-  Message(type: "info") { text "Heads up! This alert needs your attention, but it's not super important." }
-  Message(type: "warning") { text "Warning! Best check yo self, you're not looking too good." }
-  Message(type: "error") { text "Oh snap! Change a few things up and try submitting again." }
-  text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Alerts" }
+      Divider()
+      Message(type: "positive") { text "Well done! You successfully read this important alert message." }
+      Message(type: "info") { text "Heads up! This alert needs your attention, but it's not super important." }
+      Message(type: "warning") { text "Warning! Best check yo self, you're not looking too good." }
+      Message(type: "error") { text "Oh snap! Change a few things up and try submitting again." }
+    }
+  }
 
   # List groups
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "List groups" }
-  Divider()
-  Grid(columns: 3) {
-    text '<div class="column">'.html_safe
-    text '<div class="ui segments">'.html_safe
-    Segment { text "<p>Cras justo odio</p>".html_safe }
-    Segment { text "<p>Dapibus ac facilisis in</p>".html_safe }
-    Segment { text "<p>Morbi leo risus</p>".html_safe }
-    Segment { text "<p>Porta ac consectetur ac</p>".html_safe }
-    Segment { text "<p>Vestibulum at eros</p>".html_safe }
-    text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "List groups" }
+      Divider()
+      Grid(columns: 3) {
+        Column {
+          SegmentGroup {
+            Segment { text "Cras justo odio" }
+            Segment { text "Dapibus ac facilisis in" }
+            Segment { text "Morbi leo risus" }
+            Segment { text "Porta ac consectetur ac" }
+            Segment { text "Vestibulum at eros" }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Menu(vertical: true, fluid: true) {
-      text '<a class="item"><p>Cras justo odio</p></a>'.html_safe
-      text '<a class="item"><p>Vestibulum at eros</p></a>'.html_safe
-    }
-    text '</div>'.html_safe
+        Column {
+          Menu(vertical: true, fluid: true) {
+            MenuItem(href: "#") { text "Cras justo odio" }
+            MenuItem(href: "#") { text "Vestibulum at eros" }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Menu(vertical: true, fluid: true) {
-      text '<a class="item">'.html_safe
-      Header(size: :h1, size: "medium") { text "List group item heading" }
-      text "<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>".html_safe
-      text '</a>'.html_safe
-      text '<a class="item">'.html_safe
-      Header(size: :h1, size: "medium") { text "List group item heading" }
-      text "<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>".html_safe
-      text '</a>'.html_safe
-      text '<a class="item">'.html_safe
-      Header(size: :h1, size: "medium") { text "List group item heading" }
-      text "<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>".html_safe
-      text '</a>'.html_safe
+        Column {
+          Menu(vertical: true, fluid: true) {
+            MenuItem(href: "#") {
+              Header(size: "medium") { text "List group item heading" }
+              text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
+            }
+            MenuItem(href: "#") {
+              Header(size: "medium") { text "List group item heading" }
+              text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
+            }
+            MenuItem(href: "#") {
+              Header(size: "medium") { text "List group item heading" }
+              text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
+            }
+          }
+        }
+      }
     }
-    text '</div>'.html_safe
   }
-  text '</div></div>'.html_safe
 
   # Panels
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Panels" }
-  Divider()
-  Grid(columns: 3) {
-    text '<div class="column">'.html_safe
-    text '<div class="ui segments">'.html_safe
-    Segment(color: "red") { text "One" }
-    Segment(color: "blue") { text "Two" }
-    Segment(color: "green") { text "Three" }
-    text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Panels" }
+      Divider()
+      Grid(columns: 3) {
+        Column {
+          SegmentGroup {
+            Segment(color: "red") { text "One" }
+            Segment(color: "blue") { text "Two" }
+            Segment(color: "green") { text "Three" }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    text '<div class="ui raised segments">'.html_safe
-    Segment { text "One" }
-    Segment { text "Two" }
-    Segment { text "Three" }
-    text '</div></div>'.html_safe
+        Column {
+          SegmentGroup {
+            Segment(raised: true) { text "One" }
+            Segment { text "Two" }
+            Segment { text "Three" }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    text '<div class="ui stacked segments">'.html_safe
-    Segment { text "One" }
-    Segment { text "Two" }
-    Segment { text "Three" }
-    text '</div></div>'.html_safe
+        Column {
+          SegmentGroup {
+            Segment(stacked: true) { text "One" }
+            Segment { text "Two" }
+            Segment { text "Three" }
+          }
+        }
 
-    text '<div class="column">'.html_safe
-    Message(type: "error", attached: "top") { text "Error" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Message(type: "error", attached: "top") { text "Error" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
 
-    text '<div class="column">'.html_safe
-    Message(type: "info", attached: "top") { text "Info" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Message(type: "info", attached: "top") { text "Info" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
 
-    text '<div class="column">'.html_safe
-    Message(type: "success", attached: "top") { text "Success" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Message(type: "success", attached: "top") { text "Success" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
 
-    text '<div class="column">'.html_safe
-    Header(size: :h4, inverted: true, attached: "top") { text "Header" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Header(size: :h4, inverted: true, attached: "top") { text "Header" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
 
-    text '<div class="column">'.html_safe
-    Header(size: :h4, block_header: true, attached: "top") { text "Header" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Header(size: :h4, block_header: true, attached: "top") { text "Header" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
 
-    text '<div class="column">'.html_safe
-    Header(size: :h4, attached: "top") { text "Header" }
-    Segment(attached: "bottom") { text "Panel content" }
-    text '</div>'.html_safe
+        Column {
+          Header(size: :h4, attached: "top") { text "Header" }
+          Segment(attached: "bottom") { text "Panel content" }
+        }
+      }
+    }
   }
-  text '</div></div>'.html_safe
 
   # Wells
-  text '<div class="row"><div class="column">'.html_safe
-  Header(size: :h1) { text "Wells" }
-  Divider()
-  Segment { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  Segment(secondary: true) { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  Segment(tertiary: true) { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  Segment(inverted: true) { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  Segment(inverted: true, secondary: true) { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  Segment(inverted: true, tertiary: true) { text "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>".html_safe }
-  text '</div></div>'.html_safe
+  Row {
+    Column {
+      Header(size: :h1) { text "Wells" }
+      Divider()
+      Segment { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(secondary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(tertiary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true, secondary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true, tertiary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+    }
+  }
 }

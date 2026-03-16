@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Fomantic-UI Site — base utility for managing registered module controllers.
-// Replaces: $.site
+// Fomantic-UI Site — base utility module.
+// Bridges: $.site
 //
 // Usage:
 //   <body data-controller="fui-site">
@@ -12,34 +12,18 @@ export default class extends Controller {
   }
 
   connect() {
-    this.modules = new Map()
-
-    if (this.debugValue) {
-      console.log("[fui-site] connected")
-    }
+    $(this.element).site(this._options())
   }
 
   disconnect() {
-    this.modules.clear()
+    // $.site has no destroy method
   }
 
-  // Register a child module controller
-  registerModule(name, instance) {
-    this.modules.set(name, instance)
-  }
+  // -- Private --
 
-  // Unregister a child module controller
-  unregisterModule(name) {
-    this.modules.delete(name)
-  }
-
-  // Check if a module is registered
-  moduleExists(name) {
-    return this.modules.has(name)
-  }
-
-  // List all registered module names
-  enabledModules() {
-    return Array.from(this.modules.keys())
+  _options() {
+    return {
+      debug: this.debugValue,
+    }
   }
 }

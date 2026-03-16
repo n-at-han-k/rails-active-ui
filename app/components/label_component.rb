@@ -25,22 +25,18 @@ class LabelComponent < Component
   attribute :horizontal, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
       size,
-      (pointing && "#{pointing} pointing"),
-      (corner && "#{corner} corner"),
-      ("ribbon" if ribbon),
-      (attached && "#{attached} attached"),
-      ("circular" if circular),
-      ("floating" if floating),
-      ("tag" if tag_style),
-      ("image" if image),
-      ("basic" if basic),
-      ("horizontal" if horizontal),
+      pointing && "#{pointing} pointing",
+      corner && "#{corner} corner",
+      attached && "#{attached} attached",
+      { "ribbon" => ribbon, "circular" => circular, "floating" => floating,
+        "tag" => tag_style, "image" => image, "basic" => basic,
+        "horizontal" => horizontal },
       "label"
-    ].compact.join(" ")
+    )
 
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     detail_el = detail ? tag.div(class: "detail") { detail } : nil

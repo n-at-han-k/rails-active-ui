@@ -19,15 +19,15 @@ class RevealComponent < Component
   slot :hidden
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       type,
-      (move_direction if type == "move" && move_direction),
-      ("active" if active),
-      ("instant" if instant),
-      ("disabled" if disabled),
+      (type == "move") && move_direction,
+      { "active" => active,
+        "instant" => instant,
+        "disabled" => disabled },
       "reveal"
-    ].compact.join(" ")
+    )
 
     visible_el = @slots[:visible] ? tag.div(class: "visible content") { @slots[:visible] } : nil
     hidden_el  = @slots[:hidden]  ? tag.div(class: "hidden content") { @slots[:hidden] } : nil

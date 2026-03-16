@@ -4,10 +4,11 @@
 #
 # Usage:
 #   Accordion(styled: true) {
-#     text '<div class="title" data-action="click->fui-accordion#toggle" data-fui-accordion-target="title">'.html_safe
-#     text '<i class="dropdown icon"></i> Section'.html_safe
-#     text '</div>'.html_safe
-#     text '<div class="content" data-fui-accordion-target="content"><p>Panel content</p></div>'.html_safe
+#     MenuItem(header: true) {
+#       Icon(name: "dropdown")
+#       text " Section"
+#     }
+#     text "Panel content"
 #   }
 
 class AccordionComponent < Component
@@ -18,13 +19,11 @@ class AccordionComponent < Component
   attribute :collapsible, :boolean, default: true
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("styled" if styled),
-      ("fluid" if fluid),
-      ("inverted" if inverted),
+      { "styled" => styled, "fluid" => fluid, "inverted" => inverted },
       "accordion"
-    ].compact.join(" ")
+    )
 
     data = { controller: "fui-accordion" }
     data[:fui_accordion_exclusive_value] = "false" unless exclusive

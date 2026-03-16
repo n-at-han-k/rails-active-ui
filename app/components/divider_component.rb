@@ -17,17 +17,13 @@ class DividerComponent < Component
   attribute :clearing,   :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("vertical" if vertical),
-      ("horizontal" if horizontal),
-      ("hidden" if hidden),
-      ("section" if section),
-      ("inverted" if inverted),
-      ("fitted" if fitted),
-      ("clearing" if clearing),
+      { "vertical" => vertical, "horizontal" => horizontal, "hidden" => hidden,
+        "section" => section, "inverted" => inverted, "fitted" => fitted,
+        "clearing" => clearing },
       "divider"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

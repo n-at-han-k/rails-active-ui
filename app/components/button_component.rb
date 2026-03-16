@@ -19,21 +19,20 @@ class ButtonComponent < Component
   attribute :labeled,  :boolean, default: false
   attribute :href,     :string,  default: nil
   attribute :type,     :string,  default: "button"
+  attribute :inverted, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
       size,
       variant,
-      ("fluid" if fluid),
-      ("disabled" if disabled),
-      ("loading" if loading),
-      (animated && "animated #{animated unless animated == 'true'}".strip),
-      ("labeled icon" if labeled && icon),
-      ("icon" if icon && !labeled && !@content),
+      animated && "animated #{animated unless animated == 'true'}".strip,
+      { "fluid" => fluid, "disabled" => disabled, "loading" => loading,
+        "inverted" => inverted, "labeled icon" => labeled && icon,
+        "icon" => icon && !labeled && !@content },
       "button"
-    ].compact.join(" ")
+    )
 
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     content = safe_join([ icon_el, @content ])

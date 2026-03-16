@@ -19,21 +19,21 @@ class SliderComponent < Component
   attribute :disabled, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
-      ("labeled" if labeled),
-      ("vertical" if vertical),
-      ("reversed" if reversed),
-      ("disabled" if disabled),
+      { "labeled" => labeled,
+        "vertical" => vertical,
+        "reversed" => reversed,
+        "disabled" => disabled },
       "slider"
-    ].compact.join(" ")
+    )
 
     data = {
       controller: "fui-slider",
       fui_slider_min_value: min,
       fui_slider_max_value: max,
-      fui_slider_value_value: value,
+      fui_slider_start_value: value,
       fui_slider_step_value: step
     }
 

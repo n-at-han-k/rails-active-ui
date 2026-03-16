@@ -27,27 +27,27 @@ class SegmentComponent < Component
   attribute :tertiary,  :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       color,
-      ("raised" if raised),
-      ("stacked" if stacked),
-      ("piled" if piled),
-      ("vertical" if vertical),
-      ("inverted" if inverted),
-      (padded && "#{padded == "very" ? "very " : ""}padded"),
-      ("compact" if compact),
-      (attached && "#{attached} attached"),
-      ("loading" if loading),
-      ("clearing" if clearing),
-      ("basic" if basic),
-      ("circular" if circular),
-      ("disabled" if disabled),
-      ("placeholder" if placeholder_seg),
-      ("secondary" if secondary),
-      ("tertiary" if tertiary),
+      padded && "#{padded == "very" ? "very " : ""}padded",
+      attached && "#{attached} attached",
+      { "raised" => raised,
+        "stacked" => stacked,
+        "piled" => piled,
+        "vertical" => vertical,
+        "inverted" => inverted,
+        "compact" => compact,
+        "loading" => loading,
+        "clearing" => clearing,
+        "basic" => basic,
+        "circular" => circular,
+        "disabled" => disabled,
+        "placeholder" => placeholder_seg,
+        "secondary" => secondary,
+        "tertiary" => tertiary },
       "segment"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

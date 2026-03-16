@@ -1,6 +1,12 @@
-// Fomantic-UI Stimulus Controllers
+// Fomantic-UI Stimulus Controllers (jQuery Bridge)
 //
-// Registers all 25 Fomantic-UI Stimulus controllers with a Stimulus application.
+// Each controller is a thin lifecycle bridge that initializes the corresponding
+// Fomantic-UI jQuery plugin in connect() and destroys it in disconnect().
+// Stimulus handles the DOM lifecycle (Turbo-compatible), jQuery/Fomantic handles
+// the actual widget behavior.
+//
+// Prerequisites: jQuery and the Fomantic-UI component JS files must be loaded
+// globally (via <script> tags) before these controllers are used.
 //
 // Usage (in your app's JavaScript entry point):
 //
@@ -12,37 +18,37 @@
 //
 
 // Globals
-import FuiSiteController from "./controllers/fui_site_controller"
+import FuiSiteController from "ui/controllers/fui_site_controller"
 
 // Collections
-import FuiFormController from "./controllers/fui_form_controller"
+import FuiFormController from "ui/controllers/fui_form_controller"
 
 // Modules
-import FuiAccordionController from "./controllers/fui_accordion_controller"
-import FuiCalendarController from "./controllers/fui_calendar_controller"
-import FuiCheckboxController from "./controllers/fui_checkbox_controller"
-import FuiDimmerController from "./controllers/fui_dimmer_controller"
-import FuiDropdownController from "./controllers/fui_dropdown_controller"
-import FuiEmbedController from "./controllers/fui_embed_controller"
-import FuiFlyoutController from "./controllers/fui_flyout_controller"
-import FuiModalController from "./controllers/fui_modal_controller"
-import FuiNagController from "./controllers/fui_nag_controller"
-import FuiPopupController from "./controllers/fui_popup_controller"
-import FuiProgressController from "./controllers/fui_progress_controller"
-import FuiSliderController from "./controllers/fui_slider_controller"
-import FuiRatingController from "./controllers/fui_rating_controller"
-import FuiSearchController from "./controllers/fui_search_controller"
-import FuiShapeController from "./controllers/fui_shape_controller"
-import FuiSidebarController from "./controllers/fui_sidebar_controller"
-import FuiStickyController from "./controllers/fui_sticky_controller"
-import FuiTabController from "./controllers/fui_tab_controller"
-import FuiToastController from "./controllers/fui_toast_controller"
-import FuiTransitionController from "./controllers/fui_transition_controller"
+import FuiAccordionController from "ui/controllers/fui_accordion_controller"
+import FuiCalendarController from "ui/controllers/fui_calendar_controller"
+import FuiCheckboxController from "ui/controllers/fui_checkbox_controller"
+import FuiDimmerController from "ui/controllers/fui_dimmer_controller"
+import FuiDropdownController from "ui/controllers/fui_dropdown_controller"
+import FuiEmbedController from "ui/controllers/fui_embed_controller"
+import FuiFlyoutController from "ui/controllers/fui_flyout_controller"
+import FuiModalController from "ui/controllers/fui_modal_controller"
+import FuiNagController from "ui/controllers/fui_nag_controller"
+import FuiPopupController from "ui/controllers/fui_popup_controller"
+import FuiProgressController from "ui/controllers/fui_progress_controller"
+import FuiSliderController from "ui/controllers/fui_slider_controller"
+import FuiRatingController from "ui/controllers/fui_rating_controller"
+import FuiSearchController from "ui/controllers/fui_search_controller"
+import FuiShapeController from "ui/controllers/fui_shape_controller"
+import FuiSidebarController from "ui/controllers/fui_sidebar_controller"
+import FuiStickyController from "ui/controllers/fui_sticky_controller"
+import FuiTabController from "ui/controllers/fui_tab_controller"
+import FuiToastController from "ui/controllers/fui_toast_controller"
+import FuiTransitionController from "ui/controllers/fui_transition_controller"
 
 // Behaviors
-import FuiApiController from "./controllers/fui_api_controller"
-import FuiStateController from "./controllers/fui_state_controller"
-import FuiVisibilityController from "./controllers/fui_visibility_controller"
+import FuiApiController from "ui/controllers/fui_api_controller"
+import FuiStateController from "ui/controllers/fui_state_controller"
+import FuiVisibilityController from "ui/controllers/fui_visibility_controller"
 
 const controllers = {
   "fui-site":       FuiSiteController,

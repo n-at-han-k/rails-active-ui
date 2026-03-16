@@ -21,115 +21,119 @@ text '<style>
 # Title area
 Container(text: true) {
   Header(size: :h1) { text "Sticky Example" }
-  text "<p>This example shows how to use lazy loaded images, a sticky menu, and a simple text container</p>".html_safe
+  text "This example shows how to use lazy loaded images, a sticky menu, and a simple text container"
 }
 
 # Main menu
 Menu(borderless: true, text: true) {
   Container(text: true) {
-    text '<div class="header item">'.html_safe
-    text '<img class="logo" src="/icon.png">'.html_safe
-    text " Project Name"
-    text '</div>'.html_safe
-    text '<a href="#" class="item">Blog</a>'.html_safe
-    text '<a href="#" class="item">Articles</a>'.html_safe
-    text '<a href="#" class="ui right floated dropdown item">'.html_safe
-    text 'Dropdown '
-    Icon(name: "dropdown")
-    text '<div class="menu">'.html_safe
-    text '<div class="item">Link Item</div>'.html_safe
-    text '<div class="item">Link Item</div>'.html_safe
-    text '<div class="divider"></div>'.html_safe
-    text '<div class="header">Header Item</div>'.html_safe
-    text '<div class="item"><i class="dropdown icon"></i>Sub Menu'.html_safe
-    text '<div class="menu"><div class="item">Link Item</div><div class="item">Link Item</div></div>'.html_safe
-    text '</div>'.html_safe
-    text '<div class="item">Link Item</div>'.html_safe
-    text '</div></a>'.html_safe
+    MenuItem(header: true) {
+      Image(src: "/icon.png", size: "mini")
+      text " Project Name"
+    }
+    MenuItem(href: "#") { text "Blog" }
+    MenuItem(href: "#") { text "Articles" }
+    Dropdown(floating: true) {
+      MenuItem { text "Link Item" }
+      MenuItem { text "Link Item" }
+      Divider()
+      MenuItem(header: true) { text "Header Item" }
+      MenuItem { text "Link Item" }
+    }
   }
 }
 
 # Text content
 Container(text: true) {
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
 
-  # Overlay sidebar menu
-  text '<div class="overlay">'.html_safe
-  Menu(vertical: true, labeled_icon: true) {
-    text '<a class="item"><i class="twitter icon"></i> Tweet</a>'.html_safe
-    text '<a class="item"><i class="facebook icon"></i> Share</a>'.html_safe
-    text '<a class="item"><i class="mail icon"></i> E-mail</a>'.html_safe
+  Overlay {
+    Menu(vertical: true, labeled_icon: true) {
+      MenuItem(href: "#", icon: "twitter") { text " Tweet" }
+      MenuItem(href: "#", icon: "facebook") { text " Share" }
+      MenuItem(href: "#", icon: "mail") { text " E-mail" }
+    }
   }
-  text '</div>'.html_safe
 
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-
-  Image(src: "https://fomantic-ui.com/images/wireframe/square-image.png", size: "medium")
-
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
 
   Image(src: "https://fomantic-ui.com/images/wireframe/square-image.png", size: "medium")
 
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>".html_safe
-  text "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>".html_safe
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+
+  Image(src: "https://fomantic-ui.com/images/wireframe/square-image.png", size: "medium")
+
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+  text " "
+  text "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
 }
 
 # Footer
 Segment(inverted: true, vertical: true) {
   Container {
     Grid(divided: "true", inverted: true, stackable: true) {
-      text '<div class="three wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Group 1" }
-      List(link: true, inverted: true) {
-        text '<a href="#" class="item">Link One</a>'.html_safe
-        text '<a href="#" class="item">Link Two</a>'.html_safe
-        text '<a href="#" class="item">Link Three</a>'.html_safe
-        text '<a href="#" class="item">Link Four</a>'.html_safe
+      Column(width: 3) {
+        Header(size: :h4, inverted: true) { text "Group 1" }
+        List(link: true, inverted: true) {
+          MenuItem(href: "#") { text "Link One" }
+          MenuItem(href: "#") { text "Link Two" }
+          MenuItem(href: "#") { text "Link Three" }
+          MenuItem(href: "#") { text "Link Four" }
+        }
       }
-      text '</div>'.html_safe
 
-      text '<div class="three wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Group 2" }
-      List(link: true, inverted: true) {
-        text '<a href="#" class="item">Link One</a>'.html_safe
-        text '<a href="#" class="item">Link Two</a>'.html_safe
-        text '<a href="#" class="item">Link Three</a>'.html_safe
-        text '<a href="#" class="item">Link Four</a>'.html_safe
+      Column(width: 3) {
+        Header(size: :h4, inverted: true) { text "Group 2" }
+        List(link: true, inverted: true) {
+          MenuItem(href: "#") { text "Link One" }
+          MenuItem(href: "#") { text "Link Two" }
+          MenuItem(href: "#") { text "Link Three" }
+          MenuItem(href: "#") { text "Link Four" }
+        }
       }
-      text '</div>'.html_safe
 
-      text '<div class="three wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Group 3" }
-      List(link: true, inverted: true) {
-        text '<a href="#" class="item">Link One</a>'.html_safe
-        text '<a href="#" class="item">Link Two</a>'.html_safe
-        text '<a href="#" class="item">Link Three</a>'.html_safe
-        text '<a href="#" class="item">Link Four</a>'.html_safe
+      Column(width: 3) {
+        Header(size: :h4, inverted: true) { text "Group 3" }
+        List(link: true, inverted: true) {
+          MenuItem(href: "#") { text "Link One" }
+          MenuItem(href: "#") { text "Link Two" }
+          MenuItem(href: "#") { text "Link Three" }
+          MenuItem(href: "#") { text "Link Four" }
+        }
       }
-      text '</div>'.html_safe
 
-      text '<div class="seven wide column">'.html_safe
-      Header(size: :h4, inverted: true) { text "Footer Header" }
-      text "<p>Extra space for a call to action inside the footer that could help re-engage users.</p>".html_safe
-      text '</div>'.html_safe
+      Column(width: 7) {
+        Header(size: :h4, inverted: true) { text "Footer Header" }
+        text "Extra space for a call to action inside the footer that could help re-engage users."
+      }
     }
     Divider(inverted: true, section: true)
     Image(src: "/icon.png", size: "mini", centered: true)
     List(horizontal: true, inverted: true, divided: true, link: true, size: "small") {
-      text '<a class="item" href="#">Site Map</a>'.html_safe
-      text '<a class="item" href="#">Contact Us</a>'.html_safe
-      text '<a class="item" href="#">Terms and Conditions</a>'.html_safe
-      text '<a class="item" href="#">Privacy Policy</a>'.html_safe
+      MenuItem(href: "#") { text "Site Map" }
+      MenuItem(href: "#") { text "Contact Us" }
+      MenuItem(href: "#") { text "Terms and Conditions" }
+      MenuItem(href: "#") { text "Privacy Policy" }
     }
   }
 }

@@ -10,13 +10,13 @@ class NagComponent < Component
   attribute :fixed, :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
-      ("fixed" if fixed),
+      { "fixed" => fixed },
       "nag"
-    ].compact.join(" ")
+    )
 
-    close_el = tag.i(class: "close icon", data: { action: "click->fui-nag#dismiss" })
+    close_el = tag.i(class: "close icon")
 
     tag.div(class: classes, data: { controller: "fui-nag" }) {
       safe_join([ close_el, @content ])

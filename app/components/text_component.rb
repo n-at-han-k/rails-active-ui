@@ -17,12 +17,12 @@ class TextComponent < Component
     has_fui_class = color || size_fui
 
     fui_classes = if has_fui_class
-      [
+      class_names(
         "ui",
         color,
         size_fui,
         "text"
-      ].compact.join(" ")
+      )
     end
 
     style_parts = [

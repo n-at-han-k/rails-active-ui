@@ -195,4 +195,135 @@ class LayoutComponentsTest < ComponentTestCase
     html = render_inline(RailComponent) { ctx.output_buffer << "Side" }
     assert_includes html, "Side"
   end
+
+  # --- ColumnComponent ---
+
+  test "column renders with default class" do
+    html = render_inline(ColumnComponent)
+    assert_includes html, 'class="column"'
+  end
+
+  test "column with fixed width" do
+    html = render_inline(ColumnComponent, width: 4)
+    assert_includes html, "four wide column"
+  end
+
+  test "column with responsive widths" do
+    html = render_inline(ColumnComponent, computer: 4, tablet: 8, mobile: 16)
+    assert_includes html, "four wide computer"
+    assert_includes html, "eight wide tablet"
+    assert_includes html, "sixteen wide mobile"
+  end
+
+  test "column with alignment" do
+    html = render_inline(ColumnComponent, aligned: "center")
+    assert_includes html, "center aligned"
+  end
+
+  test "column with content" do
+    html = render_inline(ColumnComponent, width: 8) { ctx.output_buffer << "Content" }
+    assert_includes html, "Content"
+    assert_includes html, "eight wide column"
+  end
+
+  # --- RowComponent ---
+
+  test "row renders with default class" do
+    html = render_inline(RowComponent)
+    assert_includes html, 'class="row"'
+  end
+
+  test "row with column count" do
+    html = render_inline(RowComponent, columns: 3)
+    assert_includes html, "three column row"
+  end
+
+  test "row centered" do
+    html = render_inline(RowComponent, centered: true)
+    assert_includes html, "centered"
+  end
+
+  # --- PusherComponent ---
+
+  test "pusher renders with class" do
+    html = render_inline(PusherComponent)
+    assert_includes html, 'class="pusher"'
+  end
+
+  test "pusher wraps content" do
+    html = render_inline(PusherComponent) { ctx.output_buffer << "Main content" }
+    assert_includes html, "Main content"
+    assert_includes html, "pusher"
+  end
+
+  # --- LinkComponent ---
+
+  test "link renders anchor tag" do
+    html = render_inline(LinkComponent, href: "/about") { ctx.output_buffer << "About" }
+    assert_includes html, "<a"
+    assert_includes html, 'href="/about"'
+    assert_includes html, "About"
+  end
+
+  test "link with target" do
+    html = render_inline(LinkComponent, href: "/help", target: "_blank")
+    assert_includes html, 'target="_blank"'
+  end
+
+  # --- SegmentGroupComponent ---
+
+  test "segment group renders with default classes" do
+    html = render_inline(SegmentGroupComponent)
+    assert_includes html, 'class="ui segments"'
+  end
+
+  test "segment group horizontal" do
+    html = render_inline(SegmentGroupComponent, horizontal: true)
+    assert_includes html, "ui horizontal segments"
+  end
+
+  test "segment group compact" do
+    html = render_inline(SegmentGroupComponent, compact: true)
+    assert_includes html, "compact"
+  end
+
+  test "segment group basic" do
+    html = render_inline(SegmentGroupComponent, basic: true)
+    assert_includes html, "basic"
+  end
+
+  test "segment group wraps content" do
+    html = render_inline(SegmentGroupComponent) { ctx.output_buffer << "inner" }
+    assert_includes html, "inner"
+    assert_includes html, "ui segments"
+  end
+
+  # --- SubHeaderComponent ---
+
+  test "sub header renders with class" do
+    html = render_inline(SubHeaderComponent) { ctx.output_buffer << "Subtitle" }
+    assert_includes html, 'class="sub header"'
+    assert_includes html, "Subtitle"
+  end
+
+  # --- OverlayComponent ---
+
+  test "overlay renders with class" do
+    html = render_inline(OverlayComponent) { ctx.output_buffer << "content" }
+    assert_includes html, 'class="overlay"'
+    assert_includes html, "content"
+  end
+
+  # --- ItemGroupComponent ---
+
+  test "item group renders with default classes" do
+    html = render_inline(ItemGroupComponent)
+    assert_includes html, 'class="ui items"'
+  end
+
+  test "item group divided relaxed" do
+    html = render_inline(ItemGroupComponent, divided: true, relaxed: true)
+    assert_includes html, "divided"
+    assert_includes html, "relaxed"
+  end
 end

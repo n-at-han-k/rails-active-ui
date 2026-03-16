@@ -133,13 +133,13 @@ class OverlayComponentsTest < ComponentTestCase
     assert_includes html, "bottom left"
   end
 
-  test "popup hover action" do
+  test "popup hover is default (no on-value emitted)" do
     html = render_inline(PopupComponent, on: "hover")
-    assert_includes html, "mouseenter"
-    assert_includes html, "mouseleave"
+    assert_includes html, "fui-popup"
+    refute_includes html, "fui-popup-on-value"
   end
 
-  test "popup click action" do
+  test "popup click on-value" do
     html = render_inline(PopupComponent, on: "click")
     assert_includes html, "click"
   end

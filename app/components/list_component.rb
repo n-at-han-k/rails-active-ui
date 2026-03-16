@@ -20,21 +20,15 @@ class ListComponent < Component
   attribute :link,       :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
-      ("ordered" if ordered),
-      ("bulleted" if bulleted),
-      ("divided" if divided),
-      ("relaxed" if relaxed),
-      ("animated" if animated),
-      ("horizontal" if horizontal),
-      ("inverted" if inverted),
-      ("celled" if celled),
-      ("selection" if selection),
-      ("link" if link),
+      { "ordered" => ordered, "bulleted" => bulleted, "divided" => divided,
+        "relaxed" => relaxed, "animated" => animated, "horizontal" => horizontal,
+        "inverted" => inverted, "celled" => celled, "selection" => selection,
+        "link" => link },
       "list"
-    ].compact.join(" ")
+    )
 
     if ordered
       tag.ol(class: classes) { @content }

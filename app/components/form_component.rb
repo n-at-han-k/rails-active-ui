@@ -21,18 +21,14 @@ class FormComponent < Component
   attribute :reply,       :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
-      ("loading" if loading),
-      ("success" if success),
-      ("error" if error),
-      ("warning" if warning),
-      ("inverted" if inverted),
-      ("equal width" if equal_width),
-      ("reply" if reply),
+      { "loading" => loading, "success" => success, "error" => error,
+        "warning" => warning, "inverted" => inverted,
+        "equal width" => equal_width, "reply" => reply },
       "form"
-    ].compact.join(" ")
+    )
 
     opts = { class: classes, data: { controller: "fui-form" } }
     opts[:action] = action if action

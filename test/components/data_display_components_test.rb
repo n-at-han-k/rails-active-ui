@@ -135,15 +135,9 @@ class DataDisplayComponentsTest < ComponentTestCase
 
   # --- ItemComponent ---
 
-  test "item renders with default classes" do
+  test "item renders with item class" do
     html = render_inline(ItemComponent)
-    assert_includes html, "ui items"
     assert_includes html, 'class="item"'
-  end
-
-  test "item divided" do
-    html = render_inline(ItemComponent, divided: true)
-    assert_includes html, "divided"
   end
 
   test "item with slots" do
@@ -260,5 +254,62 @@ class DataDisplayComponentsTest < ComponentTestCase
   test "statistic floated" do
     html = render_inline(StatisticComponent, floated: "right")
     assert_includes html, "right floated"
+  end
+
+  # --- TableRowComponent ---
+
+  test "table row renders tr" do
+    html = render_inline(TableRowComponent)
+    assert_includes html, "<tr>"
+  end
+
+  test "table row with state classes" do
+    html = render_inline(TableRowComponent, positive: true)
+    assert_includes html, "positive"
+    assert_includes html, "<tr"
+  end
+
+  test "table row active" do
+    html = render_inline(TableRowComponent, active: true)
+    assert_includes html, "active"
+  end
+
+  test "table row wraps content" do
+    html = render_inline(TableRowComponent) { ctx.output_buffer << "cells" }
+    assert_includes html, "cells"
+  end
+
+  # --- TableCellComponent ---
+
+  test "table cell renders td by default" do
+    html = render_inline(TableCellComponent) { ctx.output_buffer << "Data" }
+    assert_includes html, "<td"
+    assert_includes html, "Data"
+  end
+
+  test "table cell renders th when heading" do
+    html = render_inline(TableCellComponent, heading: true) { ctx.output_buffer << "Header" }
+    assert_includes html, "<th"
+    assert_includes html, "Header"
+  end
+
+  test "table cell aligned" do
+    html = render_inline(TableCellComponent, aligned: "right")
+    assert_includes html, "right aligned"
+  end
+
+  test "table cell collapsing" do
+    html = render_inline(TableCellComponent, collapsing: true)
+    assert_includes html, "collapsing"
+  end
+
+  test "table cell with colspan" do
+    html = render_inline(TableCellComponent, heading: true, colspan: 3) { ctx.output_buffer << "Span" }
+    assert_includes html, 'colspan="3"'
+  end
+
+  test "table cell with width" do
+    html = render_inline(TableCellComponent, width: 4)
+    assert_includes html, "four wide"
   end
 end

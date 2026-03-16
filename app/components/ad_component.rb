@@ -13,12 +13,12 @@ class AdComponent < Component
   def to_s
     unit_class = unit.to_s.tr("_", " ")
 
-    classes = [
+    classes = class_names(
       "ui",
       unit_class,
-      ("test" if test),
+      { "test" => test },
       "ad"
-    ].compact.join(" ")
+    )
 
     opts = { class: classes }
     opts[:data] = { text: test } if test

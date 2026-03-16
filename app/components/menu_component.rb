@@ -4,8 +4,8 @@
 #
 # Usage:
 #   Menu(pointing: true, secondary: true) {
-#     text '<a class="active item">Home</a>'.html_safe
-#     text '<a class="item">Messages</a>'.html_safe
+#     MenuItem(href: "#", active: true) { text "Home" }
+#     MenuItem(href: "#") { text "Messages" }
 #   }
 
 class MenuComponent < Component
@@ -33,28 +33,28 @@ class MenuComponent < Component
   def to_s
     item_word = items && items.between?(1, 12) ? NUMBERS[items - 1] : nil
 
-    classes = [
+    classes = class_names(
       "ui",
       size,
       color,
-      (item_word && "#{item_word} item"),
-      ("secondary" if secondary),
-      ("pointing" if pointing),
-      ("tabular" if tabular),
-      ("vertical" if vertical),
-      (fixed && "#{fixed} fixed"),
-      ("inverted" if inverted),
-      ("icon" if icon && !labeled_icon),
-      ("labeled icon" if labeled_icon),
-      ("compact" if compact),
-      ("fluid" if fluid),
-      (attached && "#{attached} attached"),
-      ("stackable" if stackable),
-      ("text" if text),
-      ("pagination" if pagination),
-      ("borderless" if borderless),
+      item_word && "#{item_word} item",
+      fixed && "#{fixed} fixed",
+      attached && "#{attached} attached",
+      { "secondary" => secondary,
+        "pointing" => pointing,
+        "tabular" => tabular,
+        "vertical" => vertical,
+        "inverted" => inverted,
+        "icon" => icon && !labeled_icon,
+        "labeled icon" => labeled_icon,
+        "compact" => compact,
+        "fluid" => fluid,
+        "stackable" => stackable,
+        "text" => text,
+        "pagination" => pagination,
+        "borderless" => borderless },
       "menu"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

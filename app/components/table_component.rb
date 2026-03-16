@@ -15,9 +15,15 @@
 # Or with manual content:
 #   Table(celled: true) { |c|
 #     c.header {
-#       text '<tr><th>Name</th><th>Age</th></tr>'.html_safe
+#       TableRow {
+#         TableCell(heading: true) { text "Name" }
+#         TableCell(heading: true) { text "Age" }
+#       }
 #     }
-#     text '<tr><td>Alice</td><td>30</td></tr>'.html_safe
+#     TableRow {
+#       TableCell { text "Alice" }
+#       TableCell { text "30" }
+#     }
 #   }
 
 class TableComponent < Component
@@ -39,6 +45,7 @@ class TableComponent < Component
   attribute :size,        :string,  default: nil
   attribute :unstackable, :boolean, default: false
   attribute :stackable,   :boolean, default: false
+  attribute :attached,    :string,  default: nil
 
   slot :header
   slot :footer
@@ -52,27 +59,28 @@ class TableComponent < Component
   end
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
       color,
-      ("definition" if definition),
-      ("structured" if structured),
-      ("single line" if single_line),
-      ("fixed" if fixed),
-      ("selectable" if selectable),
-      ("striped" if striped),
-      ("sortable" if sortable),
-      ("celled" if celled),
-      (basic_class),
-      (compact_class),
-      (padded_class),
-      ("collapsing" if collapsing),
-      ("inverted" if inverted),
-      ("unstackable" if unstackable),
-      ("stackable" if stackable),
+      basic_class,
+      compact_class,
+      padded_class,
+      attached_class,
+      { "definition" => definition,
+        "structured" => structured,
+        "single line" => single_line,
+        "fixed" => fixed,
+        "selectable" => selectable,
+        "striped" => striped,
+        "sortable" => sortable,
+        "celled" => celled,
+        "collapsing" => collapsing,
+        "inverted" => inverted,
+        "unstackable" => unstackable,
+        "stackable" => stackable },
       "table"
-    ].compact.join(" ")
+    )
 
     if columns.any? && rows
       column_table(classes)
@@ -130,6 +138,15 @@ class TableComponent < Component
     when "very" then "very compact"
     when "true", true then "compact"
     when String then "#{compact} compact"
+    end
+  end
+
+  def attached_class
+    case attached
+    when "top" then "top attached"
+    when "bottom" then "bottom attached"
+    when "" then "attached"
+    when String then "#{attached} attached"
     end
   end
 

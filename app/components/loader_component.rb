@@ -18,19 +18,15 @@ class LoaderComponent < Component
   attribute :disabled,      :boolean, default: false
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
       color,
-      ("active" if active),
-      ("disabled" if disabled),
-      ("inline" if inline),
-      ("centered" if centered),
-      ("inverted" if inverted),
-      ("indeterminate" if indeterminate),
-      ("text" if @content.present?),
+      { "active" => active, "disabled" => disabled, "inline" => inline,
+        "centered" => centered, "inverted" => inverted,
+        "indeterminate" => indeterminate, "text" => @content.present? },
       "loader"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end

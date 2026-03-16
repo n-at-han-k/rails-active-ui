@@ -11,11 +11,11 @@ class FeedComponent < Component
   attribute :size, :string, default: nil
 
   def to_s
-    classes = [
+    classes = class_names(
       "ui",
       size,
       "feed"
-    ].compact.join(" ")
+    )
 
     tag.div(class: classes) { @content }
   end
