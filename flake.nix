@@ -21,21 +21,14 @@
         };
 
         inherit (nix-filter.lib) filter;
-        inherit (pkgs) bundlerEnv mkShell substituteAll writeScriptBin;
+        inherit (pkgs) bundlerEnv mkShell;
         inherit (pkgs.stdenv) mkDerivation;
-
-        updateDeps = writeScriptBin "update-deps" (builtins.readFile
-          (substituteAll {
-            src = ./scripts/update.sh;
-            bundix = "${pkgs.bundix}/bin/bundix";
-            bundler = "${rubyEnv.bundler}/bin/bundler";
-          }));
       in {
         devShells = rec {
           default = run;
 
           run = mkShell {
-            buildInputs = [ rubyEnv rubyEnv.wrappedRuby updateDeps ];
+            buildInputs = [ rubyEnv rubyEnv.wrappedRuby ];
 
             shellHook = ''
               ${rubyEnv}/bin/rails --version
