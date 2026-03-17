@@ -8,6 +8,9 @@
 #   Segment(inverted: true, color: :blue) { text "Blue inverted" }
 
 class SegmentComponent < Component
+  include Attachable
+  include Sizeable
+
   attribute :raised,    :boolean, default: false
   attribute :stacked,   :boolean, default: false
   attribute :piled,     :boolean, default: false
@@ -16,7 +19,6 @@ class SegmentComponent < Component
   attribute :padded,    :string,  default: nil
   attribute :compact,   :boolean, default: false
   attribute :color,     :string,  default: nil
-  attribute :attached,  :string,  default: nil
   attribute :loading,   :boolean, default: false
   attribute :clearing,  :boolean, default: false
   attribute :basic,     :boolean, default: false
@@ -29,10 +31,11 @@ class SegmentComponent < Component
   def to_s
     classes = class_names(
       "ui",
+      size,
       color,
       padded && "#{padded == "very" ? "very " : ""}padded",
-      attached && "#{attached} attached",
-      { "raised" => raised,
+      { "attached" => attached,
+        "raised" => raised,
         "stacked" => stacked,
         "piled" => piled,
         "vertical" => vertical,

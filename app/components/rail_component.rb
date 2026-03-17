@@ -7,7 +7,9 @@
 #   Rail(position: :right, close: true) { text "Close rail" }
 
 class RailComponent < Component
-  attribute :position, :string,  default: "left"
+  include Positionable
+  default position: "left"
+
   attribute :close,    :boolean, default: false
   attribute :attached, :boolean, default: false
   attribute :dividing, :boolean, default: false

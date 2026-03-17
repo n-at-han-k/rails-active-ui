@@ -11,7 +11,7 @@
 #   }
 
 class SubMenuComponent < Component
-  attribute :position, :string, default: nil
+  include Positionable
 
   def to_s
     classes = class_names(

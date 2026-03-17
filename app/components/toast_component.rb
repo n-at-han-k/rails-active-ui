@@ -7,10 +7,12 @@
 #   Toast(title: "Error", message: "Something went wrong.", type: :error, position: "bottom right")
 
 class ToastComponent < Component
+  include Positionable
+  default position: "top right"
+
   attribute :title,         :string,  default: nil
   attribute :message,       :string,  default: nil
   attribute :type,          :string,  default: "neutral"
-  attribute :position,      :string,  default: "top right"
   attribute :display_time,  :integer, default: 3000
   attribute :close_icon,    :boolean, default: false
   attribute :compact,       :boolean, default: true

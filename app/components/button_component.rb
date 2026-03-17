@@ -8,8 +8,10 @@
 #   Button(href: "/path", variant: :primary) { text "Go" }
 
 class ButtonComponent < Component
+  include Attachable
+  include Sizeable
+
   attribute :color,    :string,  default: nil
-  attribute :size,     :string,  default: nil
   attribute :variant,  :string,  default: nil
   attribute :icon,     :string,  default: nil
   attribute :fluid,    :boolean, default: false
@@ -29,7 +31,8 @@ class ButtonComponent < Component
       variant,
       animated && "animated #{animated unless animated == 'true'}".strip,
       { "fluid" => fluid, "disabled" => disabled, "loading" => loading,
-        "inverted" => inverted, "labeled icon" => labeled && icon,
+        "inverted" => inverted, "attached" => attached,
+        "labeled icon" => labeled && icon,
         "icon" => icon && !labeled && !@content },
       "button"
     )

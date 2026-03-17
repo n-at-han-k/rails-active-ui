@@ -9,9 +9,11 @@
 #   Popup(hoverable: true) { text "Hover for popup" }
 
 class PopupComponent < Component
+  include Positionable
+  default position: "top center"
+
   attribute :content,   :string,  default: nil
   attribute :title,     :string,  default: nil
-  attribute :position,  :string,  default: "top center"
   attribute :variation, :string,  default: nil
   attribute :hoverable, :boolean, default: false
   attribute :on,        :string,  default: "hover"

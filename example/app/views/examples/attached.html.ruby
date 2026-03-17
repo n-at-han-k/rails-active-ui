@@ -8,10 +8,10 @@ Container {
   Grid(columns: 3) {
     # Column 1 — attached segments
     Column {
-      Segment(attached: "top") { text "Segment 1" }
-      Segment(attached: "") { text "Segment 2" }
-      Segment(attached: "") { text "Segment 2" }
-      Segment(attached: "bottom") { text "Segment 3" }
+      Segment(attached: true) { text "Segment 1" }
+      Segment(attached: true) { text "Segment 2" }
+      Segment(attached: true) { text "Segment 2" }
+      Segment(attached: true) { text "Segment 3" }
 
       SegmentGroup {
         Segment { text "Top" }
@@ -21,7 +21,7 @@ Container {
           Segment { text "Nested Bottom" }
         }
         Segment { text "Middle" }
-        SegmentGroup(horizontal: true) {
+        SegmentGroup(aligned: "horizontal") {
           Segment { text "Top" }
           Segment { text "Middle" }
           Segment { text "Bottom" }
@@ -118,40 +118,40 @@ Container {
 
     # Column 3 — attached menus
     Column {
-      Menu(attached: "top", items: 3) {
+      Menu(attached: true, items: 3) {
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
-      Menu(attached: "", items: 3) {
+      Menu(attached: true, items: 3) {
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
-      Menu(attached: "", items: 3) {
+      Menu(attached: true, items: 3) {
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
-      Menu(attached: "bottom", items: 3) {
+      Menu(attached: true, items: 3) {
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
 
-      Menu(tabular: true, attached: "top") {
+      Menu(tabular: true, attached: true) {
         MenuItem(href: "#", active: true) { text "Active Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
-      Segment(attached: "bottom") { text "Segment" }
+      Segment(attached: true) { text "Segment" }
 
-      Menu(attached: "top") {
+      Menu(attached: true) {
         MenuItem(href: "#", active: true) { text "Active Item" }
         MenuItem(href: "#") { text "Item" }
         MenuItem(href: "#") { text "Item" }
       }
-      Segment(attached: "bottom") { text "Segment" }
+      Segment(attached: true) { text "Segment" }
     }
   }
 }
@@ -160,32 +160,32 @@ Container(text: true) {
   Header(size: :h2) { text "Header Groups" }
 
   Header(size: :h4, block_header: true, attached: "top") { text "Top Block Header" }
-  Segment(attached: "bottom") { text "Segment" }
+  Segment(attached: true) { text "Segment" }
 
   Divider(section: true)
 
-  Segment(attached: "top") { text "Segment" }
+  Segment(attached: true) { text "Segment" }
   Header(size: :h4, block_header: true, attached: "bottom") { text "Bottom Block Header" }
 
   Divider(section: true)
 
   Header(size: :h4, block_header: true, attached: "top") { text "Top Block Header" }
-  Segment(attached: "") { text "Segment" }
+  Segment(attached: true) { text "Segment" }
   Header(size: :h4, block_header: true, attached: "") { text "Middle Block Header" }
-  Segment(attached: "") { text "Segment" }
+  Segment(attached: true) { text "Segment" }
   Header(size: :h4, block_header: true, attached: "bottom") { text "Bottom Block Header" }
 
   Header(size: :h2) { text "Mixed Attached Content" }
   Divider(section: true)
 
-  Segment(attached: "top") { text "Segment" }
-  Menu(attached: "", items: 3) {
+  Segment(attached: true) { text "Segment" }
+  Menu(attached: true, items: 3) {
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
   }
-  Segment(attached: "") { text "1" }
-  Message(attached: "", icon: "help circle", type: "info") {
+  Segment(attached: true) { text "1" }
+  Message(attached: true, icon: "help circle", type: "info") {
     text "Message"
   }
   Table(attached: "bottom") { |c|
@@ -215,7 +215,7 @@ Container(text: true) {
 
   Divider(section: true)
 
-  Message(attached: "top", icon: "attention", type: "warning") {
+  Message(attached: true, icon: "attention", type: "warning") {
     text "Message"
   }
   Table(attached: "") { |c|
@@ -242,7 +242,7 @@ Container(text: true) {
       TableCell { text "Cell" }
     }
   }
-  Menu(attached: "bottom", items: 3) {
+  Menu(attached: true, items: 3) {
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
@@ -250,7 +250,7 @@ Container(text: true) {
 
   Divider(section: true)
 
-  Menu(inverted: true, attached: "top", items: 3) {
+  Menu(inverted: true, attached: true, items: 3) {
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
     MenuItem(href: "#") { text "Item" }
@@ -279,5 +279,5 @@ Container(text: true) {
       TableCell { text "Cell" }
     }
   }
-  Segment(inverted: true, attached: "bottom") { text "Segment" }
+  Segment(inverted: true, attached: true) { text "Segment" }
 }

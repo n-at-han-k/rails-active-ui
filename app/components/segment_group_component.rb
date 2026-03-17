@@ -8,13 +8,14 @@
 #     Segment { text "Bottom" }
 #   }
 #
-#   SegmentGroup(horizontal: true) {
+#   SegmentGroup(aligned: "horizontal") {
 #     Segment { text "Left" }
 #     Segment { text "Right" }
 #   }
 
 class SegmentGroupComponent < Component
-  attribute :horizontal, :boolean, default: false
+  include Alignable
+
   attribute :compact,    :boolean, default: false
   attribute :basic,      :boolean, default: false
   attribute :equal_width, :boolean, default: false
@@ -23,7 +24,8 @@ class SegmentGroupComponent < Component
   def to_s
     classes = class_names(
       "ui",
-      { "horizontal" => horizontal, "compact" => compact,
+      aligned,
+      { "compact" => compact,
         "basic" => basic, "equal width" => equal_width,
         "wrapping" => wrapping },
       "segments"

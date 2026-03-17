@@ -318,33 +318,33 @@ Grid(container: true) {
         }
 
         Column {
-          Message(type: "error", attached: "top") { text "Error" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Message(type: "error", attached: true) { text "Error" }
+          Segment(attached: true) { text "Panel content" }
         }
 
         Column {
-          Message(type: "info", attached: "top") { text "Info" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Message(type: "info", attached: true) { text "Info" }
+          Segment(attached: true) { text "Panel content" }
         }
 
         Column {
-          Message(type: "success", attached: "top") { text "Success" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Message(type: "success", attached: true) { text "Success" }
+          Segment(attached: true) { text "Panel content" }
         }
 
         Column {
           Header(size: :h4, inverted: true, attached: "top") { text "Header" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Segment(attached: true) { text "Panel content" }
         }
 
         Column {
           Header(size: :h4, block_header: true, attached: "top") { text "Header" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Segment(attached: true) { text "Panel content" }
         }
 
         Column {
           Header(size: :h4, attached: "top") { text "Header" }
-          Segment(attached: "bottom") { text "Panel content" }
+          Segment(attached: true) { text "Panel content" }
         }
       }
     }

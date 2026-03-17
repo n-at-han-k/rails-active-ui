@@ -42,6 +42,12 @@ class NavigationComponentsTest < ComponentTestCase
     assert_includes html, "tabular"
   end
 
+  test "menu with position" do
+    html = render_inline(MenuComponent, position: "right")
+    assert_includes html, "right"
+    assert_includes html, "menu"
+  end
+
   test "menu renders block content" do
     html = render_inline(MenuComponent) { ctx.output_buffer << "items" }
     assert_includes html, "items"

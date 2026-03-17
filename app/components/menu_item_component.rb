@@ -11,6 +11,8 @@
 #   }
 
 class MenuItemComponent < Component
+  include Positionable
+
   attribute :href,     :string,  default: nil
   attribute :active,   :boolean, default: false
   attribute :disabled, :boolean, default: false
@@ -19,7 +21,6 @@ class MenuItemComponent < Component
   attribute :fitted,   :string,  default: nil
   attribute :link,     :boolean, default: false
   attribute :color,    :string,  default: nil
-  attribute :position, :string,  default: nil
   attribute :dropdown, :boolean, default: false
   attribute :value,    :string,  default: nil
 

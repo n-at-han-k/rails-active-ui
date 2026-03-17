@@ -11,12 +11,13 @@
 #   Message(dismissible: true) { text "Notice" }
 
 class MessageComponent < Component
+  include Attachable
+
   attribute :type,        :string,  default: nil
   attribute :icon,        :string,  default: nil
   attribute :dismissible, :boolean, default: false
   attribute :floating,    :boolean, default: false
   attribute :compact,     :boolean, default: false
-  attribute :attached,    :string,  default: nil
   attribute :color,       :string,  default: nil
   attribute :size,        :string,  default: nil
   attribute :hidden,      :boolean, default: false
@@ -30,8 +31,8 @@ class MessageComponent < Component
       size,
       color,
       type,
-      attached && "#{attached} attached",
-      { "icon" => icon,
+      { "attached" => attached,
+        "icon" => icon,
         "floating" => floating,
         "compact" => compact,
         "hidden" => hidden,

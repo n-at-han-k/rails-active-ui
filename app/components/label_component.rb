@@ -9,12 +9,13 @@
 #   Label(icon: "mail", detail: "23") { text "Mail" }
 
 class LabelComponent < Component
+  include Attachable
+
   attribute :color,    :string,  default: nil
   attribute :size,     :string,  default: nil
   attribute :pointing, :string,  default: nil
   attribute :corner,   :string,  default: nil
   attribute :ribbon,   :boolean, default: false
-  attribute :attached, :string,  default: nil
   attribute :circular, :boolean, default: false
   attribute :floating, :boolean, default: false
   attribute :tag_style, :boolean, default: false
@@ -31,8 +32,8 @@ class LabelComponent < Component
       size,
       pointing && "#{pointing} pointing",
       corner && "#{corner} corner",
-      attached && "#{attached} attached",
-      { "ribbon" => ribbon, "circular" => circular, "floating" => floating,
+      { "attached" => attached,
+        "ribbon" => ribbon, "circular" => circular, "floating" => floating,
         "tag" => tag_style, "image" => image, "basic" => basic,
         "horizontal" => horizontal },
       "label"

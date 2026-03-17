@@ -9,6 +9,10 @@
 #   }
 
 class MenuComponent < Component
+  include Positionable
+  include Attachable
+  include Sizeable
+
   attribute :secondary,    :boolean, default: false
   attribute :pointing,     :boolean, default: false
   attribute :tabular,      :boolean, default: false
@@ -19,9 +23,7 @@ class MenuComponent < Component
   attribute :labeled_icon, :boolean, default: false
   attribute :compact,      :boolean, default: false
   attribute :fluid,        :boolean, default: false
-  attribute :size,         :string,  default: nil
   attribute :color,        :string,  default: nil
-  attribute :attached,     :string,  default: nil
   attribute :stackable,    :boolean, default: false
   attribute :text,         :boolean, default: false
   attribute :pagination,   :boolean, default: false
@@ -35,12 +37,13 @@ class MenuComponent < Component
 
     classes = class_names(
       "ui",
+      position,
       size,
       color,
       item_word && "#{item_word} item",
       fixed && "#{fixed} fixed",
-      attached && "#{attached} attached",
-      { "secondary" => secondary,
+      { "attached" => attached,
+        "secondary" => secondary,
         "pointing" => pointing,
         "tabular" => tabular,
         "vertical" => vertical,

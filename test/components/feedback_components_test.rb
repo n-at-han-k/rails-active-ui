@@ -54,8 +54,8 @@ class FeedbackComponentsTest < ComponentTestCase
   end
 
   test "message attached" do
-    html = render_inline(MessageComponent, attached: "top")
-    assert_includes html, "top attached"
+    html = render_inline(MessageComponent, attached: true)
+    assert_includes html, "attached"
   end
 
   # --- ProgressComponent ---

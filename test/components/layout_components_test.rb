@@ -91,8 +91,8 @@ class LayoutComponentsTest < ComponentTestCase
   end
 
   test "segment attached" do
-    html = render_inline(SegmentComponent, attached: "top")
-    assert_includes html, "top attached"
+    html = render_inline(SegmentComponent, attached: true)
+    assert_includes html, "attached"
   end
 
   test "segment placeholder" do
@@ -278,7 +278,7 @@ class LayoutComponentsTest < ComponentTestCase
   end
 
   test "segment group horizontal" do
-    html = render_inline(SegmentGroupComponent, horizontal: true)
+    html = render_inline(SegmentGroupComponent, aligned: "horizontal")
     assert_includes html, "ui horizontal segments"
   end
 

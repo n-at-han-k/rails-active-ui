@@ -15,6 +15,13 @@ class Component
 
   class_attribute :slot_names, default: []
 
+  def self.default(**overrides)
+    overrides.each do |name, value|
+      type = attribute_types.fetch(name.to_s).type
+      attribute name, type, default: value
+    end
+  end
+
   def self.slot(name)
     self.slot_names = slot_names + [ name ]
 
