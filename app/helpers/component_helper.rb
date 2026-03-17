@@ -54,7 +54,7 @@ module ComponentHelper
     Grid:        GridComponent,
     Menu:        MenuComponent,
     MenuItem:    MenuItemComponent,
-    MenuMenu:    MenuMenuComponent,
+    SubMenu:     SubMenuComponent,
     Message:     MessageComponent,
     Table:       TableComponent,
     TableRow:    TableRowComponent,

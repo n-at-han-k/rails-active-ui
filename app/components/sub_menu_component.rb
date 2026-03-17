@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-# MenuMenu — sub-menu or positioned menu group within a Menu.
+# SubMenu — sub-menu or positioned menu group within a Menu.
 #
 # Usage:
 #   Menu {
 #     MenuItem(href: "/") { text "Home" }
-#     MenuMenu(position: "right") {
+#     SubMenu(position: "right") {
 #       MenuItem(href: "/login") { text "Login" }
 #     }
 #   }
 
-class MenuMenuComponent < Component
+class SubMenuComponent < Component
   attribute :position, :string, default: nil
 
   def to_s

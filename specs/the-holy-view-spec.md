@@ -395,7 +395,7 @@ Composite components with internal structure. Many follow the **Group + Item** p
 | `Grid` | `<div class="ui grid">` | `columns`, `stackable`, `divided`, `celled`, `centered`, `aligned` |
 | `Menu` | `<div class="ui menu">` | `vertical`, `inverted`, `fixed`, `pointing`, `stackable` |
 | `MenuItem` | `<div class="item">` or `<a class="item">` | `href`, `active`, `header`, `icon`, `value`, `dropdown` |
-| `MenuMenu` | `<div class="... menu">` | `position` ("left", "right") |
+| `SubMenu` | `<div class="... menu">` | `position` ("left", "right") |
 | `Table` | `<table class="ui table">` | `celled`, `striped`, `definition`, `basic`, `attached` |
 | `TableRow` | `<tr>` | `active`, `positive`, `negative`, `warning` |
 | `TableCell` | `<td>` or `<th>` | `heading`, `aligned`, `collapsing`, `colspan`, `rowspan` |
@@ -432,7 +432,7 @@ Components that follow this pattern:
 - `StepGroup` + `Step`
 - `ItemGroup` + `Item`
 - `Grid` + `Column` (with `Row` as optional intermediate)
-- `Menu` + `MenuItem` (with `MenuMenu` for sub-menus)
+- `Menu` + `MenuItem` (with `SubMenu` for sub-menus)
 - `Table` + `TableRow` + `TableCell`
 
 ---
@@ -550,7 +550,7 @@ In production, annotations are absent. The output is clean. The user sees only t
 Sidebar(direction: "left", inverted: true) {
   MenuItem(header: true) {
     text "General"
-    MenuMenu {
+    SubMenu {
       MenuItem(icon: "tachometer alternate") { text "Dashboard" }
     }
   }
@@ -559,15 +559,15 @@ Sidebar(direction: "left", inverted: true) {
 
 # -- Top Nav --
 Menu(fixed: "top", inverted: true) {
-  MenuMenu(position: "left") {
+  SubMenu(position: "left") {
     MenuItem(href: "#") { Icon(name: "sidebar") }
     MenuItem(href: "#") { Header(size: :h4) { text "My App" } }
   }
-  MenuMenu(position: "right") {
+  SubMenu(position: "right") {
     MenuItem(href: "#") { Icon(name: "bell") }
     Dropdown {
       Icon(name: "user circle")
-      MenuMenu {
+      SubMenu {
         MenuItem(href: "#", icon: "sign-out") { text "Logout" }
       }
     }
@@ -617,7 +617,7 @@ Pusher {
 
 This example demonstrates:
 - **No raw HTML** — every element is a component call
-- **Group + Item** pattern — `Menu` + `MenuItem` + `MenuMenu`, `Table` + `TableRow` + `TableCell`
+- **Group + Item** pattern — `Menu` + `MenuItem` + `SubMenu`, `Table` + `TableRow` + `TableCell`
 - **Slot-based components** — `Card { |c| c.header { } }`, `Statistic { |c| c.value { } }`
 - **Responsive columns** — `Column(computer: 4, tablet: 8, mobile: 16)`
 - **Nested composition** — components inside components, all through blocks

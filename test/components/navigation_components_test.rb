@@ -225,20 +225,20 @@ class NavigationComponentsTest < ComponentTestCase
     assert_includes html, "Home"
   end
 
-  # --- MenuMenuComponent ---
+  # --- SubMenuComponent ---
 
-  test "menu menu renders with class" do
-    html = render_inline(MenuMenuComponent)
+  test "sub menu renders with class" do
+    html = render_inline(SubMenuComponent)
     assert_includes html, 'class="menu"'
   end
 
-  test "menu menu with position" do
-    html = render_inline(MenuMenuComponent, position: "right")
+  test "sub menu with position" do
+    html = render_inline(SubMenuComponent, position: "right")
     assert_includes html, "right menu"
   end
 
-  test "menu menu wraps content" do
-    html = render_inline(MenuMenuComponent, position: "left") { ctx.output_buffer << "items" }
+  test "sub menu wraps content" do
+    html = render_inline(SubMenuComponent, position: "left") { ctx.output_buffer << "items" }
     assert_includes html, "items"
     assert_includes html, "left menu"
   end
