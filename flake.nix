@@ -13,12 +13,15 @@
       in
       {
         devShells.default = pkgs.mkShell {
+          nativeBuildInputs = [
+            pkgs.pkg-config # native extension discovery
+          ];
+
           buildInputs = [
             ruby
             pkgs.nodejs # Assets
             pkgs.libyaml # psych gem
             pkgs.openssl # openssl gem
-            pkgs.pkg-config # native extension discovery
           ];
 
           shellHook = ''
