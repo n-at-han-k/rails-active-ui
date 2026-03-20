@@ -2,42 +2,34 @@
   description = "Ruby on Rails development environment";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
-    nix-filter.url = "github:numtide/nix-filter";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    utils.url = "github:numtide/flake-utils";
   };
-
-  outputs = { self, nixpkgs, flake-utils, nix-filter }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, utils }:
+    utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs.legacyPackages.${system};
+        ruby = pkgs.ruby_3_4; # Specify version
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            ruby
+            pkgs.nodejs # Assets
+            pkgs.libyaml # psych gem
+            pkgs.openssl # openssl gem
+            pkgs.pkg-config # native extension discovery
+          ];
 
-        ruby = pkgs.ruby_3_3; # Use a single version of Ruby throughout
-
-        rubyEnv = bundlerEnv { # The full app environment with dependencies
-          name = "rails-env";
-          inherit ruby;
-          gemdir = ./.; # Points to Gemfile.lock and gemset.nix
+          shellHook = ''
+            export GEM_HOME="$PWD/.gem"
+            export GEM_PATH="$GEM_HOME"
+            export PATH="$GEM_HOME/bin:$PATH"
+            export BUNDLE_PATH="$GEM_HOME"
+            export BUNDLE_BIN="$GEM_HOME/bin"
+          '';
         };
-
-        inherit (nix-filter.lib) filter;
-        inherit (pkgs) bundlerEnv mkShell;
-        inherit (pkgs.stdenv) mkDerivation;
-      in {
-        devShells = rec {
-          default = run;
-
-          run = mkShell {
-            buildInputs = [ rubyEnv rubyEnv.wrappedRuby ];
-
-            shellHook = ''
-              ${rubyEnv}/bin/rails --version
-            '';
-          };
-        };
-
-        packages = rec {
-          default = rubyEnv;
-        };
-      });
+      }
+    );
 }
+

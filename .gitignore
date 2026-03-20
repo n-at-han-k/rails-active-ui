@@ -10,3 +10,4 @@
 /example/tmp/
 /example/config/master.key
 /example/config/credentials.yml.enc
+.gem
