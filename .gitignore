@@ -1,5 +1,6 @@
 /.bundle/
 /doc/
+.direnv
 /log/*.log
 /pkg/
 /tmp/
