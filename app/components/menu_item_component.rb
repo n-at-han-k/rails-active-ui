@@ -26,6 +26,7 @@ class MenuItemComponent < Component
 
   def to_s
     classes = class_names(
+      { "ui simple" => dropdown },
       color,
       fitted && (fitted == "true" ? "fitted" : "#{fitted} fitted"),
       position,
