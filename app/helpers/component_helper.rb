@@ -25,9 +25,11 @@ module ComponentHelper
     # Globals
     Reset:       ResetComponent,
     Site:        SiteComponent,
+    Wrapper:     WrapperComponent,
 
     # Elements
     Button:      ButtonComponent,
+    ButtonTo:    ButtonToComponent,
     Container:   ContainerComponent,
     Divider:     DividerComponent,
     Emoji:       EmojiComponent,
@@ -46,6 +48,7 @@ module ComponentHelper
     SegmentGroup: SegmentGroupComponent,
     Step:        StepComponent,
     StepGroup:   StepGroupComponent,
+
     Text:        TextComponent,
 
     # Collections
@@ -103,7 +106,35 @@ module ComponentHelper
     }
   end
 
+  def Style(css = nil, &block)
+    output_buffer << render(StyleComponent.new(css), &block)
+  end
+
   def text(content)
     output_buffer << content.to_s
+  end
+
+  # PascalCase method calls that aren't in COMPONENT_MAP are forwarded
+  # to the current form builder as underscored method names.
+  # e.g. TextField(:label, placeholder: "Name") -> f.text_field(:label, placeholder: "Name")
+  #      EmojiField(:icon)                      -> f.emoji_field(:icon)
+  #      Select(:role, [["Admin","admin"]])      -> f.select(:role, [["Admin","admin"]])
+  def method_missing(method_name, *args, **kwargs, &block)
+    if method_name =~ /\A[A-Z]/ && @_form_builder
+      underscored = method_name.to_s.gsub(/([a-z])([A-Z])/, '\1_\2').downcase
+      if @_form_builder.respond_to?(underscored)
+        output_buffer << @_form_builder.public_send(underscored, *args, **kwargs, &block)
+        return
+      end
+    end
+    super
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    if method_name =~ /\A[A-Z]/ && @_form_builder
+      underscored = method_name.to_s.gsub(/([a-z])([A-Z])/, '\1_\2').downcase
+      return true if @_form_builder.respond_to?(underscored)
+    end
+    super
   end
 end

@@ -49,6 +49,7 @@ import FuiTransitionController from "ui/controllers/fui_transition_controller"
 import FuiApiController from "ui/controllers/fui_api_controller"
 import FuiStateController from "ui/controllers/fui_state_controller"
 import FuiVisibilityController from "ui/controllers/fui_visibility_controller"
+import FuiEmojiPickerController from "ui/controllers/fui_emoji_picker_controller"
 
 const controllers = {
   "fui-site":       FuiSiteController,
@@ -76,6 +77,7 @@ const controllers = {
   "fui-api":        FuiApiController,
   "fui-state":      FuiStateController,
   "fui-visibility": FuiVisibilityController,
+  "fui-emoji-picker": FuiEmojiPickerController,
 }
 
 export function registerFuiControllers(application) {
@@ -111,4 +113,5 @@ export {
   FuiApiController,
   FuiStateController,
   FuiVisibilityController,
+  FuiEmojiPickerController,
 }

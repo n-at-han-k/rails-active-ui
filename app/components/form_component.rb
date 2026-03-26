@@ -1,39 +1,56 @@
 # frozen_string_literal: true
 
-# Form — form layout and validation with Stimulus controller.
-#
-# Usage:
-#   Form(action: "/submit", method: :post) {
-#     text '<div class="field"><label>Name</label><input type="text"></div>'.html_safe
-#   }
-#   Form(loading: true, size: :large) { ... }
+class FormComponent
+  def initialize(**kwargs)
+    @form_options = kwargs
+  end
 
-class FormComponent < Component
-  attribute :size,        :string,  default: nil
-  attribute :loading,     :boolean, default: false
-  attribute :success,     :boolean, default: false
-  attribute :error,       :boolean, default: false
-  attribute :warning,     :boolean, default: false
-  attribute :inverted,    :boolean, default: false
-  attribute :equal_width, :boolean, default: false
-  attribute :action,      :string,  default: nil
-  attribute :method_type, :string,  default: "post"
-  attribute :reply,       :boolean, default: false
+  def render_in(context, &block)
+    @view_context = context
+
+    if @form_options[:url] || @form_options[:model]
+      @_block = block
+      if Rails.env.development?
+        "<!-- BEGIN #{self.class.name} -->#{self}<!-- END #{self.class.name} -->".html_safe
+      else
+        to_s
+      end
+    else
+      @content = context.capture(self, &block) if block
+      @content = ERB::Util.html_escape(@content) unless @content.nil? || @content.html_safe?
+      if Rails.env.development?
+        "<!-- BEGIN #{self.class.name} -->#{self}<!-- END #{self.class.name} -->".html_safe
+      else
+        to_s
+      end
+    end
+  end
 
   def to_s
-    classes = class_names(
-      "ui",
-      size,
-      { "loading" => loading, "success" => success, "error" => error,
-        "warning" => warning, "inverted" => inverted,
-        "equal width" => equal_width, "reply" => reply },
-      "form"
-    )
+    if @form_options[:url] || @form_options[:model]
+      opts = { class: "ui form", data: { controller: "fui-form" } }
+      opts.merge!(@form_options)
 
-    opts = { class: classes, data: { controller: "fui-form" } }
-    opts[:action] = action if action
-    opts[:method] = method_type if action
+      @view_context.form_with(**opts) { |f|
+        previous = @view_context.instance_variable_get(:@_form_builder)
+        @view_context.instance_variable_set(:@_form_builder, f)
+        begin
+          @_block ? @view_context.instance_exec(&@_block) : "".html_safe
+        ensure
+          @view_context.instance_variable_set(:@_form_builder, previous)
+        end
+      }
+    else
+      opts = { class: "ui form", data: { controller: "fui-form" } }
+      opts.merge!(@form_options)
 
-    tag.form(**opts) { @content }
+      tag.form(**opts) { @content }
+    end
+  end
+
+  private
+
+  def tag
+    @view_context.tag
   end
 end

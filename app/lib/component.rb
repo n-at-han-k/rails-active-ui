@@ -13,7 +13,15 @@ class Component
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  # HTML pass-through keys that bypass ActiveModel attributes
+  HTML_OPTIONS = %i[id class data style role tabindex title aria].to_set.freeze
+
   class_attribute :slot_names, default: []
+
+  def initialize(**kwargs)
+    @html_options = kwargs.extract!(*HTML_OPTIONS)
+    super(**kwargs)
+  end
 
   def self.default(**overrides)
     overrides.each do |name, value|
@@ -48,6 +56,24 @@ class Component
   end
 
   private
+
+  # Merge component classes with html_options. Call from to_s:
+  #   tag.div(**merge_html_options(class: classes)) { @content }
+  def merge_html_options(**opts)
+    html = @html_options || {}
+    return opts if html.empty?
+
+    merged = opts.merge(html)
+    # Merge classes together rather than overwriting
+    if opts[:class] && html[:class]
+      merged[:class] = "#{opts[:class]} #{html[:class]}"
+    end
+    # Deep merge data hashes
+    if opts[:data] && html[:data]
+      merged[:data] = opts[:data].merge(html[:data])
+    end
+    merged
+  end
 
   def tag
     @view_context.tag

@@ -11,14 +11,21 @@
 #       Button(variant: :approve, color: :green) { text "OK" }
 #     }
 #   }
+#
+#   Modal(id: "confirm-modal", size: :large) { |c|
+#     c.header { text "Targeted Modal" }
+#     c.content { text "This modal can be targeted by DOM id." }
+#   }
 
 class ModalComponent < Component
+  attribute :id,       :string,  default: nil
   attribute :size,     :string,  default: nil
   attribute :basic,    :boolean, default: false
   attribute :closable, :boolean, default: true
   attribute :blurring, :boolean, default: false
-  attribute :longer,   :boolean, default: false
+  attribute :longer,     :boolean, default: false
   attribute :fullscreen, :boolean, default: false
+  attribute :scrolling,  :boolean, default: false
 
   slot :header
   slot :content
@@ -40,10 +47,14 @@ class ModalComponent < Component
 
     close_el = closable ? tag.i(class: "close icon") : nil
     header_el = @slots[:header] ? tag.div(class: "header") { @slots[:header] } : nil
-    content_el = @slots[:content] ? tag.div(class: "content") { @slots[:content] } : nil
+    content_cls = scrolling ? "scrolling content" : "content"
+    content_el = @slots[:content] ? tag.div(class: content_cls) { @slots[:content] } : nil
     actions_el = @slots[:actions] ? tag.div(class: "actions") { @slots[:actions] } : nil
 
-    tag.div(class: classes, data: data) {
+    opts = { class: classes, data: data }
+    opts[:id] = id if id
+
+    tag.div(**opts) {
       safe_join([ close_el, header_el, content_el, @content.presence, actions_el ])
     }
   end

@@ -36,6 +36,6 @@ class IconComponent < Component
       "icon"
     )
 
-    tag.i(class: classes)
+    tag.i(**merge_html_options(class: classes))
   end
 end

@@ -1,34 +1,43 @@
 # frozen_string_literal: true
 
-# Accordion — collapsible content panels.
+# Accordion — collapsible content panel using <details>/<summary>.
 #
 # Usage:
-#   Accordion(styled: true) {
-#     MenuItem(header: true) {
-#       Icon(name: "dropdown")
-#       text " Section"
-#     }
+#   Accordion(attached: true) { |a|
+#     a.title { text "Section" }
 #     text "Panel content"
 #   }
 
 class AccordionComponent < Component
-  attribute :styled,   :boolean, default: false
-  attribute :fluid,    :boolean, default: false
-  attribute :inverted, :boolean, default: false
-  attribute :exclusive, :boolean, default: true
-  attribute :collapsible, :boolean, default: true
+  include Attachable
+
+  attribute :raised,    :boolean, default: false
+  attribute :inverted,  :boolean, default: false
+  attribute :basic,     :boolean, default: false
+  attribute :compact,   :boolean, default: false
+  attribute :color,     :string,  default: nil
+  attribute :secondary, :boolean, default: false
+  attribute :open,      :boolean, default: false
+
+  slot :title
 
   def to_s
     classes = class_names(
       "ui",
-      { "styled" => styled, "fluid" => fluid, "inverted" => inverted },
-      "accordion"
+      color,
+      { "attached" => attached, "raised" => raised, "inverted" => inverted,
+        "basic" => basic, "compact" => compact, "secondary" => secondary },
+      "segment"
     )
 
-    data = { controller: "fui-accordion" }
-    data[:fui_accordion_exclusive_value] = "false" unless exclusive
-    data[:fui_accordion_collapsible_value] = "false" unless collapsible
+    opts = merge_html_options(class: classes)
+    opts[:open] = "" if open
 
-    tag.div(class: classes, data: data) { @content }
+    tag.details(**opts) {
+      safe_join([
+        tag.summary { @slots[:title] || "" },
+        tag.div { @content }
+      ])
+    }
   end
 end

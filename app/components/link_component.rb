@@ -18,6 +18,6 @@ class LinkComponent < Component
     opts[:target] = target if target
     opts[:rel] = rel if rel
 
-    tag.a(**opts) { @content }
+    tag.a(**merge_html_options(**opts)) { @content }
   end
 end

@@ -6,6 +6,8 @@
 #   Input(placeholder: "Search...", icon: "search")
 #   Input(icon: "users", icon_position: "left", placeholder: "Find users...")
 #   Input(labeled: true) { text "$" }
+#   Input(name: "email", label: "Email", placeholder: "you@example.com")
+#   Input(name: "password", label: "Password", input_type: "password")
 
 class InputComponent < Component
   attribute :icon,          :string,  default: nil
@@ -23,8 +25,27 @@ class InputComponent < Component
   attribute :input_type,    :string,  default: "text"
   attribute :name,          :string,  default: nil
   attribute :value,         :string,  default: nil
+  attribute :label,         :string,  default: nil
+  attribute :id,            :string,  default: nil
 
   def to_s
+    input_field = input_element
+
+    if label
+      tag.div(class: "field") {
+        safe_join([
+          tag.label(label, for: id || name),
+          input_field
+        ])
+      }
+    else
+      input_field
+    end
+  end
+
+  private
+
+  def input_element
     classes = class_names(
       "ui",
       size,
@@ -41,6 +62,7 @@ class InputComponent < Component
     input_opts[:name] = name if name
     input_opts[:value] = value if value
     input_opts[:disabled] = "disabled" if disabled
+    input_opts[:id] = id if id
 
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     input_el = tag.input(**input_opts)
