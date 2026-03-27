@@ -29,6 +29,7 @@ module ComponentHelper
 
     # Elements
     Button:      ButtonComponent,
+    Paragraph:   ParagraphComponent,
     ButtonTo:    ButtonToComponent,
     Container:   ContainerComponent,
     Divider:     DividerComponent,
@@ -97,7 +98,10 @@ module ComponentHelper
     # Behaviors
     Api:         ApiComponent,
     State:       StateComponent,
-    Visibility:  VisibilityComponent
+    Visibility:  VisibilityComponent,
+
+    # Blocks
+    ResourceListBlock: ResourceListBlock
   }.freeze
 
   COMPONENT_MAP.each do |name, klass|

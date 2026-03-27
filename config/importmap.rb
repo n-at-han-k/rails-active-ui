@@ -26,5 +26,6 @@ pin "ui/controllers/fui_toast_controller", to: "ui/controllers/fui_toast_control
 pin "ui/controllers/fui_transition_controller", to: "ui/controllers/fui_transition_controller.js"
 pin "ui/controllers/fui_visibility_controller", to: "ui/controllers/fui_visibility_controller.js"
 pin "ui/controllers/fui_emoji_picker_controller", to: "ui/controllers/fui_emoji_picker_controller.js"
+pin "ui/controllers/fui_datatable_controller", to: "ui/controllers/fui_datatable_controller.js"
 
 pin "emoji-picker-element", to: "https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"

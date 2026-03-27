@@ -48,6 +48,43 @@ module FuiHelper
     FOMANTIC_SCRIPTS.each do |name|
       tags << javascript_include_tag(name)
     end
+    tags << javascript_include_tag("datatables")
     safe_join(tags, "\n")
+  end
+
+  # Renders a DataTables-powered table via Stimulus controller.
+  #
+  # Generates a <table> with Fomantic-UI styling, wrapped in a <div>
+  # annotated with the fui-datatable Stimulus controller. The block
+  # should yield <tr> rows for the <tbody>.
+  #
+  #   datatable(columns: ["Name", "Status"], options: { pageLength: 50 }) do
+  #     @records.each do |record|
+  #       TableRow {
+  #         TableCell { text record.name }
+  #         TableCell { text record.status }
+  #       }
+  #     end
+  #   end
+  #
+  def datatable(columns: [], options: {}, &block)
+    options_json = options.to_json
+
+    content_tag(:div,
+      data: {
+        controller: "fui-datatable",
+        "fui-datatable-options-value": options_json
+      }
+    ) do
+      content_tag(:table, class: "ui celled striped table", style: "width:100%") do
+        thead = content_tag(:thead) do
+          content_tag(:tr) do
+            safe_join(columns.map { |col| content_tag(:th, col) })
+          end
+        end
+        tbody = content_tag(:tbody, &block)
+        thead + tbody
+      end
+    end
   end
 end

@@ -51,6 +51,9 @@ import FuiStateController from "ui/controllers/fui_state_controller"
 import FuiVisibilityController from "ui/controllers/fui_visibility_controller"
 import FuiEmojiPickerController from "ui/controllers/fui_emoji_picker_controller"
 
+// DataTables
+import FuiDatatableController from "ui/controllers/fui_datatable_controller"
+
 const controllers = {
   "fui-site":       FuiSiteController,
   "fui-form":       FuiFormController,
@@ -78,6 +81,7 @@ const controllers = {
   "fui-state":      FuiStateController,
   "fui-visibility": FuiVisibilityController,
   "fui-emoji-picker": FuiEmojiPickerController,
+  "fui-datatable": FuiDatatableController,
 }
 
 export function registerFuiControllers(application) {
@@ -114,4 +118,5 @@ export {
   FuiStateController,
   FuiVisibilityController,
   FuiEmojiPickerController,
+  FuiDatatableController,
 }

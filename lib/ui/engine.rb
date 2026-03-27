@@ -3,7 +3,10 @@
 module Ui
   class Engine < ::Rails::Engine
     initializer "ui.autoload_paths" do |app|
-      app.config.autoload_paths += [ root.join("app", "lib").to_s ]
+      app.config.autoload_paths += [
+        root.join("app", "lib").to_s,
+        root.join("app", "blocks").to_s
+      ]
     end
 
     initializer "ui.assets" do |app|
