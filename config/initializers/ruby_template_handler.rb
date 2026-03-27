@@ -26,6 +26,9 @@ ActionView::Template.register_template_handler :ruby, ->(template, source) {
       output_buffer
     RUBY
   else
-    "#{source}\noutput_buffer"
+    <<~RUBY
+      #{source}
+      output_buffer
+    RUBY
   end
 }

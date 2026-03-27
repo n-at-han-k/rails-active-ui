@@ -114,6 +114,10 @@ module ComponentHelper
     output_buffer << content.to_s
   end
 
+  def Partial(*args, **kwargs, &block)
+    output_buffer << render(*args, **kwargs, &block)
+  end
+
   # PascalCase method calls that aren't in COMPONENT_MAP are forwarded
   # to the current form builder as underscored method names.
   # e.g. TextField(:label, placeholder: "Name") -> f.text_field(:label, placeholder: "Name")
