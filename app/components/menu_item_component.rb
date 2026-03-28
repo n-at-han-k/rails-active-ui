@@ -43,7 +43,7 @@ class MenuItemComponent < Component
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     inner = icon_el ? safe_join([ icon_el, @content ]) : @content
 
-    opts = { class: classes }
+    opts = merge_html_options(class: classes)
     opts["data-value"] = value if value
     opts[:target] = target if target
     opts[:rel] = rel if rel
