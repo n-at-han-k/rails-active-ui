@@ -14,7 +14,7 @@ class Component
   include ActiveModel::Attributes
 
   # HTML pass-through keys that bypass ActiveModel attributes
-  HTML_OPTIONS = %i[id class data style role tabindex title aria].to_set.freeze
+  HTML_OPTIONS = %i[id class data style role tabindex title aria target rel].to_set.freeze
 
   class_attribute :slot_names, default: []
 

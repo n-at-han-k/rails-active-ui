@@ -23,6 +23,8 @@ class MenuItemComponent < Component
   attribute :color,    :string,  default: nil
   attribute :dropdown, :boolean, default: false
   attribute :value,    :string,  default: nil
+  attribute :target,   :string,  default: nil
+  attribute :rel,      :string,  default: nil
 
   def to_s
     classes = class_names(
@@ -43,6 +45,8 @@ class MenuItemComponent < Component
 
     opts = { class: classes }
     opts["data-value"] = value if value
+    opts[:target] = target if target
+    opts[:rel] = rel if rel
 
     if href
       tag.a(**opts, href: href) { inner }
