@@ -31,13 +31,12 @@ class ButtonToComponent < Component
       "button"
     )
 
-    form_opts = { method: method.to_sym }
-    form_opts[:data] = { turbo_confirm: confirm } if confirm
+    html_opts = { method: method.to_sym }
+    html_opts[:form] = { data: { turbo_confirm: confirm } } if confirm
 
     @view_context.button_to(
       url,
-      form: form_opts,
-      class: classes
+      html_opts.merge(class: classes)
     ) { @content }
   end
 end
