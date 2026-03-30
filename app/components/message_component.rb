@@ -47,7 +47,9 @@ class MessageComponent < Component
     content_parts = safe_join([ header_el, @content.presence ])
     content_wrapper = icon ? tag.div(class: "content") { content_parts } : content_parts
 
-    tag.div(class: classes) {
+    opts = merge_html_options(class: classes)
+
+    tag.div(**opts) {
       safe_join([ close_el, icon_el, content_wrapper ])
     }
   end

@@ -73553,3 +73553,7 @@ body.pushable > .pusher {
     background-color: #fcfcfd;
   }
 }
+
+.padding {
+  padding: 1rem;
+}

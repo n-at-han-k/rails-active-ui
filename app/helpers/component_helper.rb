@@ -19,13 +19,15 @@ module ComponentHelper
     Row:         RowComponent,
     Pusher:      PusherComponent,
     Overlay:     OverlayComponent,
-    Link:        LinkComponent,
+    LinkTo:      LinkToComponent,
     SubHeader:   SubHeaderComponent,
 
     # Globals
     Reset:       ResetComponent,
     Site:        SiteComponent,
     Wrapper:     WrapperComponent,
+    Template:    TemplateComponent,
+    BackButton:  BackButtonComponent,
 
     # Elements
     Button:      ButtonComponent,
@@ -122,6 +124,32 @@ module ComponentHelper
     output_buffer << render(*args, **kwargs, &block)
   end
 
+  def DocType(type = :html)
+    output_buffer << "<!DOCTYPE #{type}>".html_safe
+  end
+
+  def StylesheetLink(*args)
+    output_buffer << stylesheet_link_tag(*args)
+  end
+
+  def JavascriptImportmap
+    output_buffer << javascript_importmap_tags
+  end
+
+  def CsrfMetaTags
+    output_buffer << csrf_meta_tags
+  end
+
+  def CspMetaTag
+    output_buffer << csp_meta_tag
+  end
+
+  def ContentFor(*args, &block)
+    value = content_for(*args, &block)
+    output_buffer << value if value.present?
+    value
+  end
+
   # PascalCase method calls that aren't in COMPONENT_MAP are forwarded
   # to the current form builder as underscored method names.
   # e.g. TextField(:label, placeholder: "Name") -> f.text_field(:label, placeholder: "Name")
@@ -135,6 +163,13 @@ module ComponentHelper
         return
       end
     end
+
+    if method_name =~ /\A[A-Z]/
+      tag_name = method_name.to_s.underscore.gsub("_", "-")
+      output_buffer << tag.public_send(tag_name, *args, **kwargs, &block)
+      return
+    end
+
     super
   end
 
@@ -143,6 +178,9 @@ module ComponentHelper
       underscored = method_name.to_s.gsub(/([a-z])([A-Z])/, '\1_\2').downcase
       return true if @_form_builder.respond_to?(underscored)
     end
+
+    return true if method_name =~ /\A[A-Z]/
+
     super
   end
 end

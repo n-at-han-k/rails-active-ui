@@ -45,13 +45,14 @@ class GridComponent < Component
       "grid"
     )
 
-    tag.div(class: classes) { @content }
+    tag.div(**merge_html_options(class: classes)) { @content }
   end
 
   private
 
   def divided_class
     case divided
+    when "t", "1" then "divided"
     when "vertically" then "vertically divided"
     when "true", true then "divided"
     when String then "#{divided} divided"
@@ -60,6 +61,7 @@ class GridComponent < Component
 
   def celled_class
     case celled
+    when "t", "1" then "celled"
     when "internally" then "internally celled"
     when "true", true then "celled"
     when String then "#{celled} celled"
@@ -68,6 +70,7 @@ class GridComponent < Component
 
   def padded_class
     case padded
+    when "t", "1" then "padded"
     when "vertically" then "vertically padded"
     when "horizontally" then "horizontally padded"
     when "true", true then "padded"
@@ -77,6 +80,7 @@ class GridComponent < Component
 
   def relaxed_class
     case relaxed
+    when "t", "1" then "relaxed"
     when "very" then "very relaxed"
     when "true", true then "relaxed"
     when String then "#{relaxed} relaxed"

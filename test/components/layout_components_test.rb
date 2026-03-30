@@ -256,17 +256,17 @@ class LayoutComponentsTest < ComponentTestCase
     assert_includes html, "pusher"
   end
 
-  # --- LinkComponent ---
+  # --- LinkToComponent ---
 
   test "link renders anchor tag" do
-    html = render_inline(LinkComponent, href: "/about") { ctx.output_buffer << "About" }
+    html = render_inline(LinkToComponent, href: "/about") { ctx.output_buffer << "About" }
     assert_includes html, "<a"
     assert_includes html, 'href="/about"'
     assert_includes html, "About"
   end
 
   test "link with target" do
-    html = render_inline(LinkComponent, href: "/help", target: "_blank")
+    html = render_inline(LinkToComponent, href: "/help", target: "_blank")
     assert_includes html, 'target="_blank"'
   end
 

@@ -26,6 +26,7 @@ class DropdownComponent < Component
   attribute :labeled,       :boolean, default: false
   attribute :loading,       :boolean, default: false
   attribute :disabled,      :boolean, default: false
+  attribute :action,        :string,  default: nil
 
   def to_s
     classes = class_names(
@@ -41,13 +42,18 @@ class DropdownComponent < Component
 
     data = { controller: "fui-dropdown" }
     data[:fui_dropdown_clearable_value] = "true" if clearable
-    data[:fui_dropdown_placeholder_value] = placeholder if placeholder
+    data[:fui_dropdown_placeholder_value] = placeholder if placeholder && !inline
+    data[:fui_dropdown_action_value] = action if action
 
     hidden_opts = { type: "hidden", value: default_value || "" }
     hidden_opts[:name] = name if name
 
     search_el = search ? tag.input(class: "search") : nil
-    text_el = tag.div(class: "default text") { placeholder || "" }
+    text_el = if inline
+      tag.div(class: "text") { tag.h2(class: "ui header") { placeholder || "" } }
+    else
+      tag.div(class: "text") { placeholder || "" }
+    end
     menu_el = tag.div(class: "menu") { @content }
 
     tag.div(class: classes, data: data) {

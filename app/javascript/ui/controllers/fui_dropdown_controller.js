@@ -18,6 +18,7 @@ export default class extends Controller {
   static values = {
     clearable:      { type: Boolean, default: false },
     placeholder:    { type: String, default: "" },
+    action:         { type: String, default: "" },
     forceSelection: { type: Boolean, default: false },
     fullTextSearch:  { type: Boolean, default: false },
     duration:       { type: Number, default: 200 },
@@ -45,7 +46,7 @@ export default class extends Controller {
   // -- Private --
 
   _options() {
-    return {
+    const options = {
       clearable:      this.clearableValue,
       placeholder:    this.placeholderValue || false,
       forceSelection: this.forceSelectionValue,
@@ -64,5 +65,11 @@ export default class extends Controller {
         this.dispatch("remove", { detail: { value: removedValue, text: removedText } })
       },
     }
+
+    if (this.actionValue) {
+      options.action = this.actionValue
+    }
+
+    return options
   }
 }

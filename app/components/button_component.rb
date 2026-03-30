@@ -40,10 +40,12 @@ class ButtonComponent < Component
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     content = safe_join([ icon_el, @content ])
 
+    opts = merge_html_options(class: classes)
+
     if href
-      tag.a(class: classes, href: href) { content }
+      tag.a(**opts, href: href) { content }
     else
-      tag.button(class: classes, type: type) { content }
+      tag.button(**opts, type: type) { content }
     end
   end
 end

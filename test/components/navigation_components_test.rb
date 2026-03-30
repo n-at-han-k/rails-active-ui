@@ -3,6 +3,36 @@
 require "test_helper"
 
 class NavigationComponentsTest < ComponentTestCase
+  # --- BackButtonComponent ---
+
+  test "back button renders anchor with menu item class" do
+    html = render_inline(BackButtonComponent, href: "/dashboard")
+
+    assert_includes html, "<a"
+    assert_includes html, 'href="/dashboard"'
+    assert_includes html, 'class="item"'
+  end
+
+  test "back button includes navigation data attributes" do
+    html = render_inline(BackButtonComponent, href: "/dashboard")
+
+    assert_includes html, 'data-controller="navigation"'
+    assert_includes html, 'data-action="navigation#back"'
+    assert_includes html, 'data-turbo-action="replace"'
+  end
+
+  test "back button supports icon" do
+    html = render_inline(BackButtonComponent, href: "/dashboard", icon: "arrow left")
+
+    assert_includes html, "arrow left icon"
+  end
+
+  test "back button block content overrides label" do
+    html = render_inline(BackButtonComponent, href: "/dashboard") { ctx.output_buffer << "Go Back" }
+
+    assert_includes html, "Go Back"
+  end
+
   # --- MenuComponent ---
 
   test "menu renders with default classes" do
