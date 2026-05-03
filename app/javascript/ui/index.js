@@ -56,6 +56,9 @@ import NavigationController from "ui/controllers/navigation_controller"
 import FuiDatatableController from "ui/controllers/fui_datatable_controller"
 import FuiItemListController from "ui/controllers/fui_item_list_controller"
 
+// Turbo
+import TurboModalController from "ui/controllers/turbo_modal_controller"
+
 const controllers = {
   "fui-site":       FuiSiteController,
   "fui-form":       FuiFormController,
@@ -86,6 +89,7 @@ const controllers = {
   "fui-datatable": FuiDatatableController,
   "fui-item-list": FuiItemListController,
   "navigation": NavigationController,
+  "turbo-modal": TurboModalController,
 }
 
 export function registerFuiControllers(application) {
@@ -125,4 +129,5 @@ export {
   FuiDatatableController,
   FuiItemListController,
   NavigationController,
+  TurboModalController,
 }
