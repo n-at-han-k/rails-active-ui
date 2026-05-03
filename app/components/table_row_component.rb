@@ -34,10 +34,8 @@ class TableRowComponent < Component
       ("disabled" if disabled)
     ].compact
 
-    if classes.any?
-      tag.tr(class: classes.join(" ")) { @content }
-    else
-      tag.tr { @content }
-    end
+    opts = {}
+    opts[:class] = classes.join(" ") if classes.any?
+    tag.tr(**merge_html_options(**opts)) { @content }
   end
 end

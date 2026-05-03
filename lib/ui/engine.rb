@@ -20,8 +20,10 @@ module Ui
       end
     end
 
-    initializer "ui.helpers" do
+    initializer "ui.helpers", after: :load_config_initializers do
       ActiveSupport.on_load(:action_view) do
+        require_dependency "component_helper"
+        require_dependency "fui_helper"
         include ComponentHelper
         include FuiHelper
       end

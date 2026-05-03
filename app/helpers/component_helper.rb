@@ -13,107 +13,107 @@
 module ComponentHelper
   COMPONENT_MAP = {
     # Layout Primitives
-    VStack:      VStackComponent,
-    HStack:      HStackComponent,
-    Column:      ColumnComponent,
-    Row:         RowComponent,
-    Pusher:      PusherComponent,
-    Overlay:     OverlayComponent,
-    LinkTo:      LinkToComponent,
-    SubHeader:   SubHeaderComponent,
+    VStack:      "VStackComponent",
+    HStack:      "HStackComponent",
+    Column:      "ColumnComponent",
+    Row:         "RowComponent",
+    Pusher:      "PusherComponent",
+    Overlay:     "OverlayComponent",
+    LinkTo:      "LinkToComponent",
+    SubHeader:   "SubHeaderComponent",
 
     # Globals
-    Reset:       ResetComponent,
-    Site:        SiteComponent,
-    Wrapper:     WrapperComponent,
-    Template:    TemplateComponent,
-    BackButton:  BackButtonComponent,
+    Reset:       "ResetComponent",
+    Site:        "SiteComponent",
+    Wrapper:     "WrapperComponent",
+    Template:    "TemplateComponent",
+    BackButton:  "BackButtonComponent",
 
     # Elements
-    Button:      ButtonComponent,
-    Paragraph:   ParagraphComponent,
-    ButtonTo:    ButtonToComponent,
-    Container:   ContainerComponent,
-    Divider:     DividerComponent,
-    Emoji:       EmojiComponent,
-    Flag:        FlagComponent,
-    Header:      HeaderComponent,
-    Icon:        IconComponent,
-    Image:       ImageComponent,
-    Input:       InputComponent,
-    Label:       LabelComponent,
-    List:        ListComponent,
-    Loader:      LoaderComponent,
-    Placeholder: PlaceholderComponent,
-    Rail:        RailComponent,
-    Reveal:      RevealComponent,
-    Segment:      SegmentComponent,
-    SegmentGroup: SegmentGroupComponent,
-    Step:        StepComponent,
-    StepGroup:   StepGroupComponent,
+    Button:      "ButtonComponent",
+    Paragraph:   "ParagraphComponent",
+    ButtonTo:    "ButtonToComponent",
+    Container:   "ContainerComponent",
+    Divider:     "DividerComponent",
+    Emoji:       "EmojiComponent",
+    Flag:        "FlagComponent",
+    Header:      "HeaderComponent",
+    Icon:        "IconComponent",
+    Image:       "ImageComponent",
+    Input:       "InputComponent",
+    Label:       "LabelComponent",
+    List:        "ListComponent",
+    Loader:      "LoaderComponent",
+    Placeholder: "PlaceholderComponent",
+    Rail:        "RailComponent",
+    Reveal:      "RevealComponent",
+    Segment:      "SegmentComponent",
+    SegmentGroup: "SegmentGroupComponent",
+    Step:        "StepComponent",
+    StepGroup:   "StepGroupComponent",
 
-    Text:        TextComponent,
+    Text:        "TextComponent",
 
     # Collections
-    Breadcrumb:  BreadcrumbComponent,
-    Form:        FormComponent,
-    Grid:        GridComponent,
-    Menu:        MenuComponent,
-    MenuItem:    MenuItemComponent,
-    SubMenu:     SubMenuComponent,
-    Message:     MessageComponent,
-    Table:       TableComponent,
-    TableRow:    TableRowComponent,
-    TableCell:   TableCellComponent,
+    Breadcrumb:  "BreadcrumbComponent",
+    Form:        "FormComponent",
+    Grid:        "GridComponent",
+    Menu:        "MenuComponent",
+    MenuItem:    "MenuItemComponent",
+    SubMenu:     "SubMenuComponent",
+    Message:     "MessageComponent",
+    Table:       "TableComponent",
+    TableRow:    "TableRowComponent",
+    TableCell:   "TableCellComponent",
 
     # Views
-    Ad:          AdComponent,
-    ItemGroup:   ItemGroupComponent,
-    Card:        CardComponent,
-    Comment:     CommentComponent,
-    Feed:        FeedComponent,
-    Item:        ItemComponent,
-    Statistic:   StatisticComponent,
+    Ad:          "AdComponent",
+    ItemGroup:   "ItemGroupComponent",
+    Card:        "CardComponent",
+    Comment:     "CommentComponent",
+    Feed:        "FeedComponent",
+    Item:        "ItemComponent",
+    Statistic:   "StatisticComponent",
 
     # Modules
-    Accordion:   AccordionComponent,
-    Calendar:    CalendarComponent,
-    Checkbox:    CheckboxComponent,
-    Dimmer:      DimmerComponent,
-    Dropdown:    DropdownComponent,
-    Embed:       EmbedComponent,
-    Flyout:      FlyoutComponent,
-    Modal:       ModalComponent,
-    Nag:         NagComponent,
-    Popup:       PopupComponent,
-    Progress:    ProgressComponent,
-    Slider:      SliderComponent,
-    Rating:      RatingComponent,
-    Search:      SearchComponent,
-    Shape:       ShapeComponent,
-    Sidebar:     SidebarComponent,
-    Sticky:      StickyComponent,
-    Tab:         TabComponent,
-    Toast:       ToastComponent,
-    Transition:  TransitionComponent,
+    Accordion:   "AccordionComponent",
+    Calendar:    "CalendarComponent",
+    Checkbox:    "CheckboxComponent",
+    Dimmer:      "DimmerComponent",
+    Dropdown:    "DropdownComponent",
+    Embed:       "EmbedComponent",
+    Flyout:      "FlyoutComponent",
+    Modal:       "ModalComponent",
+    Nag:         "NagComponent",
+    Popup:       "PopupComponent",
+    Progress:    "ProgressComponent",
+    Slider:      "SliderComponent",
+    Rating:      "RatingComponent",
+    Search:      "SearchComponent",
+    Shape:       "ShapeComponent",
+    Sidebar:     "SidebarComponent",
+    Sticky:      "StickyComponent",
+    Tab:         "TabComponent",
+    Toast:       "ToastComponent",
+    Transition:  "TransitionComponent",
 
     # Behaviors
-    Api:         ApiComponent,
-    State:       StateComponent,
-    Visibility:  VisibilityComponent,
+    Api:         "ApiComponent",
+    State:       "StateComponent",
+    Visibility:  "VisibilityComponent",
 
     # Blocks
-    ResourceListBlock: ResourceListBlock
+    ResourceListBlock: "ResourceListBlock"
   }.freeze
 
-  COMPONENT_MAP.each do |name, klass|
+  COMPONENT_MAP.each do |name, klass_name|
     define_method(name) { |**kwargs, &block|
-      output_buffer << render(klass.new(**kwargs), &block)
+      output_buffer << render(klass_name.constantize.new(**kwargs), &block)
     }
   end
 
   def Style(css = nil, &block)
-    output_buffer << render(StyleComponent.new(css), &block)
+    output_buffer << render("StyleComponent".constantize.new(css), &block)
   end
 
   def text(content)
