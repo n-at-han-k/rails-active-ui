@@ -1,2 +1,3 @@
-Rails.application.routes.draw do
+Ui::Engine.routes.draw do
+  resources :examples, only: [:index]
 end
