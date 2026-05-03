@@ -63,6 +63,7 @@ class InputComponent < Component
     input_opts[:value] = value if value
     input_opts[:disabled] = "disabled" if disabled
     input_opts[:id] = id if id
+    input_opts[:aria] = @html_options[:aria] if @html_options&.dig(:aria)
 
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     input_el = tag.input(**input_opts)
