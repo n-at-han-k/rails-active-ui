@@ -1,24 +1,34 @@
 # frozen_string_literal: true
 
-# Tab — tab navigation with content panes.
+# Tab — a single content pane within a TabGroup.
 #
-# Usage:
-#   Tab(active: true) { text "Tab pane content" }
+# Usage (inside TabGroup):
+#   Tab(active: true, path: "first", attached: true, segment: true) {
+#     text "First tab content"
+#   }
+#
+# Usage (standalone, no TabGroup):
+#   Tab(active: true, path: "first") { text "Pane content" }
 
 class TabComponent < Component
-  attribute :active, :boolean, default: false
-  attribute :path,   :string,  default: nil
+  include Attachable
+
+  attribute :active,  :boolean, default: false
+  attribute :path,    :string,  default: nil
+  attribute :segment, :boolean, default: false
 
   def to_s
     classes = class_names(
       "ui",
-      { "active" => active },
+      { "active" => active,
+        "bottom attached" => attached,
+        "segment" => segment },
       "tab"
     )
 
-    data = { controller: "fui-tab" }
+    data = {}
     data[:tab] = path if path
 
-    tag.div(class: classes, data: data) { @content }
+    tag.div(**merge_html_options(class: classes, data: data)) { @content }
   end
 end

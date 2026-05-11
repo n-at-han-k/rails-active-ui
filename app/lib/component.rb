@@ -19,8 +19,10 @@ class Component
   class_attribute :slot_names, default: []
 
   def initialize(**kwargs)
-    @html_options = kwargs.extract!(*HTML_OPTIONS)
-    super(**kwargs)
+    known = self.class.attribute_names.map(&:to_sym).to_set
+    attrs = kwargs.select { |k, _| known.include?(k) }
+    @html_options = kwargs.except(*attrs.keys)
+    super(**attrs)
   end
 
   def self.default(**overrides)

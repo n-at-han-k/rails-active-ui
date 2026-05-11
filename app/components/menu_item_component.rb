@@ -25,6 +25,7 @@ class MenuItemComponent < Component
   attribute :value,    :string,  default: nil
   attribute :target,   :string,  default: nil
   attribute :rel,      :string,  default: nil
+  attribute :tab,      :string,  default: nil
 
   def to_s
     classes = class_names(
@@ -45,6 +46,7 @@ class MenuItemComponent < Component
 
     opts = merge_html_options(class: classes)
     opts["data-value"] = value if value
+    opts["data-tab"] = tab if tab
     opts[:target] = target if target
     opts[:rel] = rel if rel
 

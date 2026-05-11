@@ -587,37 +587,33 @@ Header(size: :h3) { text "Tab" }
 text "Tab content panels used with a menu for switching views."
 
 Segment {
-  Menu(pointing: true, secondary: true) {
-    MenuItem(active: true) {
-      concat tag.a("data-tab": "tab-1") { "Tab 1" }
+  TabGroup {
+    Menu(tabular: true, attached: "top") {
+      MenuItem(active: true, tab: "tab-1") { text "Tab 1" }
+      MenuItem(tab: "tab-2") { text "Tab 2" }
     }
-    MenuItem {
-      concat tag.a("data-tab": "tab-2") { "Tab 2" }
+    Tab(active: true, path: "tab-1", attached: true, segment: true) {
+      text "Content for Tab 1"
     }
-  }
-  Tab(active: true, path: "tab-1") {
-    text "Content for Tab 1"
-  }
-  Tab(path: "tab-2") {
-    text "Content for Tab 2"
+    Tab(path: "tab-2", attached: true, segment: true) {
+      text "Content for Tab 2"
+    }
   }
 }
 
 Segment(secondary: true) {
   concat tag.pre { tag.code(
-    'Menu(pointing: true, secondary: true) {
-  MenuItem(active: true) {
-    concat tag.a("data-tab": "tab-1") { "Tab 1" }
+    'TabGroup {
+  Menu(tabular: true, attached: "top") {
+    MenuItem(active: true, tab: "tab-1") { text "Tab 1" }
+    MenuItem(tab: "tab-2") { text "Tab 2" }
   }
-  MenuItem {
-    concat tag.a("data-tab": "tab-2") { "Tab 2" }
+  Tab(active: true, path: "tab-1", attached: true, segment: true) {
+    text "Content for Tab 1"
   }
-}
-Tab(active: true, path: "tab-1") {
-  text "Content for Tab 1"
-}
-Tab(path: "tab-2") {
-  text "Content for Tab 2"
+  Tab(path: "tab-2", attached: true, segment: true) {
+    text "Content for Tab 2"
+  }
 }'
   )}
 }

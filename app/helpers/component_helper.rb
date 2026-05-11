@@ -94,6 +94,7 @@ module ComponentHelper
     Sidebar:     "SidebarComponent",
     Sticky:      "StickyComponent",
     Tab:         "TabComponent",
+    TabGroup:    "TabGroupComponent",
     Toast:       "ToastComponent",
     Transition:  "TransitionComponent",
 
