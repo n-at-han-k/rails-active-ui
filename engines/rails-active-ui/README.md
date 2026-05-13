@@ -64,6 +64,37 @@ class Engine < ::Rails::Engine
 end
 ```
 
+## View DSL
+
+Views use `.html.ruby` files with a pure-Ruby DSL. Every PascalCase call renders a component:
+
+```ruby
+Header(size: :h2) { "Hello World" }
+Segment(inverted: true) {
+  Paragraph { "Some content here" }
+}
+```
+
+### Text content
+
+There are two ways to output text inside a block:
+
+- **Block return value** -- when the block contains only a string, just return it directly:
+  ```ruby
+  Header { "Page Title" }
+  Button(color: "green") { "Save" }
+  ```
+
+- **`text` helper** -- when you need to mix text with other components in the same block, use `text`:
+  ```ruby
+  Button(color: "blue") {
+    Icon(name: "edit")
+    text " Add Reply"
+  }
+  ```
+
+Prefer `{ "string" }` over `{ text "string" }` when the block contains only text.
+
 ## Form Builder
 
 rails-active-ui ships with `FomanticFormBuilder`, a drop-in `ActionView::Helpers::FormBuilder` subclass that wraps every field helper in Fomantic-UI markup.
@@ -72,7 +103,7 @@ Set it as the default in your `ApplicationController`:
 
 ```ruby
 class ApplicationController < ActionController::Base
-  ActionView::Base.default_form_builder = FomanticFormBuilder
+  default_form_builder Ui::FomanticFormBuilder
 end
 ```
 

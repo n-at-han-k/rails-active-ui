@@ -5,26 +5,26 @@ Sidebar(direction: "left", inverted: true) {
   MenuItem(header: true) {
     text "General"
     MenuMenu {
-      MenuItem(icon: "tachometer alternate") { text "Dashboard" }
+      MenuItem(icon: "tachometer alternate") { "Dashboard" }
     }
   }
 
   MenuItem(header: true) {
     text "Administration"
     MenuMenu {
-      MenuItem(icon: "cogs") { text "Settings" }
-      MenuItem(icon: "users") { text "Team" }
+      MenuItem(icon: "cogs") { "Settings" }
+      MenuItem(icon: "users") { "Team" }
     }
   }
 
-  MenuItem(href: "#", icon: "chart line") { text "Charts" }
-  MenuItem(icon: "lightbulb") { text "Apps" }
+  MenuItem(href: "#", icon: "chart line") { "Charts" }
+  MenuItem(icon: "lightbulb") { "Apps" }
 
   MenuItem(header: true) {
     text "Other"
     MenuMenu {
-      MenuItem(href: "#", icon: "envelope") { text "Messages" }
-      MenuItem(href: "#", icon: "calendar alternate") { text "Calendar" }
+      MenuItem(href: "#", icon: "envelope") { "Messages" }
+      MenuItem(href: "#", icon: "calendar alternate") { "Calendar" }
     }
   }
 
@@ -37,11 +37,11 @@ Sidebar(direction: "left", inverted: true) {
   Segment(inverted: true) {
     Progress(value: 54, total: 100, color: "olive", size: "tiny", inverted: true) { |c|
       c.bar {}
-      c.label { text "Monthly Bandwidth" }
+      c.label { "Monthly Bandwidth" }
     }
     Progress(value: 78, total: 100, color: "teal", size: "tiny", inverted: true) { |c|
       c.bar {}
-      c.label { text "Disk Usage" }
+      c.label { "Disk Usage" }
     }
   }
 }
@@ -51,7 +51,7 @@ Menu(fixed: "top", inverted: true) {
   MenuMenu(position: "left") {
     MenuItem(href: "#") { Icon(name: "sidebar") }
     MenuItem(href: "#") {
-      Header(size: "h4") { text "Semantic UI" }
+      Header(size: "h4") { "Semantic UI" }
     }
   }
 
@@ -60,9 +60,9 @@ Menu(fixed: "top", inverted: true) {
     Dropdown {
       Icon(name: "user circle")
       MenuMenu {
-        MenuItem(href: "#", icon: "info circle") { text "Profile" }
-        MenuItem(href: "#", icon: "wrench") { text "Settings" }
-        MenuItem(href: "#", icon: "sign-out") { text "Logout" }
+        MenuItem(href: "#", icon: "info circle") { "Profile" }
+        MenuItem(href: "#", icon: "wrench") { "Settings" }
+        MenuItem(href: "#", icon: "sign-out") { "Logout" }
       }
     }
   }
@@ -74,37 +74,37 @@ Pusher {
   Grid(stackable: true, padded: "true") {
     Column(computer: 4, tablet: 8, mobile: 16) {
       Card(fluid: true) { |c|
-        c.header { Header(size: "h3", color: "red") { text "3958" } }
-        c.meta { text "orders" }
-        c.description { text "Elliot requested permission to view your contact details" }
-        c.extra { Button(color: "red") { text "More Info" } }
+        c.header { Header(size: "h3", color: "red") { "3958" } }
+        c.meta { "orders" }
+        c.description { "Elliot requested permission to view your contact details" }
+        c.extra { Button(color: "red") { "More Info" } }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16) {
       Card(fluid: true) { |c|
-        c.header { Header(size: "h3", color: "green") { text "57.6%" } }
-        c.meta { text "Time" }
-        c.description { text "Elliot requested permission to view your contact details" }
-        c.extra { Button(color: "green") { text "More Info" } }
+        c.header { Header(size: "h3", color: "green") { "57.6%" } }
+        c.meta { "Time" }
+        c.description { "Elliot requested permission to view your contact details" }
+        c.extra { Button(color: "green") { "More Info" } }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16) {
       Card(fluid: true) { |c|
-        c.header { Header(size: "h3", color: "teal") { text "3112" } }
-        c.meta { text "Saves" }
-        c.description { text "Elliot requested permission to view your contact details" }
-        c.extra { Button(color: "teal") { text "More Info" } }
+        c.header { Header(size: "h3", color: "teal") { "3112" } }
+        c.meta { "Saves" }
+        c.description { "Elliot requested permission to view your contact details" }
+        c.extra { Button(color: "teal") { "More Info" } }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16) {
       Card(fluid: true) { |c|
-        c.header { Header(size: "h3", color: "purple") { text "9805" } }
-        c.meta { text "Views" }
-        c.description { text "Elliot requested permission to view your contact details" }
-        c.extra { Button(color: "purple") { text "More Info" } }
+        c.header { Header(size: "h3", color: "purple") { "9805" } }
+        c.meta { "Views" }
+        c.description { "Elliot requested permission to view your contact details" }
+        c.extra { Button(color: "purple") { "More Info" } }
       }
     }
   }
@@ -115,33 +115,33 @@ Pusher {
       Table(celled: true, striped: true) { |c|
         c.header {
           TableRow {
-            TableCell(heading: true, colspan: 3) { text "Git Repository" }
+            TableCell(heading: true, colspan: 3) { "Git Repository" }
           }
         }
         TableRow {
           TableCell(collapsing: true) { Icon(name: "folder"); text " node_modules" }
-          TableCell { text "Initial commit" }
-          TableCell(aligned: "right", collapsing: true) { text "10 hours ago" }
+          TableCell { "Initial commit" }
+          TableCell(aligned: "right", collapsing: true) { "10 hours ago" }
         }
         TableRow {
           TableCell { Icon(name: "folder"); text " test" }
-          TableCell { text "Initial commit" }
-          TableCell(aligned: "right") { text "10 hours ago" }
+          TableCell { "Initial commit" }
+          TableCell(aligned: "right") { "10 hours ago" }
         }
         TableRow {
           TableCell { Icon(name: "folder"); text " build" }
-          TableCell { text "Initial commit" }
-          TableCell(aligned: "right") { text "10 hours ago" }
+          TableCell { "Initial commit" }
+          TableCell(aligned: "right") { "10 hours ago" }
         }
         TableRow {
           TableCell { Icon(name: "file outline"); text " package.json" }
-          TableCell { text "Initial commit" }
-          TableCell(aligned: "right") { text "10 hours ago" }
+          TableCell { "Initial commit" }
+          TableCell(aligned: "right") { "10 hours ago" }
         }
         TableRow {
           TableCell { Icon(name: "file outline"); text " Gruntfile.js" }
-          TableCell { text "Initial commit" }
-          TableCell(aligned: "right") { text "10 hours ago" }
+          TableCell { "Initial commit" }
+          TableCell(aligned: "right") { "10 hours ago" }
         }
       }
     }
@@ -151,29 +151,29 @@ Pusher {
   Grid(stackable: true, padded: "true") {
     Column(computer: 4, tablet: 8, mobile: 16, aligned: "center") {
       Statistic(color: "teal") { |c|
-        c.value { text "5,550" }
-        c.label { text "Downloads" }
+        c.value { "5,550" }
+        c.label { "Downloads" }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16, aligned: "center") {
       Statistic(color: "purple") { |c|
-        c.value { text "50+" }
-        c.label { text "Developers" }
+        c.value { "50+" }
+        c.label { "Developers" }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16, aligned: "center") {
       Statistic(color: "green") { |c|
-        c.value { text "800+" }
-        c.label { text "Commits" }
+        c.value { "800+" }
+        c.label { "Commits" }
       }
     }
 
     Column(computer: 4, tablet: 8, mobile: 16, aligned: "center") {
       Statistic(color: "purple") { |c|
-        c.value { text "1000+" }
-        c.label { text "Cups of Coffee" }
+        c.value { "1000+" }
+        c.label { "Cups of Coffee" }
       }
     }
   }

@@ -50,24 +50,24 @@ Menu(fixed: "top", inverted: true) {
       Image(src: "/icon.png", size: "mini")
       text " Project Name"
     }
-    MenuItem(href: "#") { text "Home" }
+    MenuItem(href: "#") { "Home" }
     Dropdown {
       text "Dropdown "
       Icon(name: "dropdown")
       MenuMenu {
-        MenuItem(href: "#") { text "Link Item" }
-        MenuItem(href: "#") { text "Link Item" }
+        MenuItem(href: "#") { "Link Item" }
+        MenuItem(href: "#") { "Link Item" }
         Divider()
-        MenuItem(header: true) { text "Header Item" }
+        MenuItem(header: true) { "Header Item" }
         MenuItem(dropdown: true) {
           Icon(name: "dropdown")
           text "Sub Menu"
           MenuMenu {
-            MenuItem(href: "#") { text "Link Item" }
-            MenuItem(href: "#") { text "Link Item" }
+            MenuItem(href: "#") { "Link Item" }
+            MenuItem(href: "#") { "Link Item" }
           }
         }
-        MenuItem(href: "#") { text "Link Item" }
+        MenuItem(href: "#") { "Link Item" }
       }
     }
   }
@@ -77,14 +77,14 @@ Menu(fixed: "top", inverted: true) {
 Segment(inverted: true, vertical: true) {
   Container {
     Menu(inverted: true, pointing: true, secondary: true, size: "large") {
-      MenuItem(href: "#", icon: "sidebar") { text "" }
-      MenuItem(href: "#", active: true) { text "Home" }
-      MenuItem(href: "#") { text "Work" }
-      MenuItem(href: "#") { text "Company" }
-      MenuItem(href: "#") { text "Careers" }
+      MenuItem(href: "#", icon: "sidebar") { "" }
+      MenuItem(href: "#", active: true) { "Home" }
+      MenuItem(href: "#") { "Work" }
+      MenuItem(href: "#") { "Company" }
+      MenuItem(href: "#") { "Careers" }
       MenuMenu(position: "right") {
-        Button(inverted: true) { text "Log in" }
-        Button(inverted: true) { text "Sign Up" }
+        Button(inverted: true) { "Log in" }
+        Button(inverted: true) { "Sign Up" }
       }
     }
   }
@@ -96,7 +96,7 @@ Segment(vertical: true) {
     Row {
       Column {
         text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non enim in turpis pulvinar facilisis."
-        Header(size: :h3) { text "Breaking The Grid, Grabs Your Attention" }
+        Header(size: :h3) { "Breaking The Grid, Grabs Your Attention" }
         text "Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem conditions for the caused., or otherwise."
       }
       Column(width: 6, floated: "right") {
@@ -106,7 +106,7 @@ Segment(vertical: true) {
 
     Row {
       Column(aligned: "center") {
-        Button(size: "huge") { text "Check Them Out" }
+        Button(size: "huge") { "Check Them Out" }
       }
     }
   }
@@ -117,11 +117,11 @@ Segment(vertical: true) {
   Grid(celled: "true", equal_width: true, stackable: true, container: true) {
     Row {
       Column {
-        Header(size: :h3) { text "What a Company" }
+        Header(size: :h3) { "What a Company" }
         text "That is what they all say about us"
       }
       Column {
-        Header(size: :h3) { text "An Excellent Companion" }
+        Header(size: :h3) { "An Excellent Companion" }
         text "That is what they all say about us"
       }
     }
@@ -131,13 +131,13 @@ Segment(vertical: true) {
 # Stripe 2
 Segment(vertical: true) {
   Container(text: true) {
-    Header(size: :h3) { text "Did We Tell You About Our Bananas?" }
+    Header(size: :h3) { "Did We Tell You About Our Bananas?" }
     text "Yes I know you probably have, but I would like to elaborate on that."
-    Button(size: "large") { text "I'm Still Quite Interested" }
-    Divider(horizontal: true, section: true) { text "Or" }
-    Header(size: :h3) { text "Did We Tell You About Our Bananas?" }
+    Button(size: "large") { "I'm Still Quite Interested" }
+    Divider(horizontal: true, section: true) { "Or" }
+    Header(size: :h3) { "Did We Tell You About Our Bananas?" }
     text "Yes I know you probably have, but I would like to elaborate on that."
-    Button(size: "large") { text "I'm Still Quite Interested" }
+    Button(size: "large") { "I'm Still Quite Interested" }
   }
 }
 
@@ -146,27 +146,27 @@ Segment(inverted: true, vertical: true) {
   Container {
     Grid(divided: "true", inverted: true, stackable: true) {
       Column(width: 3) {
-        Header(size: :h4, inverted: true) { text "About" }
+        Header(size: :h4, inverted: true) { "About" }
         List(link: true, inverted: true) {
-          MenuItem(href: "#") { text "Sitemap" }
-          MenuItem(href: "#") { text "Contact Us" }
-          MenuItem(href: "#") { text "Religious Coverage" }
-          MenuItem(href: "#") { text "Gazettes" }
+          MenuItem(href: "#") { "Sitemap" }
+          MenuItem(href: "#") { "Contact Us" }
+          MenuItem(href: "#") { "Religious Coverage" }
+          MenuItem(href: "#") { "Gazettes" }
         }
       }
 
       Column(width: 3) {
-        Header(size: :h4, inverted: true) { text "Services" }
+        Header(size: :h4, inverted: true) { "Services" }
         List(link: true, inverted: true) {
-          MenuItem(href: "#") { text "Banana Pre-Order" }
-          MenuItem(href: "#") { text "DNA FAQ" }
-          MenuItem(href: "#") { text "How To Access" }
-          MenuItem(href: "#") { text "Favorite X-Men" }
+          MenuItem(href: "#") { "Banana Pre-Order" }
+          MenuItem(href: "#") { "DNA FAQ" }
+          MenuItem(href: "#") { "How To Access" }
+          MenuItem(href: "#") { "Favorite X-Men" }
         }
       }
 
       Column(width: 7) {
-        Header(size: :h4, inverted: true) { text "Footer Header" }
+        Header(size: :h4, inverted: true) { "Footer Header" }
         text "Extra space for a call to action inside the footer that could help re-engage users."
       }
     }

@@ -26,8 +26,8 @@ text '<style>
 </style>'.html_safe
 
 Container(text: true) {
-  Header(size: :h1, dividing: true) { text "Using Grids" }
-  Header(size: :h3) { text "Container" }
+  Header(size: :h1, dividing: true) { "Using Grids" }
+  Header(size: :h3) { "Container" }
   text "A container is a fixed width element that wraps your site's content. It remains a constant size and uses margin to center. Containers are the simplest way to center page content inside a grid."
 }
 
@@ -38,7 +38,7 @@ Container {
 }
 
 Container(text: true) {
-  Header(size: :h3) { text "Text Container" }
+  Header(size: :h3) { "Text Container" }
   text "Sometimes you just need to put a single column of centered text on a page. A text container is a special type of container optimized for a single flowing column of text."
   text " "
   text "Text containers do not need to use grids and help simplify basic page layouts."
@@ -47,16 +47,16 @@ Container(text: true) {
     Column()
   }
 
-  Header(size: :h1, dividing: true) { text "Grid Content" }
+  Header(size: :h1, dividing: true) { "Grid Content" }
 
-  Header(size: :h3) { text "Column Flow" }
+  Header(size: :h3) { "Column Flow" }
   text "A grid does not necessarily need to specify rows. If you include columns as direct child of ui grid content will automatically flow to the next row when all the grid columns are taken in the current row."
 
   Grid {
     8.times { Column(width: 4) }
   }
 
-  Header(size: :h3) { text "Clearing Rows" }
+  Header(size: :h3) { "Clearing Rows" }
   text "Adding row wrappers allow you to manually specify you want a new row to begin."
 
   Grid(columns: 3) {
@@ -68,24 +68,24 @@ Container(text: true) {
     }
   }
 
-  Header(size: :h3) { text "Specifying Row Width" }
+  Header(size: :h3) { "Specifying Row Width" }
   text "Specifying a grid column count will divide columns into rows of predetermined column count."
   Grid(columns: 3) {
-    6.times { Column { text "column" } }
+    6.times { Column { "column" } }
   }
 
-  Header(size: :h3) { text "Specifying Column Width" }
+  Header(size: :h3) { "Specifying Column Width" }
   text "You can also specify column widths for each column individually"
   Grid(columns: 3) {
-    Column(width: 4) { text "four wide column" }
-    Column(width: 8) { text "eight wide column" }
-    Column(width: 4) { text "four wide column" }
+    Column(width: 4) { "four wide column" }
+    Column(width: 8) { "eight wide column" }
+    Column(width: 4) { "four wide column" }
   }
 
-  Header(size: :h3) { text "Special Variations" }
+  Header(size: :h3) { "Special Variations" }
   text "Some special variations that format grids like tables require you to specify rows."
 
-  Divider(horizontal: true, section: true) { text "Celled Grid" }
+  Divider(horizontal: true, section: true) { "Celled Grid" }
   Grid(celled: "true") {
     Row {
       4.times { Column(width: 4) }
@@ -95,7 +95,7 @@ Container(text: true) {
     }
   }
 
-  Divider(horizontal: true, section: true) { text "Internally Celled Grid" }
+  Divider(horizontal: true, section: true) { "Internally Celled Grid" }
   Grid(celled: "internally") {
     Row {
       4.times { Column(width: 4) }
@@ -105,7 +105,7 @@ Container(text: true) {
     }
   }
 
-  Divider(horizontal: true, section: true) { text "Divided Grid" }
+  Divider(horizontal: true, section: true) { "Divided Grid" }
   Grid(divided: "true") {
     Row {
       4.times { Column(width: 4) }
@@ -115,7 +115,7 @@ Container(text: true) {
     }
   }
 
-  Divider(horizontal: true, section: true) { text "Vertically Divided Grid" }
+  Divider(horizontal: true, section: true) { "Vertically Divided Grid" }
   Grid(divided: "vertically") {
     Row {
       4.times { Column(width: 4) }
@@ -125,9 +125,9 @@ Container(text: true) {
     }
   }
 
-  Header(size: :h1, dividing: true) { text "Adjusting Grids" }
+  Header(size: :h1, dividing: true) { "Adjusting Grids" }
 
-  Header(size: :h3) { text "Centering Content" }
+  Header(size: :h3) { "Centering Content" }
   text "If a row does not take up all sixteen grid columns, you can use a ui centered grid, centered row, or centered column to center the column contents inside the grid."
   Grid(columns: 2, centered: true) {
     Column()
@@ -137,30 +137,30 @@ Container(text: true) {
     }
   }
 
-  Header(size: :h3) { text "Floating Rows" }
+  Header(size: :h3) { "Floating Rows" }
   text "Since Fomantic UI's grid is based on flex box, a left floated item should come first, and a right floated item last in its row."
   Grid {
     Column(width: 6, floated: "left") {
-      Segment { text "Left floated" }
+      Segment { "Left floated" }
     }
     Column(width: 6, floated: "right") {
-      Segment { text "Right floated" }
+      Segment { "Right floated" }
     }
   }
 
-  Header(size: :h3) { text "Text Alignment" }
+  Header(size: :h3) { "Text Alignment" }
   text "You can specify text alignment using alignment variations on a grid, row, or column level."
   Grid {
-    Column(width: 8, aligned: "right") { text "right aligned column" }
-    Column(width: 8, aligned: "left") { text "left aligned column" }
+    Column(width: 8, aligned: "right") { "right aligned column" }
+    Column(width: 8, aligned: "left") { "left aligned column" }
     Row(columns: 2, aligned: "center") {
-      Column { text "center aligned row" }
-      Column { text "center aligned row" }
+      Column { "center aligned row" }
+      Column { "center aligned row" }
     }
-    Column(width: 16, aligned: "right") { text "right aligned column" }
+    Column(width: 16, aligned: "right") { "right aligned column" }
   }
 
-  Header(size: :h3) { text "Vertical Alignment" }
+  Header(size: :h3) { "Vertical Alignment" }
   text "You can specify vertical alignment on a grid, row, or column level."
   Grid(columns: 4, centered: true, aligned: "middle") {
     Row {
@@ -177,32 +177,32 @@ Container(text: true) {
     }
   }
 
-  Header(size: :h3) { text "Equal Width Columns" }
+  Header(size: :h3) { "Equal Width Columns" }
   text "Specifying an equal width grid will automatically determine column sizes to fit evenly inside one row"
   Grid(equal_width: true) {
     Row {
-      4.times { Column { text "column" } }
+      4.times { Column { "column" } }
     }
     Row {
-      3.times { Column { text "column" } }
+      3.times { Column { "column" } }
     }
   }
 
-  Header(size: :h1) { text "Responsive Patterns" }
+  Header(size: :h1) { "Responsive Patterns" }
 
-  Header(size: :h3) { text "Doubling" }
+  Header(size: :h3) { "Doubling" }
   text "You can set columns to double in width at each device jump"
   Grid(columns: 5, doubling: true) {
-    5.times { Column { text "column" } }
+    5.times { Column { "column" } }
   }
 
-  Header(size: :h3) { text "Stackable" }
+  Header(size: :h3) { "Stackable" }
   text "You can set columns to stack on mobile"
   Grid(columns: 3, stackable: true) {
-    3.times { Column { text "column" } }
+    3.times { Column { "column" } }
   }
 
-  Header(size: :h3) { text "Responsive Width Adjustments" }
+  Header(size: :h3) { "Responsive Width Adjustments" }
   text "You can specify columns to appear at different widths on different screens"
   Grid {
     5.times { Column(mobile: 8, tablet: 6, computer: 4) }
@@ -211,22 +211,22 @@ Container(text: true) {
     4.times { Column(width: 4, large_screen: 2, widescreen: 1) }
   }
 
-  Header(size: :h3) { text "Specifying Device Visibility" }
+  Header(size: :h3) { "Specifying Device Visibility" }
   text "You can specify columns to appear only a particular screen"
   Grid {
     Row(columns: 2, only: "computer") {
-      Column(width: 10) { text "ten wide column computer only" }
-      Column(width: 6) { text "six wide column computer only" }
+      Column(width: 10) { "ten wide column computer only" }
+      Column(width: 6) { "six wide column computer only" }
     }
-    Column(width: 16, only: "mobile") { text "sixteen wide column mobile only" }
+    Column(width: 16, only: "mobile") { "sixteen wide column mobile only" }
     Row(columns: 3, only: "computer") {
-      3.times { Column { text "computer only row" } }
+      3.times { Column { "computer only row" } }
     }
     Row(columns: 2, only: "mobile") {
-      2.times { Column { text "mobile only column" } }
+      2.times { Column { "mobile only column" } }
     }
     Row(columns: 2) {
-      2.times { Column { text "column" } }
+      2.times { Column { "column" } }
     }
   }
 }

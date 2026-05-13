@@ -7,9 +7,9 @@ text '<style>
 
 # Sidebar
 Sidebar(inverted: true, visible: false) {
-  MenuItem(href: "#") { text "1" }
-  MenuItem(href: "#") { text "2" }
-  MenuItem(href: "#") { text "3" }
+  MenuItem(href: "#") { "1" }
+  MenuItem(href: "#") { "2" }
+  MenuItem(href: "#") { "3" }
 }
 
 Pusher {
@@ -20,28 +20,28 @@ Pusher {
         Image(src: "/icon.png", size: "mini")
         text " Project Name"
       }
-      MenuItem(href: "#") { text "Home" }
-      MenuItem(href: "#") { text "Work" }
-      MenuItem(href: "#") { text "Company" }
-      MenuItem(href: "#") { text "Careers" }
+      MenuItem(href: "#") { "Home" }
+      MenuItem(href: "#") { "Work" }
+      MenuItem(href: "#") { "Company" }
+      MenuItem(href: "#") { "Careers" }
 
       MenuItem(dropdown: true) {
         text "Dropdown "
         Icon(name: "dropdown")
         MenuMenu {
-          MenuItem(href: "#") { text "Link Item" }
-          MenuItem(href: "#") { text "Link Item" }
+          MenuItem(href: "#") { "Link Item" }
+          MenuItem(href: "#") { "Link Item" }
           Divider()
-          Header(size: :h4) { text "Header Item" }
+          Header(size: :h4) { "Header Item" }
           MenuItem(dropdown: true) {
             Icon(name: "dropdown")
             text "Sub Menu"
             MenuMenu {
-              MenuItem(href: "#") { text "Link Item" }
-              MenuItem(href: "#") { text "Link Item" }
+              MenuItem(href: "#") { "Link Item" }
+              MenuItem(href: "#") { "Link Item" }
             }
           }
-          MenuItem(href: "#") { text "Link Item" }
+          MenuItem(href: "#") { "Link Item" }
         }
       }
     }
@@ -49,15 +49,15 @@ Pusher {
 
   # Main content
   Container(text: true) {
-    Header(size: :h1) { text "Heading" }
+    Header(size: :h1) { "Heading" }
     text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
 
-    Header(size: :h2) { text "First Article" }
+    Header(size: :h2) { "First Article" }
     Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
     text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
     text " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper."
 
-    Header(size: :h2) { text "Second Article" }
+    Header(size: :h2) { "Second Article" }
     Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "medium")
     text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
     text " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu libero sit amet quam egestas semper."
@@ -68,27 +68,27 @@ Pusher {
     Container {
       Grid(divided: "true", inverted: true, stackable: true) {
         Column(width: 3) {
-          Header(size: :h4, inverted: true) { text "About" }
+          Header(size: :h4, inverted: true) { "About" }
           List(link: true, inverted: true) {
-            MenuItem(href: "#") { text "Sitemap" }
-            MenuItem(href: "#") { text "Contact Us" }
-            MenuItem(href: "#") { text "Religious Coverage" }
-            MenuItem(href: "#") { text "Gazettes" }
+            MenuItem(href: "#") { "Sitemap" }
+            MenuItem(href: "#") { "Contact Us" }
+            MenuItem(href: "#") { "Religious Coverage" }
+            MenuItem(href: "#") { "Gazettes" }
           }
         }
 
         Column(width: 3) {
-          Header(size: :h4, inverted: true) { text "Services" }
+          Header(size: :h4, inverted: true) { "Services" }
           List(link: true, inverted: true) {
-            MenuItem(href: "#") { text "Banana Pre-Order" }
-            MenuItem(href: "#") { text "DNA FAQ" }
-            MenuItem(href: "#") { text "How To Access" }
-            MenuItem(href: "#") { text "Favorite X-Men" }
+            MenuItem(href: "#") { "Banana Pre-Order" }
+            MenuItem(href: "#") { "DNA FAQ" }
+            MenuItem(href: "#") { "How To Access" }
+            MenuItem(href: "#") { "Favorite X-Men" }
           }
         }
 
         Column(width: 7) {
-          Header(size: :h4, inverted: true) { text "Footer Header" }
+          Header(size: :h4, inverted: true) { "Footer Header" }
           text "Extra space for a call to action inside the footer that could help re-engage users."
         }
       }
@@ -96,10 +96,10 @@ Pusher {
       Divider(inverted: true, section: true)
       Image(src: "/icon.png", size: "mini", centered: true)
       List(horizontal: true, inverted: true, divided: true, link: true, size: "small") {
-        MenuItem(href: "#") { text "Site Map" }
-        MenuItem(href: "#") { text "Contact Us" }
-        MenuItem(href: "#") { text "Terms and Conditions" }
-        MenuItem(href: "#") { text "Privacy Policy" }
+        MenuItem(href: "#") { "Site Map" }
+        MenuItem(href: "#") { "Contact Us" }
+        MenuItem(href: "#") { "Terms and Conditions" }
+        MenuItem(href: "#") { "Privacy Policy" }
       }
     }
   }

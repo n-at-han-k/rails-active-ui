@@ -14,6 +14,7 @@
 class CommentComponent < Component
   attribute :collapsed, :boolean, default: false
   attribute :threaded,  :boolean, default: false
+  attribute :disabled,  :boolean, default: false
 
   slot :avatar
   slot :author
@@ -23,7 +24,7 @@ class CommentComponent < Component
 
   def to_s
     classes = class_names(
-      { "collapsed" => collapsed },
+      { "collapsed" => collapsed, "disabled" => disabled },
       "comment"
     )
 

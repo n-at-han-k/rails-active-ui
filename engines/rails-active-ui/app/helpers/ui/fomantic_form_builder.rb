@@ -114,13 +114,18 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
-    label_text = options.delete(:label) { label_for(attribute) }
-    kind       = options.delete(:kind) { :checkbox } # :checkbox | :slider | :toggle
+    label_text    = options.delete(:label) { label_for(attribute) }
+    kind          = options.delete(:kind) { :checkbox } # :checkbox | :slider | :toggle
+    size          = options.delete(:size)
+    inverted      = options.delete(:inverted)
+    fitted        = options.delete(:fitted)
+    right_aligned = options.delete(:right_aligned)
 
     fomantic_field(attribute, options.merge(suppress_label: true)) do |attr, opts|
       opts.delete(:input_class)
       checkbox_html = super(attr, opts, checked_value, unchecked_value)
-      checkbox_ui(checkbox_html, label_text, kind)
+      checkbox_ui(checkbox_html, label_text, kind,
+                  size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
     end
   end
 
@@ -129,12 +134,18 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def radio_button(attribute, value, options = {})
-    label_text = options.delete(:label) { value.to_s.humanize }
+    label_text    = options.delete(:label) { value.to_s.humanize }
+    kind          = options.delete(:kind) { :radio } # :radio | :slider | :toggle
+    size          = options.delete(:size)
+    inverted      = options.delete(:inverted)
+    fitted        = options.delete(:fitted)
+    right_aligned = options.delete(:right_aligned)
 
     fomantic_field(attribute, options.merge(suppress_label: true)) do |attr, opts|
       opts.delete(:input_class)
       radio_html = super(attr, value, opts)
-      checkbox_ui(radio_html, label_text, :radio)
+      checkbox_ui(radio_html, label_text, kind,
+                  size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
     end
   end
 
@@ -288,11 +299,19 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
 
   # ── Checkbox / Radio UI shell ──────────────────────────────────────────────
 
-  def checkbox_ui(input_html, label_text, kind)
+  def checkbox_ui(input_html, label_text, kind, size: nil, inverted: nil, fitted: nil, right_aligned: nil)
     modifier = { radio: "radio", slider: "slider", toggle: "toggle" }[kind]
-    css      = class_names("ui", modifier, "checkbox")
+    css = class_names(
+      "ui",
+      size,
+      modifier,
+      ("inverted" if inverted),
+      ("fitted" if fitted),
+      ("right aligned" if right_aligned),
+      "checkbox"
+    )
 
-    @template.tag.div(class: css) do
+    @template.tag.div(class: css, data: { controller: "fui-checkbox" }) do
       safe_join([ input_html, @template.tag.label(label_text.is_a?(String) ? label_text : nil) ])
     end
   end
@@ -368,120 +387,120 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   end
 end
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Usage examples (views)
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Usage examples (views)
+  # ─────────────────────────────────────────────────────────────────────────────
 
-# ── 1. Basic user registration form ──────────────────────────────────────────
-#
-# <%= form_with model: @user, builder: FomanticFormBuilder, class: "ui form" do |f| %>
-#
-#   <%# grouped equal-width row %>
-#   <%= f.fields_group(equal_width: true) do %>
-#     <%= f.text_field  :first_name, required: true %>
-#     <%= f.text_field  :last_name,  required: true %>
-#   <% end %>
-#
-#   <%= f.email_field    :email,    required: true %>
-#   <%= f.password_field :password, required: true,
-#                        hint: "Minimum 8 characters" %>
-#
-#   <%# Native select styled by Fomantic %>
-#   <%= f.select :role, [["Admin", "admin"], ["Member", "member"]],
-#                { prompt: "Select a role" } %>
-#
-#   <%# Fomantic dropdown widget (adds JS .dropdown() wrapper) %>
-#   <%= f.select :country, country_options,
-#                { dropdown: true, required: true } %>
-#
-#   <%= f.check_box :terms,
-#                   label:    "I agree to the Terms and Conditions",
-#                   required: true %>
-#
-#   <%# Error/success messages from model %>
-#   <%= f.error_message "We had some issues",
-#                       @user.errors.full_messages if @user.errors.any? %>
-#
-#   <%= f.submit "Sign up", color: "green" %>
-# <% end %>
-
-
-# ── 2. Inline field (label beside input) ─────────────────────────────────────
-#
-# <%= f.text_field :phone, label: "Phone Number", inline: true,
-#                           width: "eight" %>
+  # ── 1. Basic user registration form ──────────────────────────────────────────
+  #
+  # <%= form_with model: @user, builder: FomanticFormBuilder, class: "ui form" do |f| %>
+  #
+  #   <%# grouped equal-width row %>
+  #   <%= f.fields_group(equal_width: true) do %>
+  #     <%= f.text_field  :first_name, required: true %>
+  #     <%= f.text_field  :last_name,  required: true %>
+  #   <% end %>
+  #
+  #   <%= f.email_field    :email,    required: true %>
+  #   <%= f.password_field :password, required: true,
+  #                        hint: "Minimum 8 characters" %>
+  #
+  #   <%# Native select styled by Fomantic %>
+  #   <%= f.select :role, [["Admin", "admin"], ["Member", "member"]],
+  #                { prompt: "Select a role" } %>
+  #
+  #   <%# Fomantic dropdown widget (adds JS .dropdown() wrapper) %>
+  #   <%= f.select :country, country_options,
+  #                { dropdown: true, required: true } %>
+  #
+  #   <%= f.check_box :terms,
+  #                   label:    "I agree to the Terms and Conditions",
+  #                   required: true %>
+  #
+  #   <%# Error/success messages from model %>
+  #   <%= f.error_message "We had some issues",
+  #                       @user.errors.full_messages if @user.errors.any? %>
+  #
+  #   <%= f.submit "Sign up", color: "green" %>
+  # <% end %>
 
 
-# ── 3. Width-constrained fields ───────────────────────────────────────────────
-#
-# <%= f.fields_group do %>
-#   <%= f.text_field :first_name, width: "six"  %>
-#   <%= f.text_field :middle,     width: "three" %>
-#   <%= f.text_field :last_name,  width: "seven" %>
-# <% end %>
+  # ── 2. Inline field (label beside input) ─────────────────────────────────────
+  #
+  # <%= f.text_field :phone, label: "Phone Number", inline: true,
+  #                           width: "eight" %>
 
 
-# ── 4. Checkbox kinds ─────────────────────────────────────────────────────────
-#
-# <%= f.check_box :notifications, label: "Enable notifications", kind: :toggle %>
-# <%= f.check_box :public,        label: "Publicly visible",     kind: :slider %>
+  # ── 3. Width-constrained fields ───────────────────────────────────────────────
+  #
+  # <%= f.fields_group do %>
+  #   <%= f.text_field :first_name, width: "six"  %>
+  #   <%= f.text_field :middle,     width: "three" %>
+  #   <%= f.text_field :last_name,  width: "seven" %>
+  # <% end %>
 
 
-# ── 5. Radio group ────────────────────────────────────────────────────────────
-#
-# <%= f.fields_group do %>
-#   <%= f.radio_button :plan, "basic",   label: "Basic"   %>
-#   <%= f.radio_button :plan, "pro",     label: "Pro"     %>
-#   <%= f.radio_button :plan, "enterprise", label: "Enterprise" %>
-# <% end %>
+  # ── 4. Checkbox kinds ─────────────────────────────────────────────────────────
+  #
+  # <%= f.check_box :notifications, label: "Enable notifications", kind: :toggle %>
+  # <%= f.check_box :public,        label: "Publicly visible",     kind: :slider %>
 
 
-# ── 6. Textarea ───────────────────────────────────────────────────────────────
-#
-# <%= f.text_area :bio,         rows: 4 %>
-# <%= f.text_area :description, rows: 2, transparent: true %>
+  # ── 5. Radio group ────────────────────────────────────────────────────────────
+  #
+  # <%= f.fields_group do %>
+  #   <%= f.radio_button :plan, "basic",   label: "Basic"   %>
+  #   <%= f.radio_button :plan, "pro",     label: "Pro"     %>
+  #   <%= f.radio_button :plan, "enterprise", label: "Enterprise" %>
+  # <% end %>
 
 
-# ── 7. Form-level state messages ──────────────────────────────────────────────
-#
-# <%= f.error_message   "Action Forbidden", ["Email already registered"] %>
-# <%= f.success_message "All done!",        "Your profile has been updated." %>
-# <%= f.warning_message "Heads up",         ["Please verify your email"] %>
-# <%= f.info_message    "Password rules",   ["Must be at least 8 characters"] %>
+  # ── 6. Textarea ───────────────────────────────────────────────────────────────
+  #
+  # <%= f.text_area :bio,         rows: 4 %>
+  # <%= f.text_area :description, rows: 2, transparent: true %>
 
 
-# ── 8. Submit variations ──────────────────────────────────────────────────────
-#
-# <%= f.submit "Save",   color: "blue"  %>
-# <%= f.submit "Delete", color: "red",   basic: true %>
-# <%= f.submit "Go",     color: "green", size: "large", icon: "checkmark" %>
+  # ── 7. Form-level state messages ──────────────────────────────────────────────
+  #
+  # <%= f.error_message   "Action Forbidden", ["Email already registered"] %>
+  # <%= f.success_message "All done!",        "Your profile has been updated." %>
+  # <%= f.warning_message "Heads up",         ["Please verify your email"] %>
+  # <%= f.info_message    "Password rules",   ["Must be at least 8 characters"] %>
 
 
-# ── 9. Opt-in per form (when default builder is not set) ──────────────────────
-#
-# <%= form_with model: @post, builder: FomanticFormBuilder, class: "ui form" do |f| %>
-#   ...
-# <% end %>
+  # ── 8. Submit variations ──────────────────────────────────────────────────────
+  #
+  # <%= f.submit "Save",   color: "blue"  %>
+  # <%= f.submit "Delete", color: "red",   basic: true %>
+  # <%= f.submit "Go",     color: "green", size: "large", icon: "checkmark" %>
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# JavaScript initialisation (application.js or a Stimulus controller)
-# ─────────────────────────────────────────────────────────────────────────────
-#
-# // Initialise all Fomantic dropdowns on the page
-# document.addEventListener("DOMContentLoaded", () => {
-#   $(".ui.dropdown").dropdown();
-#   $(".ui.checkbox").checkbox();
-#   $(".ui.calendar").calendar({ type: "date" });
-# });
-#
-# // Or with a Stimulus controller:
-# //
-# // import { Controller } from "@hotwired/stimulus"
-# // export default class extends Controller {
-# //   connect() {
-# //     $(this.element).find(".ui.dropdown").dropdown()
-# //     $(this.element).find(".ui.checkbox").checkbox()
-# //   }
-# // }
+  # ── 9. Opt-in per form (when default builder is not set) ──────────────────────
+  #
+  # <%= form_with model: @post, builder: FomanticFormBuilder, class: "ui form" do |f| %>
+  #   ...
+  # <% end %>
+
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JavaScript initialisation (application.js or a Stimulus controller)
+  # ─────────────────────────────────────────────────────────────────────────────
+  #
+  # // Initialise all Fomantic dropdowns on the page
+  # document.addEventListener("DOMContentLoaded", () => {
+  #   $(".ui.dropdown").dropdown();
+  #   $(".ui.checkbox").checkbox();
+  #   $(".ui.calendar").calendar({ type: "date" });
+  # });
+  #
+  # // Or with a Stimulus controller:
+  # //
+  # // import { Controller } from "@hotwired/stimulus"
+  # // export default class extends Controller {
+  # //   connect() {
+  # //     $(this.element).find(".ui.dropdown").dropdown()
+  # //     $(this.element).find(".ui.checkbox").checkbox()
+  # //   }
+  # // }
 end

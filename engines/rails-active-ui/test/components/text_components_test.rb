@@ -85,46 +85,46 @@ class TextComponentsTest < ComponentTestCase
     assert_includes html, "center aligned"
   end
 
-  # --- LabelComponent ---
+  # --- TagComponent ---
 
-  test "label renders with default classes" do
-    html = render_inline(LabelComponent)
+  test "tag renders with default classes" do
+    html = render_inline(TagComponent)
     assert_includes html, "ui label"
   end
 
-  test "label with color" do
-    html = render_inline(LabelComponent, color: "blue")
+  test "tag with color" do
+    html = render_inline(TagComponent, color: "blue")
     assert_includes html, "blue"
   end
 
-  test "label tag style" do
-    html = render_inline(LabelComponent, tag_style: true)
+  test "tag tag style" do
+    html = render_inline(TagComponent, tag_style: true)
     assert_includes html, "tag"
   end
 
-  test "label ribbon" do
-    html = render_inline(LabelComponent, ribbon: true)
+  test "tag ribbon" do
+    html = render_inline(TagComponent, ribbon: true)
     assert_includes html, "ribbon"
   end
 
-  test "label with icon" do
-    html = render_inline(LabelComponent, icon: "mail")
+  test "tag with icon" do
+    html = render_inline(TagComponent, icon: "mail")
     assert_includes html, "mail icon"
   end
 
-  test "label with detail" do
-    html = render_inline(LabelComponent, detail: "23")
+  test "tag with detail" do
+    html = render_inline(TagComponent, detail: "23")
     assert_includes html, 'class="detail"'
     assert_includes html, "23"
   end
 
-  test "label pointing" do
-    html = render_inline(LabelComponent, pointing: "left")
+  test "tag pointing" do
+    html = render_inline(TagComponent, pointing: "left")
     assert_includes html, "left pointing"
   end
 
-  test "label corner" do
-    html = render_inline(LabelComponent, corner: "right")
+  test "tag corner" do
+    html = render_inline(TagComponent, corner: "right")
     assert_includes html, "right corner"
   end
 

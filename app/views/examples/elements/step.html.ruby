@@ -1,7 +1,7 @@
 Header { "Step" }
 Wrapper(style: "contain: layout style;") {
   StepGroup {
-    Step { text "Shipping" }
+    Step { "Shipping" }
   }
 }
 
@@ -180,7 +180,7 @@ Wrapper(style: "contain: layout style;") {
 Header { "Step" }
 Wrapper(style: "contain: layout style;") {
   StepGroup {
-    Step(disabled: true) { text "Billing" }
+    Step(disabled: true) { "Billing" }
   }
 }
 
@@ -219,7 +219,7 @@ Wrapper(style: "contain: layout style;") {
       }
     }
     Column {
-      Paragraph { text "The steps take up the entire column width" }
+      Paragraph { "The steps take up the entire column width" }
     }
   }
 }
@@ -241,7 +241,7 @@ Wrapper(style: "contain: layout style;") {
     Step(disabled: true, icon: "info", title: "Confirm Order", description: "Verify order details")
   }
   Segment(attached: true) {
-    Paragraph { text "" }
+    Paragraph { "" }
   }
   StepGroup(attached: "bottom", size: "three") {
     Step(icon: "truck", title: "Shipping", description: "Choose your shipping options")
@@ -516,5 +516,23 @@ Wrapper(style: "contain: layout style;") {
     Step(completed: true, active: true, disabled: true, title: "Completed...", description: "...and active ... and disabled")
     Step(active: true, title: "Active")
     Step(title: "Default")
+  }
+}
+
+Header { "Step" }
+Wrapper(style: "contain: layout style;") {
+  StepGroup(circular: true, ordered: true, class: "red") {
+    Step(completed: true)
+    Step(completed: true, class: "orange")
+    Step(active: true, class: "yellow")
+    Step(class: "olive")
+    Step(class: "green")
+  }
+  StepGroup(circular: true, ordered: true) {
+    Step(completed: true, class: "teal")
+    Step(completed: true, class: "blue")
+    Step(active: true, class: "violet")
+    Step(class: "purple")
+    Step(class: "pink")
   }
 }

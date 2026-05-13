@@ -16,13 +16,13 @@ Grid(columns: 1, centered: true) {
       Segment(stacked: true) {
         Input(icon: "user", icon_position: "left", placeholder: "E-mail address", name: "email")
         Input(icon: "lock", icon_position: "left", placeholder: "Password", name: "password", input_type: "password")
-        Button(color: "teal", fluid: true, size: "large") { text "Login" }
+        Button(color: "teal", fluid: true, size: "large") { "Login" }
       }
     }
 
     Message {
       text "New to us? "
-      Link(href: "#") { text "Sign Up" }
+      Link(href: "#") { "Sign Up" }
     }
   }
 }

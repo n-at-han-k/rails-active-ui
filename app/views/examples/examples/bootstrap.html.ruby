@@ -1,7 +1,7 @@
 Grid(container: true) {
   Row {
     Column {
-      Header(size: :h1) { text "Bootstrap Migration" }
+      Header(size: :h1) { "Bootstrap Migration" }
     }
   }
 
@@ -9,9 +9,9 @@ Grid(container: true) {
   Row {
     Column {
       Message {
-        Header(size: :h1) { text "Hello, world!" }
+        Header(size: :h1) { "Hello, world!" }
         text "This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique."
-        Button(color: "blue", href: "#") { text "Learn more \u00BB" }
+        Button(color: "blue", href: "#") { "Learn more \u00BB" }
       }
     }
   }
@@ -19,19 +19,19 @@ Grid(container: true) {
   # Buttons
   Row {
     Column {
-      Header(size: :h1) { text "Buttons" }
-      Button(href: "#") { text "Default" }
-      Button(variant: "primary", href: "#") { text "Primary" }
-      Button(href: "#") { text "Basic" }
-      Button(href: "#", color: "green") { text "Success" }
-      Button(href: "#", color: "red") { text "Error" }
+      Header(size: :h1) { "Buttons" }
+      Button(href: "#") { "Default" }
+      Button(variant: "primary", href: "#") { "Primary" }
+      Button(href: "#") { "Basic" }
+      Button(href: "#", color: "green") { "Success" }
+      Button(href: "#", color: "red") { "Error" }
     }
   }
 
   # Thumbnails
   Row {
     Column {
-      Header(size: :h1) { text "Thumbnails" }
+      Header(size: :h1) { "Thumbnails" }
       Divider()
       Image(src: "https://fomantic-ui.com/images/wireframe/image.png", size: "small")
     }
@@ -40,22 +40,22 @@ Grid(container: true) {
   # Dropdown
   Row {
     Column {
-      Header(size: :h1) { text "Dropdown" }
+      Header(size: :h1) { "Dropdown" }
       Divider()
       Dropdown(selection: true, placeholder: "Select", name: "selection") {
-        MenuItem(value: "male") { text "Male" }
-        MenuItem(value: "female") { text "Female" }
+        MenuItem(value: "male") { "Male" }
+        MenuItem(value: "female") { "Female" }
       }
       Menu(vertical: true) {
-        MenuItem(href: "#", active: true) { text "Friends" }
-        MenuItem(href: "#") { text "Messages" }
+        MenuItem(href: "#", active: true) { "Friends" }
+        MenuItem(href: "#") { "Messages" }
         MenuItem(dropdown: true) {
           Icon(name: "dropdown")
           text " More"
           MenuMenu {
-            MenuItem(href: "#") { text "Edit Profile" }
-            MenuItem(href: "#") { text "Choose Language" }
-            MenuItem(href: "#") { text "Account Settings" }
+            MenuItem(href: "#") { "Edit Profile" }
+            MenuItem(href: "#") { "Choose Language" }
+            MenuItem(href: "#") { "Account Settings" }
           }
         }
       }
@@ -65,20 +65,20 @@ Grid(container: true) {
   # Badges
   Row {
     Column {
-      Header(size: :h1) { text "Badges" }
+      Header(size: :h1) { "Badges" }
       Divider()
       Menu(vertical: true) {
         MenuItem {
           text "One "
-          Label { text "2" }
+          Tag { "2" }
         }
         MenuItem {
           text "Two "
-          Label { text "2" }
+          Tag { "2" }
         }
         MenuItem {
           text "Three "
-          Label { text "2" }
+          Tag { "2" }
         }
       }
     }
@@ -87,27 +87,27 @@ Grid(container: true) {
   # Tables
   Row {
     Column {
-      Header(size: :h1) { text "Tables" }
+      Header(size: :h1) { "Tables" }
       Grid(columns: 2) {
         Column {
           Table { |c|
             c.header {
               TableRow {
-                TableCell(heading: true) { text "Name" }
-                TableCell(heading: true) { text "Premium Plan" }
+                TableCell(heading: true) { "Name" }
+                TableCell(heading: true) { "Premium Plan" }
               }
             }
             TableRow {
-              TableCell { text "John" }
-              TableCell { text "No" }
+              TableCell { "John" }
+              TableCell { "No" }
             }
             TableRow {
-              TableCell { text "Jamie" }
-              TableCell { text "Yes" }
+              TableCell { "Jamie" }
+              TableCell { "Yes" }
             }
             TableRow {
-              TableCell { text "Jill" }
-              TableCell { text "Yes" }
+              TableCell { "Jill" }
+              TableCell { "Yes" }
             }
           }
         }
@@ -116,21 +116,21 @@ Grid(container: true) {
           Table(basic: "true") { |c|
             c.header {
               TableRow {
-                TableCell(heading: true) { text "Name" }
-                TableCell(heading: true) { text "Premium Plan" }
+                TableCell(heading: true) { "Name" }
+                TableCell(heading: true) { "Premium Plan" }
               }
             }
             TableRow {
-              TableCell { text "John" }
-              TableCell { text "No" }
+              TableCell { "John" }
+              TableCell { "No" }
             }
             TableRow {
-              TableCell { text "Jamie" }
-              TableCell { text "Yes" }
+              TableCell { "Jamie" }
+              TableCell { "Yes" }
             }
             TableRow {
-              TableCell { text "Jill" }
-              TableCell { text "Yes" }
+              TableCell { "Jill" }
+              TableCell { "Yes" }
             }
           }
         }
@@ -139,21 +139,21 @@ Grid(container: true) {
           Table(definition: true) { |c|
             c.header {
               TableRow {
-                TableCell(heading: true) { text "Name" }
-                TableCell(heading: true) { text "Premium Plan" }
+                TableCell(heading: true) { "Name" }
+                TableCell(heading: true) { "Premium Plan" }
               }
             }
             TableRow {
-              TableCell { text "John" }
-              TableCell { text "No" }
+              TableCell { "John" }
+              TableCell { "No" }
             }
             TableRow {
-              TableCell { text "Jamie" }
-              TableCell { text "Yes" }
+              TableCell { "Jamie" }
+              TableCell { "Yes" }
             }
             TableRow {
-              TableCell { text "Jill" }
-              TableCell { text "Yes" }
+              TableCell { "Jill" }
+              TableCell { "Yes" }
             }
           }
         }
@@ -162,21 +162,21 @@ Grid(container: true) {
           Table(basic: "very") { |c|
             c.header {
               TableRow {
-                TableCell(heading: true) { text "Name" }
-                TableCell(heading: true) { text "Premium Plan" }
+                TableCell(heading: true) { "Name" }
+                TableCell(heading: true) { "Premium Plan" }
               }
             }
             TableRow {
-              TableCell { text "John" }
-              TableCell { text "No" }
+              TableCell { "John" }
+              TableCell { "No" }
             }
             TableRow {
-              TableCell { text "Jamie" }
-              TableCell { text "Yes" }
+              TableCell { "Jamie" }
+              TableCell { "Yes" }
             }
             TableRow {
-              TableCell { text "Jill" }
-              TableCell { text "Yes" }
+              TableCell { "Jill" }
+              TableCell { "Yes" }
             }
           }
         }
@@ -185,43 +185,43 @@ Grid(container: true) {
           Table(celled: true, structured: true) { |c|
             c.header {
               TableRow {
-                TableCell(heading: true, rowspan: 2) { text "Name" }
-                TableCell(heading: true, rowspan: 2) { text "Type" }
-                TableCell(heading: true, rowspan: 2) { text "Files" }
-                TableCell(heading: true, colspan: 3) { text "Languages" }
+                TableCell(heading: true, rowspan: 2) { "Name" }
+                TableCell(heading: true, rowspan: 2) { "Type" }
+                TableCell(heading: true, rowspan: 2) { "Files" }
+                TableCell(heading: true, colspan: 3) { "Languages" }
               }
               TableRow {
-                TableCell(heading: true) { text "Ruby" }
-                TableCell(heading: true) { text "JavaScript" }
-                TableCell(heading: true) { text "Python" }
+                TableCell(heading: true) { "Ruby" }
+                TableCell(heading: true) { "JavaScript" }
+                TableCell(heading: true) { "Python" }
               }
             }
             TableRow {
-              TableCell { text "Alpha Team" }
-              TableCell { text "Project 1" }
-              TableCell { text "2" }
+              TableCell { "Alpha Team" }
+              TableCell { "Project 1" }
+              TableCell { "2" }
               TableCell { Icon(name: "checkmark", size: "large", color: "green") }
               TableCell {}
               TableCell {}
             }
             TableRow {
-              TableCell(rowspan: 3) { text "Beta Team" }
-              TableCell { text "Project 1" }
-              TableCell { text "52" }
+              TableCell(rowspan: 3) { "Beta Team" }
+              TableCell { "Project 1" }
+              TableCell { "52" }
               TableCell { Icon(name: "checkmark", size: "large", color: "green") }
               TableCell {}
               TableCell {}
             }
             TableRow {
-              TableCell { text "Project 2" }
-              TableCell { text "12" }
+              TableCell { "Project 2" }
+              TableCell { "12" }
               TableCell {}
               TableCell { Icon(name: "checkmark", size: "large", color: "green") }
               TableCell {}
             }
             TableRow {
-              TableCell { text "Project 3" }
-              TableCell { text "21" }
+              TableCell { "Project 3" }
+              TableCell { "21" }
               TableCell { Icon(name: "checkmark", size: "large", color: "green") }
               TableCell {}
               TableCell {}
@@ -235,50 +235,50 @@ Grid(container: true) {
   # Alerts
   Row {
     Column {
-      Header(size: :h1) { text "Alerts" }
+      Header(size: :h1) { "Alerts" }
       Divider()
-      Message(type: "positive") { text "Well done! You successfully read this important alert message." }
-      Message(type: "info") { text "Heads up! This alert needs your attention, but it's not super important." }
-      Message(type: "warning") { text "Warning! Best check yo self, you're not looking too good." }
-      Message(type: "error") { text "Oh snap! Change a few things up and try submitting again." }
+      Message(type: "positive") { "Well done! You successfully read this important alert message." }
+      Message(type: "info") { "Heads up! This alert needs your attention, but it's not super important." }
+      Message(type: "warning") { "Warning! Best check yo self, you're not looking too good." }
+      Message(type: "error") { "Oh snap! Change a few things up and try submitting again." }
     }
   }
 
   # List groups
   Row {
     Column {
-      Header(size: :h1) { text "List groups" }
+      Header(size: :h1) { "List groups" }
       Divider()
       Grid(columns: 3) {
         Column {
           SegmentGroup {
-            Segment { text "Cras justo odio" }
-            Segment { text "Dapibus ac facilisis in" }
-            Segment { text "Morbi leo risus" }
-            Segment { text "Porta ac consectetur ac" }
-            Segment { text "Vestibulum at eros" }
+            Segment { "Cras justo odio" }
+            Segment { "Dapibus ac facilisis in" }
+            Segment { "Morbi leo risus" }
+            Segment { "Porta ac consectetur ac" }
+            Segment { "Vestibulum at eros" }
           }
         }
 
         Column {
           Menu(vertical: true, fluid: true) {
-            MenuItem(href: "#") { text "Cras justo odio" }
-            MenuItem(href: "#") { text "Vestibulum at eros" }
+            MenuItem(href: "#") { "Cras justo odio" }
+            MenuItem(href: "#") { "Vestibulum at eros" }
           }
         }
 
         Column {
           Menu(vertical: true, fluid: true) {
             MenuItem(href: "#") {
-              Header(size: "medium") { text "List group item heading" }
+              Header(size: "medium") { "List group item heading" }
               text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
             }
             MenuItem(href: "#") {
-              Header(size: "medium") { text "List group item heading" }
+              Header(size: "medium") { "List group item heading" }
               text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
             }
             MenuItem(href: "#") {
-              Header(size: "medium") { text "List group item heading" }
+              Header(size: "medium") { "List group item heading" }
               text "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."
             }
           }
@@ -290,61 +290,61 @@ Grid(container: true) {
   # Panels
   Row {
     Column {
-      Header(size: :h1) { text "Panels" }
+      Header(size: :h1) { "Panels" }
       Divider()
       Grid(columns: 3) {
         Column {
           SegmentGroup {
-            Segment(color: "red") { text "One" }
-            Segment(color: "blue") { text "Two" }
-            Segment(color: "green") { text "Three" }
+            Segment(color: "red") { "One" }
+            Segment(color: "blue") { "Two" }
+            Segment(color: "green") { "Three" }
           }
         }
 
         Column {
           SegmentGroup {
-            Segment(raised: true) { text "One" }
-            Segment { text "Two" }
-            Segment { text "Three" }
+            Segment(raised: true) { "One" }
+            Segment { "Two" }
+            Segment { "Three" }
           }
         }
 
         Column {
           SegmentGroup {
-            Segment(stacked: true) { text "One" }
-            Segment { text "Two" }
-            Segment { text "Three" }
+            Segment(stacked: true) { "One" }
+            Segment { "Two" }
+            Segment { "Three" }
           }
         }
 
         Column {
-          Message(type: "error", attached: true) { text "Error" }
-          Segment(attached: true) { text "Panel content" }
+          Message(type: "error", attached: true) { "Error" }
+          Segment(attached: true) { "Panel content" }
         }
 
         Column {
-          Message(type: "info", attached: true) { text "Info" }
-          Segment(attached: true) { text "Panel content" }
+          Message(type: "info", attached: true) { "Info" }
+          Segment(attached: true) { "Panel content" }
         }
 
         Column {
-          Message(type: "success", attached: true) { text "Success" }
-          Segment(attached: true) { text "Panel content" }
+          Message(type: "success", attached: true) { "Success" }
+          Segment(attached: true) { "Panel content" }
         }
 
         Column {
-          Header(size: :h4, inverted: true, attached: "top") { text "Header" }
-          Segment(attached: true) { text "Panel content" }
+          Header(size: :h4, inverted: true, attached: "top") { "Header" }
+          Segment(attached: true) { "Panel content" }
         }
 
         Column {
-          Header(size: :h4, block_header: true, attached: "top") { text "Header" }
-          Segment(attached: true) { text "Panel content" }
+          Header(size: :h4, block_header: true, attached: "top") { "Header" }
+          Segment(attached: true) { "Panel content" }
         }
 
         Column {
-          Header(size: :h4, attached: "top") { text "Header" }
-          Segment(attached: true) { text "Panel content" }
+          Header(size: :h4, attached: "top") { "Header" }
+          Segment(attached: true) { "Panel content" }
         }
       }
     }
@@ -353,14 +353,14 @@ Grid(container: true) {
   # Wells
   Row {
     Column {
-      Header(size: :h1) { text "Wells" }
+      Header(size: :h1) { "Wells" }
       Divider()
-      Segment { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
-      Segment(secondary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
-      Segment(tertiary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
-      Segment(inverted: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
-      Segment(inverted: true, secondary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
-      Segment(inverted: true, tertiary: true) { text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(secondary: true) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(tertiary: true) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true, secondary: true) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
+      Segment(inverted: true, tertiary: true) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna." }
     }
   }
 }

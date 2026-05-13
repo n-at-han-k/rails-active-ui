@@ -10,9 +10,9 @@ Wrapper(style: "contain: layout style;") {
         text "More"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem { text "Applications" }
-          MenuItem { text "International Students" }
-          MenuItem { text "Scholarships" }
+          MenuItem { "Applications" }
+          MenuItem { "International Students" }
+          MenuItem { "Scholarships" }
         }
       }
     }
@@ -28,16 +28,16 @@ Wrapper(style: "contain: layout style;") {
           Icon(name: "dropdown")
           text "New"
           SubMenu {
-            MenuItem { text "Document" }
-            MenuItem { text "Image" }
+            MenuItem { "Document" }
+            MenuItem { "Image" }
           }
         }
-        MenuItem { text "Open..." }
-        MenuItem { text "Save..." }
-        MenuItem { text "Edit Permissions" }
+        MenuItem { "Open..." }
+        MenuItem { "Save..." }
+        MenuItem { "Edit Permissions" }
         Divider()
-        MenuItem(header: true) { text "Export" }
-        MenuItem { text "Share..." }
+        MenuItem(header: true) { "Export" }
+        MenuItem { "Share..." }
       }
     }
     SubMenu(position: "right") {
@@ -46,22 +46,22 @@ Wrapper(style: "contain: layout style;") {
   }
 
   Segment(attached: "bottom") {
-    Paragraph { text "" }
-    Paragraph { text "" }
+    Paragraph { "" }
+    Paragraph { "" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(secondary: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
     SubMenu(position: "right") {
       MenuItem {
         Input(icon: "search", placeholder: "Search...")
       }
-      MenuItem(href: "#") { text "Logout" }
+      MenuItem(href: "#") { "Logout" }
     }
   }
 }
@@ -69,9 +69,9 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(pointing: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
     SubMenu(position: "right") {
       MenuItem {
         Input(transparent: true, icon: "search", placeholder: "Search...")
@@ -79,15 +79,15 @@ Wrapper(style: "contain: layout style;") {
     }
   }
   Segment {
-    Paragraph { text "" }
+    Paragraph { "" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(tabular: true, attached: "top") {
-    MenuItem(active: true, href: "#") { text "Bio" }
-    MenuItem(href: "#") { text "Photos" }
+    MenuItem(active: true, href: "#") { "Bio" }
+    MenuItem(href: "#") { "Photos" }
     SubMenu(position: "right") {
       MenuItem {
         Input(transparent: true, icon: "search", placeholder: "Search users...")
@@ -96,35 +96,35 @@ Wrapper(style: "contain: layout style;") {
   }
 
   Segment(attached: "bottom") {
-    Paragraph { text "" }
+    Paragraph { "" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Segment(attached: "top") {
-    Paragraph { text "" }
+    Paragraph { "" }
   }
 
   Menu(tabular: true, attached: "bottom") {
-    MenuItem(active: true, href: "#") { text "Active Project" }
-    MenuItem(href: "#") { text "Project #2" }
-    MenuItem(href: "#") { text "Project #3" }
+    MenuItem(active: true, href: "#") { "Active Project" }
+    MenuItem(href: "#") { "Project #2" }
+    MenuItem(href: "#") { "Project #3" }
     SubMenu(position: "right") {
-      MenuItem(href: "#", icon: "add") { text "New Tab" }
+      MenuItem(href: "#", icon: "add") { "New Tab" }
     }
   }
 }
 
-Header { text "Left Tabular" }
+Header { "Left Tabular" }
 Wrapper(style: "contain: layout style;") {
   Grid {
     Column(width: 4, class: "left attached") {
       Menu(vertical: true, fluid: true, tabular: true) {
-        MenuItem(active: true, href: "#") { text "Bio" }
-        MenuItem(href: "#") { text "Pics" }
-        MenuItem(href: "#") { text "Companies" }
-        MenuItem(href: "#") { text "Links" }
+        MenuItem(active: true, href: "#") { "Bio" }
+        MenuItem(href: "#") { "Pics" }
+        MenuItem(href: "#") { "Companies" }
+        MenuItem(href: "#") { "Links" }
       }
     }
     Column(width: 12, class: "stretched right attached") {
@@ -135,7 +135,7 @@ Wrapper(style: "contain: layout style;") {
   }
 }
 
-Header { text "Right Tabular" }
+Header { "Right Tabular" }
 Wrapper(style: "contain: layout style;") {
   Grid {
     Column(width: 12, class: "stretched left attached") {
@@ -145,22 +145,22 @@ Wrapper(style: "contain: layout style;") {
     }
     Column(width: 4, class: "right attached") {
       Menu(vertical: true, fluid: true, tabular: true, position: "right") {
-        MenuItem(active: true, href: "#") { text "Bio" }
-        MenuItem(href: "#") { text "Pics" }
-        MenuItem(href: "#") { text "Companies" }
-        MenuItem(href: "#") { text "Links" }
+        MenuItem(active: true, href: "#") { "Bio" }
+        MenuItem(href: "#") { "Pics" }
+        MenuItem(href: "#") { "Companies" }
+        MenuItem(href: "#") { "Links" }
       }
     }
   }
 }
 
-Header { text "Text Menu Sort" }
+Header { "Text Menu Sort" }
 Wrapper(style: "contain: layout style;") {
   Menu(text: true) {
-    MenuItem(header: true) { text "Sort By" }
-    MenuItem(active: true, href: "#") { text "Closest" }
-    MenuItem(href: "#") { text "Most Comments" }
-    MenuItem(href: "#") { text "Most Popular" }
+    MenuItem(header: true) { "Sort By" }
+    MenuItem(active: true, href: "#") { "Closest" }
+    MenuItem(href: "#") { "Most Comments" }
+    MenuItem(href: "#") { "Most Popular" }
   }
 }
 
@@ -169,15 +169,15 @@ Wrapper(style: "contain: layout style;") {
   Menu(vertical: true) {
     MenuItem(active: true, color: "teal", href: "#") {
       text "Inbox"
-      Label(color: "teal", class: "left pointing") { text "1" }
+      Tag(color: "teal", class: "left pointing") { "1" }
     }
     MenuItem(href: "#") {
       text "Spam"
-      Label { text "51" }
+      Tag { "51" }
     }
     MenuItem(href: "#") {
       text "Updates"
-      Label { text "1" }
+      Tag { "1" }
     }
     MenuItem {
       Input(transparent: true, icon: "search", placeholder: "Search mail...")
@@ -188,16 +188,16 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(secondary: true, vertical: true) {
-    MenuItem(active: true, href: "#") { text "Account" }
-    MenuItem(href: "#") { text "Settings" }
+    MenuItem(active: true, href: "#") { "Account" }
+    MenuItem(href: "#") { "Settings" }
     MenuItem(dropdown: true) {
       Icon(name: "dropdown")
       text "Display Options"
       SubMenu {
-        MenuItem(header: true) { text "Text Size" }
-        MenuItem(href: "#") { text "Small" }
-        MenuItem(href: "#") { text "Medium" }
-        MenuItem(href: "#") { text "Large" }
+        MenuItem(header: true) { "Text Size" }
+        MenuItem(href: "#") { "Small" }
+        MenuItem(href: "#") { "Medium" }
+        MenuItem(href: "#") { "Large" }
       }
     }
   }
@@ -206,49 +206,49 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true, text: true) {
-    MenuItem(header: true) { text "Sort By" }
-    MenuItem(active: true, href: "#") { text "Closest" }
-    MenuItem(href: "#") { text "Most Comments" }
-    MenuItem(href: "#") { text "Most Popular" }
+    MenuItem(header: true) { "Sort By" }
+    MenuItem(active: true, href: "#") { "Closest" }
+    MenuItem(href: "#") { "Most Comments" }
+    MenuItem(href: "#") { "Most Popular" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true, pointing: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(secondary: true, vertical: true, pointing: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(pagination: true) {
-    MenuItem(active: true, href: "#") { text "1" }
-    MenuItem(disabled: true) { text "..." }
-    MenuItem(href: "#") { text "10" }
-    MenuItem(href: "#") { text "11" }
-    MenuItem(href: "#") { text "12" }
+    MenuItem(active: true, href: "#") { "1" }
+    MenuItem(disabled: true) { "..." }
+    MenuItem(href: "#") { "10" }
+    MenuItem(href: "#") { "11" }
+    MenuItem(href: "#") { "12" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu {
-    MenuItem(header: true) { text "Our Company" }
-    MenuItem(href: "#") { text "About Us" }
-    MenuItem(href: "#") { text "Jobs" }
-    MenuItem(href: "#") { text "Locations" }
+    MenuItem(header: true) { "Our Company" }
+    MenuItem(href: "#") { "About Us" }
+    MenuItem(href: "#") { "Jobs" }
+    MenuItem(href: "#") { "Locations" }
   }
 }
 
@@ -256,51 +256,51 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true) {
     MenuItem {
-      MenuItem(header: true) { text "Products" }
+      MenuItem(header: true) { "Products" }
       SubMenu {
-        MenuItem(href: "#") { text "Enterprise" }
-        MenuItem(href: "#") { text "Consumer" }
+        MenuItem(href: "#") { "Enterprise" }
+        MenuItem(href: "#") { "Consumer" }
       }
     }
     MenuItem {
-      MenuItem(header: true) { text "CMS Solutions" }
+      MenuItem(header: true) { "CMS Solutions" }
       SubMenu {
-        MenuItem(href: "#") { text "Rails" }
-        MenuItem(href: "#") { text "Python" }
-        MenuItem(href: "#") { text "PHP" }
+        MenuItem(href: "#") { "Rails" }
+        MenuItem(href: "#") { "Python" }
+        MenuItem(href: "#") { "PHP" }
       }
     }
     MenuItem {
-      MenuItem(header: true) { text "Hosting" }
+      MenuItem(header: true) { "Hosting" }
       SubMenu {
-        MenuItem(href: "#") { text "Shared" }
-        MenuItem(href: "#") { text "Dedicated" }
+        MenuItem(href: "#") { "Shared" }
+        MenuItem(href: "#") { "Dedicated" }
       }
     }
     MenuItem {
-      MenuItem(header: true) { text "Support" }
+      MenuItem(header: true) { "Support" }
       SubMenu {
-        MenuItem(href: "#") { text "E-mail Support" }
-        MenuItem(href: "#") { text "FAQs" }
+        MenuItem(href: "#") { "E-mail Support" }
+        MenuItem(href: "#") { "FAQs" }
       }
     }
   }
 }
 
-Header { text "Vertical Menu with Headers" }
+Header { "Vertical Menu with Headers" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true) {
     MenuItem(href: "#") {
-      Header(size: :h4) { text "Promotions" }
-      Paragraph { text "Check out our new promotions" }
+      Header(size: :h4) { "Promotions" }
+      Paragraph { "Check out our new promotions" }
     }
     MenuItem(href: "#") {
-      Header(size: :h4) { text "Coupons" }
-      Paragraph { text "Check out our collection of coupons" }
+      Header(size: :h4) { "Coupons" }
+      Paragraph { "Check out our collection of coupons" }
     }
     MenuItem(href: "#") {
-      Header(size: :h4) { text "Rebates" }
-      Paragraph { text "Visit our rebate forum for information on claiming rebates" }
+      Header(size: :h4) { "Rebates" }
+      Paragraph { "Visit our rebate forum for information on claiming rebates" }
     }
   }
 }
@@ -313,7 +313,7 @@ Wrapper(style: "contain: layout style;") {
     }
     MenuItem(position: "right") {
       Input(action: true, placeholder: "Navigate to...") {
-        Button { text "Go" }
+        Button { "Go" }
       }
     }
   }
@@ -323,10 +323,10 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu {
     MenuItem {
-      Button(color: "primary") { text "Sign up" }
+      Button(color: "primary") { "Sign up" }
     }
     MenuItem {
-      Button { text "Log-in" }
+      Button { "Log-in" }
     }
   }
 }
@@ -334,8 +334,8 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true) {
-    MenuItem(href: "https://www.google.com") { text "Visit Google" }
-    MenuItem(link: true) { text "Javascript Link" }
+    MenuItem(href: "https://www.google.com") { "Visit Google" }
+    MenuItem(link: true) { "Javascript Link" }
   }
 }
 
@@ -346,9 +346,9 @@ Wrapper(style: "contain: layout style;") {
       text "Categories"
       Icon(name: "dropdown")
       SubMenu {
-        MenuItem(href: "#") { text "Electronics" }
-        MenuItem(href: "#") { text "Automotive" }
-        MenuItem(href: "#") { text "Home" }
+        MenuItem(href: "#") { "Electronics" }
+        MenuItem(href: "#") { "Automotive" }
+        MenuItem(href: "#") { "Home" }
       }
     }
   }
@@ -365,38 +365,38 @@ Wrapper(style: "contain: layout style;") {
 
   Grid(columns: 4, relaxed: true, equal_width: true, divided: true, class: "ui fluid popup") {
     Column {
-      Header(size: :h4) { text "Fabrics" }
+      Header(size: :h4) { "Fabrics" }
       List(link: true) {
-        MenuItem(href: "#") { text "Cashmere" }
-        MenuItem(href: "#") { text "Linen" }
-        MenuItem(href: "#") { text "Cotton" }
-        MenuItem(href: "#") { text "Viscose" }
+        MenuItem(href: "#") { "Cashmere" }
+        MenuItem(href: "#") { "Linen" }
+        MenuItem(href: "#") { "Cotton" }
+        MenuItem(href: "#") { "Viscose" }
       }
     }
     Column {
-      Header(size: :h4) { text "Size" }
+      Header(size: :h4) { "Size" }
       List(link: true) {
-        MenuItem(href: "#") { text "Small" }
-        MenuItem(href: "#") { text "Medium" }
-        MenuItem(href: "#") { text "Large" }
-        MenuItem(href: "#") { text "Plus Sizes" }
+        MenuItem(href: "#") { "Small" }
+        MenuItem(href: "#") { "Medium" }
+        MenuItem(href: "#") { "Large" }
+        MenuItem(href: "#") { "Plus Sizes" }
       }
     }
     Column {
-      Header(size: :h4) { text "Colored" }
+      Header(size: :h4) { "Colored" }
       List(link: true) {
-        MenuItem(href: "#") { text "Neutrals" }
-        MenuItem(href: "#") { text "Brights" }
-        MenuItem(href: "#") { text "Pastels" }
+        MenuItem(href: "#") { "Neutrals" }
+        MenuItem(href: "#") { "Brights" }
+        MenuItem(href: "#") { "Pastels" }
       }
     }
     Column {
-      Header(size: :h4) { text "Types" }
+      Header(size: :h4) { "Types" }
       List(link: true) {
-        MenuItem(href: "#") { text "Knitwear" }
-        MenuItem(href: "#") { text "Outerwear" }
-        MenuItem(href: "#") { text "Pants" }
-        MenuItem(href: "#") { text "Shoes" }
+        MenuItem(href: "#") { "Knitwear" }
+        MenuItem(href: "#") { "Outerwear" }
+        MenuItem(href: "#") { "Pants" }
+        MenuItem(href: "#") { "Shoes" }
       }
     }
   }
@@ -409,23 +409,23 @@ Wrapper(style: "contain: layout style;") {
   }
 
   Segment {
-    Paragraph { text "" }
+    Paragraph { "" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu {
-    MenuItem(href: "#") { text "Browse" }
-    MenuItem(href: "#") { text "Submit" }
+    MenuItem(href: "#") { "Browse" }
+    MenuItem(href: "#") { "Submit" }
     SubMenu(position: "right") {
-      MenuItem(href: "#") { text "Sign Up" }
-      MenuItem(href: "#") { text "Help" }
+      MenuItem(href: "#") { "Sign Up" }
+      MenuItem(href: "#") { "Help" }
     }
   }
 }
 
-Header { text "Vertical Menu with Sub Menus" }
+Header { "Vertical Menu with Sub Menus" }
 Wrapper(style: "contain: layout style;") {
   Menu(vertical: true) {
     MenuItem {
@@ -434,20 +434,20 @@ Wrapper(style: "contain: layout style;") {
     MenuItem {
       text "Home"
       SubMenu {
-        MenuItem(active: true, href: "#") { text "Search" }
-        MenuItem(href: "#") { text "Add" }
-        MenuItem(href: "#") { text "Remove" }
+        MenuItem(active: true, href: "#") { "Search" }
+        MenuItem(href: "#") { "Add" }
+        MenuItem(href: "#") { "Remove" }
       }
     }
-    MenuItem(href: "#", icon: "grid layout") { text "Browse" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(href: "#", icon: "grid layout") { "Browse" }
+    MenuItem(href: "#") { "Messages" }
     MenuItem(dropdown: true) {
       text "More"
       Icon(name: "dropdown")
       SubMenu {
-        MenuItem(href: "#", icon: "edit") { text "Edit Profile" }
-        MenuItem(href: "#", icon: "globe") { text "Choose Language" }
-        MenuItem(href: "#", icon: "settings") { text "Account Settings" }
+        MenuItem(href: "#", icon: "edit") { "Edit Profile" }
+        MenuItem(href: "#", icon: "globe") { "Choose Language" }
+        MenuItem(href: "#", icon: "settings") { "Account Settings" }
       }
     }
   }
@@ -456,22 +456,22 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(compact: true) {
-    MenuItem(href: "#") { text "A link" }
-    MenuItem(link: true) { text "div Link" }
+    MenuItem(href: "#") { "A link" }
+    MenuItem(link: true) { "div Link" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(compact: true) {
-    MenuItem(active: true) { text "Link" }
+    MenuItem(active: true) { "Link" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(compact: true) {
-    MenuItem(disabled: true) { text "Link" }
+    MenuItem(disabled: true) { "Link" }
   }
 }
 
@@ -479,75 +479,75 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style; height: 300px;") {
   Menu(fixed: "top") {
     MenuItem { Image(src: "/images/logo.png") }
-    MenuItem(href: "#") { text "Features" }
-    MenuItem(href: "#") { text "Testimonials" }
-    MenuItem(href: "#") { text "Sign-in" }
+    MenuItem(href: "#") { "Features" }
+    MenuItem(href: "#") { "Testimonials" }
+    MenuItem(href: "#") { "Sign-in" }
   }
 
   Menu(fixed: "bottom") {
     MenuItem { Image(src: "/images/logo.png") }
-    MenuItem(href: "#") { text "Features" }
-    MenuItem(href: "#") { text "Testimonials" }
-    MenuItem(href: "#") { text "Sign-in" }
+    MenuItem(href: "#") { "Features" }
+    MenuItem(href: "#") { "Testimonials" }
+    MenuItem(href: "#") { "Sign-in" }
   }
 
-  Paragraph { text "" }
-  Paragraph { text "" }
+  Paragraph { "" }
+  Paragraph { "" }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style; height: 300px;") {
   Menu(fixed: "left", vertical: true) {
     MenuItem { Image(src: "/images/logo.png", size: "mini") }
-    MenuItem(href: "#") { text "Features" }
-    MenuItem(href: "#") { text "Testimonials" }
-    MenuItem(href: "#") { text "Sign-in" }
+    MenuItem(href: "#") { "Features" }
+    MenuItem(href: "#") { "Testimonials" }
+    MenuItem(href: "#") { "Sign-in" }
   }
 
   Menu(fixed: "right", vertical: true) {
     MenuItem { Image(src: "/images/logo.png", size: "mini") }
-    MenuItem(href: "#") { text "Features" }
-    MenuItem(href: "#") { text "Testimonials" }
-    MenuItem(href: "#") { text "Sign-in" }
+    MenuItem(href: "#") { "Features" }
+    MenuItem(href: "#") { "Testimonials" }
+    MenuItem(href: "#") { "Sign-in" }
   }
 
-  Paragraph { text "" }
-  Paragraph { text "" }
+  Paragraph { "" }
+  Paragraph { "" }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(stackable: true) {
     MenuItem { Image(src: "/images/logo.png") }
-    MenuItem(href: "#") { text "Features" }
-    MenuItem(href: "#") { text "Testimonials" }
-    MenuItem(href: "#") { text "Sign-in" }
+    MenuItem(href: "#") { "Features" }
+    MenuItem(href: "#") { "Testimonials" }
+    MenuItem(href: "#") { "Sign-in" }
   }
 }
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true, vertical: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true, vertical: true, pointing: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
@@ -555,9 +555,9 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Segment(inverted: true) {
     Menu(inverted: true, secondary: true) {
-      MenuItem(active: true, href: "#") { text "Home" }
-      MenuItem(href: "#") { text "Messages" }
-      MenuItem(href: "#") { text "Friends" }
+      MenuItem(active: true, href: "#") { "Home" }
+      MenuItem(href: "#") { "Messages" }
+      MenuItem(href: "#") { "Friends" }
     }
   }
 }
@@ -566,9 +566,9 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Segment(inverted: true) {
     Menu(inverted: true, secondary: true, pointing: true) {
-      MenuItem(active: true, href: "#") { text "Home" }
-      MenuItem(href: "#") { text "Messages" }
-      MenuItem(href: "#") { text "Friends" }
+      MenuItem(active: true, href: "#") { "Home" }
+      MenuItem(href: "#") { "Messages" }
+      MenuItem(href: "#") { "Friends" }
     }
   }
 }
@@ -576,168 +576,168 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu {
-    MenuItem(active: true, color: "red", href: "#") { text "Red" }
-    MenuItem(color: "orange", href: "#") { text "Orange" }
-    MenuItem(color: "yellow", href: "#") { text "Yellow" }
-    MenuItem(color: "olive", href: "#") { text "Olive" }
-    MenuItem(color: "green", href: "#") { text "Green" }
-    MenuItem(color: "teal", href: "#") { text "Teal" }
+    MenuItem(active: true, color: "red", href: "#") { "Red" }
+    MenuItem(color: "orange", href: "#") { "Orange" }
+    MenuItem(color: "yellow", href: "#") { "Yellow" }
+    MenuItem(color: "olive", href: "#") { "Olive" }
+    MenuItem(color: "green", href: "#") { "Green" }
+    MenuItem(color: "teal", href: "#") { "Teal" }
   }
   Menu {
-    MenuItem(color: "blue", href: "#") { text "Blue" }
-    MenuItem(color: "violet", href: "#") { text "Violet" }
-    MenuItem(color: "purple", href: "#") { text "Purple" }
-    MenuItem(color: "pink", href: "#") { text "Pink" }
-    MenuItem(color: "brown", href: "#") { text "Brown" }
-    MenuItem(color: "grey", href: "#") { text "Grey" }
+    MenuItem(color: "blue", href: "#") { "Blue" }
+    MenuItem(color: "violet", href: "#") { "Violet" }
+    MenuItem(color: "purple", href: "#") { "Purple" }
+    MenuItem(color: "pink", href: "#") { "Pink" }
+    MenuItem(color: "brown", href: "#") { "Brown" }
+    MenuItem(color: "grey", href: "#") { "Grey" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(color: "red", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "orange", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "yellow", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "olive", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "green", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "teal", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "blue", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "violet", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "purple", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "pink", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "brown", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "grey", items: 3) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true) {
-    MenuItem(active: true, color: "red", href: "#") { text "Red" }
-    MenuItem(color: "orange", href: "#") { text "Orange" }
-    MenuItem(color: "yellow", href: "#") { text "Yellow" }
-    MenuItem(color: "olive", href: "#") { text "Olive" }
-    MenuItem(color: "green", href: "#") { text "Green" }
-    MenuItem(color: "teal", href: "#") { text "Teal" }
+    MenuItem(active: true, color: "red", href: "#") { "Red" }
+    MenuItem(color: "orange", href: "#") { "Orange" }
+    MenuItem(color: "yellow", href: "#") { "Yellow" }
+    MenuItem(color: "olive", href: "#") { "Olive" }
+    MenuItem(color: "green", href: "#") { "Green" }
+    MenuItem(color: "teal", href: "#") { "Teal" }
   }
   Menu(inverted: true) {
-    MenuItem(color: "blue", href: "#") { text "Blue" }
-    MenuItem(color: "violet", href: "#") { text "Violet" }
-    MenuItem(color: "purple", href: "#") { text "Purple" }
-    MenuItem(color: "pink", href: "#") { text "Pink" }
-    MenuItem(color: "brown", href: "#") { text "Brown" }
-    MenuItem(color: "grey", href: "#") { text "Grey" }
+    MenuItem(color: "blue", href: "#") { "Blue" }
+    MenuItem(color: "violet", href: "#") { "Violet" }
+    MenuItem(color: "purple", href: "#") { "Purple" }
+    MenuItem(color: "pink", href: "#") { "Pink" }
+    MenuItem(color: "brown", href: "#") { "Brown" }
+    MenuItem(color: "grey", href: "#") { "Grey" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(color: "red", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "orange", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "yellow", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "olive", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "green", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "teal", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "blue", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "violet", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "purple", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "pink", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "brown", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
   Menu(color: "grey", items: 3, inverted: true) {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
-    MenuItem(href: "#") { text "Friends" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
+    MenuItem(href: "#") { "Friends" }
   }
 }
 
@@ -790,9 +790,9 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(fluid: true, vertical: true) {
-    MenuItem(href: "#") { text "Run" }
-    MenuItem(href: "#") { text "Walk" }
-    MenuItem(href: "#") { text "Bike" }
+    MenuItem(href: "#") { "Run" }
+    MenuItem(href: "#") { "Walk" }
+    MenuItem(href: "#") { "Bike" }
   }
 }
 
@@ -835,40 +835,40 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(class: "equal width") {
-    MenuItem(href: "#") { text "Buy" }
-    MenuItem(href: "#") { text "Sell" }
-    MenuItem(href: "#") { text "Rent" }
+    MenuItem(href: "#") { "Buy" }
+    MenuItem(href: "#") { "Sell" }
+    MenuItem(href: "#") { "Rent" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(items: 3) {
-    MenuItem(href: "#") { text "Buy" }
-    MenuItem(href: "#") { text "Sell" }
-    MenuItem(href: "#") { text "Rent" }
+    MenuItem(href: "#") { "Buy" }
+    MenuItem(href: "#") { "Sell" }
+    MenuItem(href: "#") { "Rent" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(pointing: true, vertical: true) {
-    MenuItem(href: "#") { text "Site Title" }
+    MenuItem(href: "#") { "Site Title" }
     MenuItem {
       text "Grouped Section"
       SubMenu {
-        MenuItem(href: "#") { text "Subsection 1" }
-        MenuItem(active: true, href: "#") { text "Subsection 1" }
-        MenuItem(href: "#") { text "Subsection 1" }
+        MenuItem(href: "#") { "Subsection 1" }
+        MenuItem(active: true, href: "#") { "Subsection 1" }
+        MenuItem(href: "#") { "Subsection 1" }
       }
     }
     MenuItem(dropdown: true) {
       text "Dropdown"
       Icon(name: "dropdown")
       SubMenu {
-        MenuItem { text "Choice 1" }
-        MenuItem { text "Choice 2" }
-        MenuItem { text "Choice 3" }
+        MenuItem { "Choice 1" }
+        MenuItem { "Choice 2" }
+        MenuItem { "Choice 3" }
       }
     }
   }
@@ -877,8 +877,8 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(tabular: true, attached: "top") {
-    MenuItem(active: true, href: "#") { text "Tab 1" }
-    MenuItem(href: "#") { text "Tab 2" }
+    MenuItem(active: true, href: "#") { "Tab 1" }
+    MenuItem(href: "#") { "Tab 2" }
   }
   Segment(attached: "bottom") {
     text "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomized words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
@@ -888,35 +888,35 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(attached: "top") {
-    MenuItem(active: true, href: "#") { text "Section 1" }
-    MenuItem(href: "#") { text "Section 2" }
+    MenuItem(active: true, href: "#") { "Section 1" }
+    MenuItem(href: "#") { "Section 2" }
   }
   Segment(attached: true) {
     text "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomized words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
   }
   Menu(attached: "bottom") {
-    MenuItem(active: true, href: "#") { text "Section 1" }
-    MenuItem(href: "#") { text "Section 2" }
+    MenuItem(active: true, href: "#") { "Section 1" }
+    MenuItem(href: "#") { "Section 2" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "mini") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -925,20 +925,20 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "tiny") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -947,20 +947,20 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "small") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -969,20 +969,20 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "large") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -991,20 +991,20 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "huge") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -1013,20 +1013,20 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "massive") {
-    MenuItem(active: true, href: "#") { text "Home" }
-    MenuItem(href: "#") { text "Messages" }
+    MenuItem(active: true, href: "#") { "Home" }
+    MenuItem(href: "#") { "Messages" }
     SubMenu(position: "right") {
       MenuItem(dropdown: true) {
         text "Language"
         Icon(name: "dropdown")
         SubMenu {
-          MenuItem(href: "#") { text "English" }
-          MenuItem(href: "#") { text "Russian" }
-          MenuItem(href: "#") { text "Spanish" }
+          MenuItem(href: "#") { "English" }
+          MenuItem(href: "#") { "Russian" }
+          MenuItem(href: "#") { "Spanish" }
         }
       }
       MenuItem {
-        Button(color: "primary") { text "Sign Up" }
+        Button(color: "primary") { "Sign Up" }
       }
     }
   }
@@ -1036,15 +1036,15 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "mini", vertical: true) {
     MenuItem(active: true, href: "#") {
-      Label(color: "green") { text "1" }
+      Tag(color: "green") { "1" }
       text "Inbox"
     }
     MenuItem(href: "#") {
-      Label { text "51" }
+      Tag { "51" }
       text "Spam"
     }
     MenuItem(href: "#") {
-      Label { text "1" }
+      Tag { "1" }
       text "Updates"
     }
     MenuItem {
@@ -1057,15 +1057,15 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "small", vertical: true) {
     MenuItem(active: true, href: "#") {
-      Label(color: "green", size: "small") { text "1" }
+      Tag(color: "green", size: "small") { "1" }
       text "Inbox"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "51" }
+      Tag(size: "small") { "51" }
       text "Spam"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "1" }
+      Tag(size: "small") { "1" }
       text "Updates"
     }
     MenuItem {
@@ -1078,15 +1078,15 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "large", vertical: true) {
     MenuItem(active: true, href: "#") {
-      Label(color: "green", size: "small") { text "1" }
+      Tag(color: "green", size: "small") { "1" }
       text "Inbox"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "51" }
+      Tag(size: "small") { "51" }
       text "Spam"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "1" }
+      Tag(size: "small") { "1" }
       text "Updates"
     }
     MenuItem {
@@ -1099,15 +1099,15 @@ Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(size: "massive", vertical: true) {
     MenuItem(active: true, href: "#") {
-      Label(color: "green", size: "small") { text "1" }
+      Tag(color: "green", size: "small") { "1" }
       text "Inbox"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "51" }
+      Tag(size: "small") { "51" }
       text "Spam"
     }
     MenuItem(href: "#") {
-      Label(size: "small") { text "1" }
+      Tag(size: "small") { "1" }
       text "Updates"
     }
     MenuItem {
@@ -1119,21 +1119,21 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu {
-    MenuItem(fitted: "true") { text "No padding whatsoever" }
-    MenuItem(fitted: "horizontally") { text "No horizontal padding" }
-    MenuItem(fitted: "vertically") { text "No vertical padding" }
+    MenuItem(fitted: "true") { "No padding whatsoever" }
+    MenuItem(fitted: "horizontally") { "No horizontal padding" }
+    MenuItem(fitted: "vertically") { "No vertical padding" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(borderless: true) {
-    MenuItem(href: "#") { text "1" }
-    MenuItem(href: "#") { text "2" }
-    MenuItem(href: "#") { text "3" }
-    MenuItem(href: "#") { text "4" }
-    MenuItem(href: "#") { text "5" }
-    MenuItem(href: "#") { text "6" }
+    MenuItem(href: "#") { "1" }
+    MenuItem(href: "#") { "2" }
+    MenuItem(href: "#") { "3" }
+    MenuItem(href: "#") { "4" }
+    MenuItem(href: "#") { "5" }
+    MenuItem(href: "#") { "6" }
   }
 }
 
@@ -1149,11 +1149,11 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(pagination: true, class: "centered") {
-    MenuItem(active: true, href: "#") { text "1" }
-    MenuItem(disabled: true) { text "..." }
-    MenuItem(href: "#") { text "10" }
-    MenuItem(href: "#") { text "11" }
-    MenuItem(href: "#") { text "12" }
+    MenuItem(active: true, href: "#") { "1" }
+    MenuItem(disabled: true) { "..." }
+    MenuItem(href: "#") { "10" }
+    MenuItem(href: "#") { "11" }
+    MenuItem(href: "#") { "12" }
   }
 }
 
@@ -1169,51 +1169,51 @@ Wrapper(style: "contain: layout style;") {
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true, color: "green", class: "wrapped wrapping") {
-    MenuItem(active: true, href: "#") { text "One" }
-    MenuItem(href: "#") { text "Two" }
-    MenuItem(href: "#") { text "Three" }
-    MenuItem(href: "#") { text "Four" }
-    MenuItem(href: "#") { text "Five" }
-    MenuItem(href: "#") { text "Six" }
-    MenuItem(href: "#") { text "Seven" }
-    MenuItem(href: "#") { text "Eight" }
-    MenuItem(href: "#") { text "Nine" }
-    MenuItem(href: "#") { text "Ten" }
-    MenuItem(href: "#") { text "Eleven" }
-    MenuItem(href: "#") { text "Twelve" }
-    MenuItem(href: "#") { text "Thirteen" }
-    MenuItem(href: "#") { text "Fourteen" }
-    MenuItem(href: "#") { text "Fifteen" }
-    MenuItem(href: "#") { text "Sixteen" }
-    MenuItem(href: "#") { text "Seventeen" }
-    MenuItem(href: "#") { text "Eighteen" }
-    MenuItem(href: "#") { text "Nineteen" }
-    MenuItem(href: "#") { text "Twenty" }
+    MenuItem(active: true, href: "#") { "One" }
+    MenuItem(href: "#") { "Two" }
+    MenuItem(href: "#") { "Three" }
+    MenuItem(href: "#") { "Four" }
+    MenuItem(href: "#") { "Five" }
+    MenuItem(href: "#") { "Six" }
+    MenuItem(href: "#") { "Seven" }
+    MenuItem(href: "#") { "Eight" }
+    MenuItem(href: "#") { "Nine" }
+    MenuItem(href: "#") { "Ten" }
+    MenuItem(href: "#") { "Eleven" }
+    MenuItem(href: "#") { "Twelve" }
+    MenuItem(href: "#") { "Thirteen" }
+    MenuItem(href: "#") { "Fourteen" }
+    MenuItem(href: "#") { "Fifteen" }
+    MenuItem(href: "#") { "Sixteen" }
+    MenuItem(href: "#") { "Seventeen" }
+    MenuItem(href: "#") { "Eighteen" }
+    MenuItem(href: "#") { "Nineteen" }
+    MenuItem(href: "#") { "Twenty" }
   }
 }
 
 Header { "Menu" }
 Wrapper(style: "contain: layout style;") {
   Menu(inverted: true, color: "blue", fluid: true, class: "wrapped centered wrapping") {
-    MenuItem(active: true, href: "#") { text "One" }
-    MenuItem(href: "#") { text "Two" }
-    MenuItem(href: "#") { text "Three" }
-    MenuItem(href: "#") { text "Four" }
-    MenuItem(href: "#") { text "Five" }
-    MenuItem(href: "#") { text "Six" }
-    MenuItem(href: "#") { text "Seven" }
-    MenuItem(href: "#") { text "Eight" }
-    MenuItem(href: "#") { text "Nine" }
-    MenuItem(href: "#") { text "Ten" }
-    MenuItem(href: "#") { text "Eleven" }
-    MenuItem(href: "#") { text "Twelve" }
-    MenuItem(href: "#") { text "Thirteen" }
-    MenuItem(href: "#") { text "Fourteen" }
-    MenuItem(href: "#") { text "Fifteen" }
-    MenuItem(href: "#") { text "Sixteen" }
-    MenuItem(href: "#") { text "Seventeen" }
-    MenuItem(href: "#") { text "Eighteen" }
-    MenuItem(href: "#") { text "Nineteen" }
-    MenuItem(href: "#") { text "Twenty" }
+    MenuItem(active: true, href: "#") { "One" }
+    MenuItem(href: "#") { "Two" }
+    MenuItem(href: "#") { "Three" }
+    MenuItem(href: "#") { "Four" }
+    MenuItem(href: "#") { "Five" }
+    MenuItem(href: "#") { "Six" }
+    MenuItem(href: "#") { "Seven" }
+    MenuItem(href: "#") { "Eight" }
+    MenuItem(href: "#") { "Nine" }
+    MenuItem(href: "#") { "Ten" }
+    MenuItem(href: "#") { "Eleven" }
+    MenuItem(href: "#") { "Twelve" }
+    MenuItem(href: "#") { "Thirteen" }
+    MenuItem(href: "#") { "Fourteen" }
+    MenuItem(href: "#") { "Fifteen" }
+    MenuItem(href: "#") { "Sixteen" }
+    MenuItem(href: "#") { "Seventeen" }
+    MenuItem(href: "#") { "Eighteen" }
+    MenuItem(href: "#") { "Nineteen" }
+    MenuItem(href: "#") { "Twenty" }
   }
 }

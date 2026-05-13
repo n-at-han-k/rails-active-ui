@@ -17,9 +17,11 @@ class RowComponent < Component
   attribute :columns, :integer, default: nil
   attribute :centered, :boolean, default: false
   attribute :stretched, :boolean, default: false
+  attribute :doubling,  :boolean, default: false
   attribute :equal_width, :boolean, default: false
   attribute :only,     :string,  default: nil
   attribute :aligned,  :string,  default: nil
+  attribute :color,    :string,  default: nil
 
   def to_s
     col_word = columns && columns.between?(1, 16) ? NUMBERS[columns - 1] : nil
@@ -28,8 +30,10 @@ class RowComponent < Component
       col_word && "#{col_word} column",
       only && "#{only} only",
       aligned && "#{aligned} aligned",
+      color,
       { "centered" => centered,
         "stretched" => stretched,
+        "doubling" => doubling,
         "equal width" => equal_width },
       "row"
     )

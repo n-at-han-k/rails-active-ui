@@ -20,7 +20,7 @@ text '<style>
 
 # Title area
 Container(text: true) {
-  Header(size: :h1) { text "Sticky Example" }
+  Header(size: :h1) { "Sticky Example" }
   text "This example shows how to use lazy loaded images, a sticky menu, and a simple text container"
 }
 
@@ -31,14 +31,14 @@ Menu(borderless: true, text: true) {
       Image(src: "/icon.png", size: "mini")
       text " Project Name"
     }
-    MenuItem(href: "#") { text "Blog" }
-    MenuItem(href: "#") { text "Articles" }
+    MenuItem(href: "#") { "Blog" }
+    MenuItem(href: "#") { "Articles" }
     Dropdown(floating: true) {
-      MenuItem { text "Link Item" }
-      MenuItem { text "Link Item" }
+      MenuItem { "Link Item" }
+      MenuItem { "Link Item" }
       Divider()
-      MenuItem(header: true) { text "Header Item" }
-      MenuItem { text "Link Item" }
+      MenuItem(header: true) { "Header Item" }
+      MenuItem { "Link Item" }
     }
   }
 }
@@ -53,9 +53,9 @@ Container(text: true) {
 
   Overlay {
     Menu(vertical: true, labeled_icon: true) {
-      MenuItem(href: "#", icon: "twitter") { text " Tweet" }
-      MenuItem(href: "#", icon: "facebook") { text " Share" }
-      MenuItem(href: "#", icon: "mail") { text " E-mail" }
+      MenuItem(href: "#", icon: "twitter") { " Tweet" }
+      MenuItem(href: "#", icon: "facebook") { " Share" }
+      MenuItem(href: "#", icon: "mail") { " E-mail" }
     }
   }
 
@@ -93,47 +93,47 @@ Segment(inverted: true, vertical: true) {
   Container {
     Grid(divided: "true", inverted: true, stackable: true) {
       Column(width: 3) {
-        Header(size: :h4, inverted: true) { text "Group 1" }
+        Header(size: :h4, inverted: true) { "Group 1" }
         List(link: true, inverted: true) {
-          MenuItem(href: "#") { text "Link One" }
-          MenuItem(href: "#") { text "Link Two" }
-          MenuItem(href: "#") { text "Link Three" }
-          MenuItem(href: "#") { text "Link Four" }
+          MenuItem(href: "#") { "Link One" }
+          MenuItem(href: "#") { "Link Two" }
+          MenuItem(href: "#") { "Link Three" }
+          MenuItem(href: "#") { "Link Four" }
         }
       }
 
       Column(width: 3) {
-        Header(size: :h4, inverted: true) { text "Group 2" }
+        Header(size: :h4, inverted: true) { "Group 2" }
         List(link: true, inverted: true) {
-          MenuItem(href: "#") { text "Link One" }
-          MenuItem(href: "#") { text "Link Two" }
-          MenuItem(href: "#") { text "Link Three" }
-          MenuItem(href: "#") { text "Link Four" }
+          MenuItem(href: "#") { "Link One" }
+          MenuItem(href: "#") { "Link Two" }
+          MenuItem(href: "#") { "Link Three" }
+          MenuItem(href: "#") { "Link Four" }
         }
       }
 
       Column(width: 3) {
-        Header(size: :h4, inverted: true) { text "Group 3" }
+        Header(size: :h4, inverted: true) { "Group 3" }
         List(link: true, inverted: true) {
-          MenuItem(href: "#") { text "Link One" }
-          MenuItem(href: "#") { text "Link Two" }
-          MenuItem(href: "#") { text "Link Three" }
-          MenuItem(href: "#") { text "Link Four" }
+          MenuItem(href: "#") { "Link One" }
+          MenuItem(href: "#") { "Link Two" }
+          MenuItem(href: "#") { "Link Three" }
+          MenuItem(href: "#") { "Link Four" }
         }
       }
 
       Column(width: 7) {
-        Header(size: :h4, inverted: true) { text "Footer Header" }
+        Header(size: :h4, inverted: true) { "Footer Header" }
         text "Extra space for a call to action inside the footer that could help re-engage users."
       }
     }
     Divider(inverted: true, section: true)
     Image(src: "/icon.png", size: "mini", centered: true)
     List(horizontal: true, inverted: true, divided: true, link: true, size: "small") {
-      MenuItem(href: "#") { text "Site Map" }
-      MenuItem(href: "#") { text "Contact Us" }
-      MenuItem(href: "#") { text "Terms and Conditions" }
-      MenuItem(href: "#") { text "Privacy Policy" }
+      MenuItem(href: "#") { "Site Map" }
+      MenuItem(href: "#") { "Contact Us" }
+      MenuItem(href: "#") { "Terms and Conditions" }
+      MenuItem(href: "#") { "Privacy Policy" }
     }
   }
 }
