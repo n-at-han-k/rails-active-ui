@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Example" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Example">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "semantic.min.css", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= fui_javascript_tags %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <style>
+      #example-wrapper {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: 100vh;
+      }
+      #example-sidebar {
+        overflow-y: auto;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      #example-sidebar > .ui.vertical.menu {
+        width: 100%;
+        border-radius: 0;
+        min-height: 100vh;
+      }
+      #example-content {
+        padding: 1.5rem;
+        overflow-y: auto;
+      }
+    </style>
+
+    <%
+      examples_dir = Rails.root.join("app/views/examples")
+      entries = Dir.glob(examples_dir.join("**/*")).select { |f| File.file?(f) }.sort
+      grouped = {}
+      top_level = []
+
+      entries.each do |file|
+        relative = Pathname.new(file).relative_path_from(examples_dir).to_s
+        parts = relative.split("/")
+        name = File.basename(parts.last).split(".").first
+        next if name.start_with?("_")
+
+        if parts.length > 1
+          folder = parts.first
+          grouped[folder] ||= []
+          grouped[folder] << { name: name, path: parts[0..-1].map { |p| File.basename(p).split(".").first }.join("/") }
+        else
+          top_level << { name: name, path: name }
+        end
+      end
+    %>
+
+    <div id="example-wrapper">
+      <div id="example-sidebar">
+        <div class="ui inverted vertical menu">
+          <% top_level.each do |item| %>
+            <% href = item[:name] == "index" ? "/examples" : "/examples/#{item[:path]}" %>
+            <%= link_to item[:name].titleize, href, class: "item #{'active' if params[:path] == item[:path]}" %>
+          <% end %>
+
+          <% grouped.sort.each do |folder, items| %>
+            <div class="item">
+              <div class="header"><%= folder.titleize %></div>
+              <div class="menu">
+                <% items.sort_by { |i| i[:name] }.each do |item| %>
+                  <%= link_to item[:name].titleize, "/examples/#{item[:path]}", class: "item #{'active' if params[:path] == item[:path]}" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="example-content">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
