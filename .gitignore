@@ -5,11 +5,18 @@
 /log/*.log
 /pkg/
 /tmp/
-/example/db/*.sqlite3
-/example/db/*.sqlite3-*
-/example/log/*.log
-/example/storage/
-/example/tmp/
-/example/config/master.key
-/example/config/credentials.yml.enc
 .gem
+
+# Root Rails app
+/db/*.sqlite3
+/db/*.sqlite3-*
+/storage/
+/config/master.key
+/config/credentials.yml.enc
+
+# Engine test dummy app
+/engines/rails-active-ui/test/dummy/db/*.sqlite3
+/engines/rails-active-ui/test/dummy/db/*.sqlite3-*
+/engines/rails-active-ui/test/dummy/log/*.log
+/engines/rails-active-ui/test/dummy/storage/
+/engines/rails-active-ui/test/dummy/tmp/
