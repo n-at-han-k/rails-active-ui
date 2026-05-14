@@ -83,23 +83,23 @@ Wrapper(class: "dash-layout") {
     # Apps section
     Wrapper(class: "nav-section") {
       Wrapper(class: "nav-section-title") { "Apps" }
-      Wrapper(class: "nav-item") { Icon(name: "columns", inverted: true); text "Kanban" }
-      Wrapper(class: "nav-item") { Icon(name: "sticky note", inverted: true); text "Notes"; Wrapper(class: "nav-badge") { "8" } }
-      Wrapper(class: "nav-item") { Icon(name: "comment", inverted: true); text "Chats"; Wrapper(class: "nav-badge") { "5" } }
-      Wrapper(class: "nav-item") { Icon(name: "heart", inverted: true); text "Social Media"; Wrapper(class: "nav-badge new") { "New" } }
-      Wrapper(class: "nav-item") { Icon(name: "mail", inverted: true); text "Mail" }
-      Wrapper(class: "nav-item") { Icon(name: "check square", inverted: true); text "Todo List" }
-      Wrapper(class: "nav-item") { Icon(name: "clipboard", inverted: true); text "Tasks" }
-      Wrapper(class: "nav-item") { Icon(name: "calendar", inverted: true); text "Calendar" }
+      Wrapper(class: "nav-item") { Icon(name: "columns", inverted: true); LinkTo(href: "/examples/dashboard/apps-kanban", style: "color: inherit; text-decoration: none;") { "Kanban" } }
+      Wrapper(class: "nav-item") { Icon(name: "sticky note", inverted: true); LinkTo(href: "/examples/dashboard/apps-notes", style: "color: inherit; text-decoration: none;") { "Notes" }; Wrapper(class: "nav-badge") { "8" } }
+      Wrapper(class: "nav-item") { Icon(name: "comment", inverted: true); LinkTo(href: "/examples/dashboard/apps-chat", style: "color: inherit; text-decoration: none;") { "Chats" }; Wrapper(class: "nav-badge") { "5" } }
+      Wrapper(class: "nav-item") { Icon(name: "heart", inverted: true); LinkTo(href: "/examples/dashboard/apps-social-media", style: "color: inherit; text-decoration: none;") { "Social Media" }; Wrapper(class: "nav-badge new") { "New" } }
+      Wrapper(class: "nav-item") { Icon(name: "mail", inverted: true); LinkTo(href: "/examples/dashboard/apps-mail", style: "color: inherit; text-decoration: none;") { "Mail" } }
+      Wrapper(class: "nav-item") { Icon(name: "check square", inverted: true); LinkTo(href: "/examples/dashboard/apps-todo", style: "color: inherit; text-decoration: none;") { "Todo List" } }
+      Wrapper(class: "nav-item") { Icon(name: "clipboard", inverted: true); LinkTo(href: "/examples/dashboard/apps-tasks", style: "color: inherit; text-decoration: none;") { "Tasks" } }
+      Wrapper(class: "nav-item") { Icon(name: "calendar", inverted: true); LinkTo(href: "/examples/dashboard/apps-calendar", style: "color: inherit; text-decoration: none;") { "Calendar" } }
     }
 
     # AI Apps section
     Wrapper(class: "nav-section") {
       Wrapper(class: "nav-section-title") { "AI Apps" }
-      Wrapper(class: "nav-item") { Icon(name: "brain", inverted: true); text "AI Chat" }
-      Wrapper(class: "nav-item") { Icon(name: "microchip", inverted: true); text "AI Chat V2"; Wrapper(class: "nav-badge new") { "New" } }
-      Wrapper(class: "nav-item") { Icon(name: "images", inverted: true); text "Image Generator" }
-      Wrapper(class: "nav-item") { Icon(name: "volume up", inverted: true); text "Text to Speech" }
+      Wrapper(class: "nav-item") { Icon(name: "brain", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-chat", style: "color: inherit; text-decoration: none;") { "AI Chat" } }
+      Wrapper(class: "nav-item") { Icon(name: "microchip", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-chat-v2", style: "color: inherit; text-decoration: none;") { "AI Chat V2" }; Wrapper(class: "nav-badge new") { "New" } }
+      Wrapper(class: "nav-item") { Icon(name: "images", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-image-generator", style: "color: inherit; text-decoration: none;") { "Image Generator" } }
+      Wrapper(class: "nav-item") { Icon(name: "volume up", inverted: true); LinkTo(href: "/examples/dashboard/apps-text-to-speech", style: "color: inherit; text-decoration: none;") { "Text to Speech" } }
     }
 
     # Sidebar footer

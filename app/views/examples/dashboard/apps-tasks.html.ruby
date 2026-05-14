@@ -1,4 +1,4 @@
-# Shadcn UI Kit Dashboard — Project Dashboard
+# Shadcn UI Kit Dashboard — Tasks
 # Translated from https://github.com/bundui/shadcn-ui-kit-dashboard
 
 text '<style>
@@ -68,7 +68,7 @@ Wrapper(class: "dash-layout") {
       Wrapper(class: "nav-item") { Icon(name: "shopping bag", inverted: true); LinkTo(href: "/examples/dashboard/ecommerce", style: "color: inherit; text-decoration: none;") { "E-commerce" } }
       Wrapper(class: "nav-item") { Icon(name: "credit card", inverted: true); LinkTo(href: "/examples/dashboard/payment", style: "color: inherit; text-decoration: none;") { "Payment" } }
       Wrapper(class: "nav-item") { Icon(name: "building", inverted: true); LinkTo(href: "/examples/dashboard/hotel", style: "color: inherit; text-decoration: none;") { "Hotel" } }
-      Wrapper(class: "nav-item active") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
+      Wrapper(class: "nav-item") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
       Wrapper(class: "nav-item") { Icon(name: "home", inverted: true); LinkTo(href: "/examples/dashboard/real-estate", style: "color: inherit; text-decoration: none;") { "Real Estate" } }
       Wrapper(class: "nav-item") { Icon(name: "dollar sign", inverted: true); LinkTo(href: "/examples/dashboard/sales", style: "color: inherit; text-decoration: none;") { "Sales" } }
       Wrapper(class: "nav-item") { Icon(name: "address book", inverted: true); LinkTo(href: "/examples/dashboard/crm", style: "color: inherit; text-decoration: none;") { "CRM" } }
@@ -89,7 +89,7 @@ Wrapper(class: "dash-layout") {
       Wrapper(class: "nav-item") { Icon(name: "heart", inverted: true); LinkTo(href: "/examples/dashboard/apps-social-media", style: "color: inherit; text-decoration: none;") { "Social Media" }; Wrapper(class: "nav-badge new") { "New" } }
       Wrapper(class: "nav-item") { Icon(name: "mail", inverted: true); LinkTo(href: "/examples/dashboard/apps-mail", style: "color: inherit; text-decoration: none;") { "Mail" } }
       Wrapper(class: "nav-item") { Icon(name: "check square", inverted: true); LinkTo(href: "/examples/dashboard/apps-todo", style: "color: inherit; text-decoration: none;") { "Todo List" } }
-      Wrapper(class: "nav-item") { Icon(name: "clipboard", inverted: true); LinkTo(href: "/examples/dashboard/apps-tasks", style: "color: inherit; text-decoration: none;") { "Tasks" } }
+      Wrapper(class: "nav-item active") { Icon(name: "clipboard", inverted: true); LinkTo(href: "/examples/dashboard/apps-tasks", style: "color: inherit; text-decoration: none;") { "Tasks" } }
       Wrapper(class: "nav-item") { Icon(name: "calendar", inverted: true); LinkTo(href: "/examples/dashboard/apps-calendar", style: "color: inherit; text-decoration: none;") { "Calendar" } }
     }
 
@@ -204,7 +204,7 @@ Wrapper(class: "dash-layout") {
 
       # Title bar
       Wrapper(class: "dash-title-bar") {
-        Header(size: :h2, style: "margin: 0;") { "Project Dashboard" }
+        Header(size: :h2, style: "margin: 0;") { "Tasks" }
         Wrapper(style: "display: flex; gap: 0.5em; align-items: center;") {
           Button(class: "basic", icon: "calendar alternate outline") { " 17 Apr 2026 - 14 May 2026" }
           Button(color: "blue", icon: "download") { " Download" }
@@ -214,174 +214,114 @@ Wrapper(class: "dash-layout") {
       # Widget grid
       Wrapper(class: "dash-grid") {
 
-        # ── Row 1: Stat Cards ─────────────────────────────────────────
-        [
-          ["dollar sign", "blue", "Revenue", "$124,500", "+18%"],
-          ["briefcase", "green", "Active Projects", "24", "+3"],
-          ["trophy", "orange", "New Leads", "186", "+25%"],
-        ].each do |icon, color, label, val, change|
-          Card(fluid: true) { |c|
-            c.description {
-              HStack(spacing: 3, justify: "between", align: "start") {
-                Wrapper { Text(size: "sm", color: "grey") { label }; Wrapper(class: "kpi-value", style: "font-size: 1.4em;") { val } }
-                Icon(name: icon, color: color, size: "large", circular: true, inverted: true)
-              }
-              Tag(color: "green", basic: true, size: "mini") { change }
-            }
-          }
-        end
-
-        # ── Row 2: Project Overview Chart (span 2) | Success Metrics
+        # ── Tasks Data Table (full width) ─────────────────────────────
         Wrapper(class: "span-2") {
           Card(fluid: true) { |c|
             c.header {
               HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Project Overview" }
-                Wrapper(style: "display: flex; gap: 0.35em;") {
-                  Button(class: "basic mini active") { "Monthly" }
-                  Button(class: "basic mini") { "Weekly" }
-                }
-              }
-            }
-            c.description {
-              Wrapper(class: "mini-line-placeholder", style: "height: 200px;") {}
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Success Metrics" } }
-          c.description {
-            # Avatar stack
-            HStack(spacing: -4) {
-              (1..6).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{(i % 4) + 1}.jpg", avatar: true, style: "border: 2px solid #fff;") }
-            }
-            Text(size: "xs", color: "grey", style: "margin-top: 0.5em;") { "+12 team members" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["Completed on time", "85%", "green", "arrow up"], ["Under budget", "72%", "green", "arrow up"], ["Client satisfaction", "94%", "green", "arrow up"], ["Resource utilization", "68%", "orange", "arrow down"]].each do |label, val, color, icon|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { label }
-                    HStack(spacing: 2, align: "center") { Text(weight: "semibold", color: color) { val }; Icon(name: icon, color: color, size: "small") }
-                  }
-                }
-              end
-            }
-          }
-        }
-
-        # ── Row 3: Reminders (span 2) | Efficiency ────────────────
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Reminders" }
-                Button(class: "basic mini", icon: "plus") { " Add" }
-              }
-            }
-            c.description {
-              HStack(spacing: 8) {
-                [
-                  ["Team standup at 10:00 AM", "Today", "blue", "high"],
-                  ["Sprint review presentation", "Tomorrow", "orange", "medium"],
-                  ["Client demo - Phase 2", "May 16", "green", "high"],
-                ].each do |title, date, color, priority|
-                  Card(fluid: true) { |rc|
-                    rc.description {
-                      HStack(spacing: 3, justify: "between", align: "start") {
-                        Wrapper {
-                          Text(weight: "semibold", size: "sm") { title }
-                          Text(size: "xs", color: "grey") { date }
-                        }
-                        Tag(size: "mini", color: color, basic: true) { priority.capitalize }
-                      }
+                Header(size: :h4, style: "margin: 0;") { "Tasks" }
+                HStack(spacing: 3) {
+                  Input(icon: "search", icon_position: "left", placeholder: "Filter tasks...", size: "mini")
+                  Dropdown(button: true, floating: true, compact: true, pointing: "top right", class: "basic mini") {
+                    Icon(name: "sliders horizontal")
+                    text " Status"
+                    MenuMenu(class: "menu") {
+                      MenuItem { Icon(name: "circle outline"); text "Backlog" }
+                      MenuItem { Icon(name: "circle"); text "Todo" }
+                      MenuItem { Icon(name: "clock"); text "In Progress" }
+                      MenuItem { Icon(name: "check circle"); text "Done" }
+                      MenuItem { Icon(name: "ban"); text "Canceled" }
                     }
                   }
-                end
-              }
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Project Efficiency" } }
-          c.description {
-            Wrapper(class: "kpi-value", style: "text-align: center;") { "78%" }
-            Text(size: "xs", color: "grey", style: "text-align: center; display: block;") { "Overall Efficiency" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["2024", 82, "blue"], ["2023", 75, "green"], ["2022", 68, "orange"]].each do |year, pct, color|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { year }
-                    Wrapper(style: "flex: 1; margin: 0 0.5em;") { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {} } }
-                    Text(weight: "semibold", size: "sm") { "#{pct}%" }
+                  Dropdown(button: true, floating: true, compact: true, pointing: "top right", class: "basic mini") {
+                    Icon(name: "sliders horizontal")
+                    text " Priority"
+                    MenuMenu(class: "menu") {
+                      MenuItem { Icon(name: "arrow down"); text "Low" }
+                      MenuItem { Icon(name: "arrow right"); text "Medium" }
+                      MenuItem { Icon(name: "arrow up"); text "High" }
+                    }
                   }
+                  Button(color: "blue", size: "mini", icon: "plus") { " Add Task" }
                 }
-              end
-            }
-          }
-        }
-
-        # ── Row 4: Projects Table (span 3) ─────────────────────────
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Recent Projects" }
-                Input(icon: "search", icon_position: "left", placeholder: "Search projects...", size: "mini")
               }
             }
             c.description {
               Table(basic: "very", size: "small", selectable: true) { |t|
                 t.header {
                   TableRow {
-                    TableCell(heading: true, width: 3) { "Project" }
-                    TableCell(heading: true, width: 2) { "Team" }
-                    TableCell(heading: true, width: 2) { "Progress" }
-                    TableCell(heading: true, width: 2) { "Status" }
-                    TableCell(heading: true, width: 2) { "Deadline" }
+                    TableCell(heading: true, width: 2) { "Task" }
+                    TableCell(heading: true, width: 5) { "Title" }
+                    TableCell(heading: true, width: 3) { "Status" }
+                    TableCell(heading: true, width: 3) { "Priority" }
                     TableCell(heading: true, width: 1) { "" }
                   }
                 }
                 [
-                  ["Website Redesign",    85, "On Track",  "green",  "May 20"],
-                  ["Mobile App v2",       62, "At Risk",   "orange", "May 25"],
-                  ["API Integration",     94, "Completed", "blue",   "May 10"],
-                  ["Dashboard Analytics", 45, "On Track",  "green",  "Jun 1"],
-                  ["CRM Migration",       30, "Delayed",   "red",    "Jun 15"],
-                  ["Security Audit",      78, "On Track",  "green",  "May 18"],
-                ].each do |name, pct, status, color, deadline|
+                  ["TASK-8782", "bug",         "You can't compress the program without quantifying...",    "in progress", "clock",          "blue",   "medium", "arrow right"],
+                  ["TASK-7878", "feature",     "Try to calculate the EXE feed, maybe it will index...",   "backlog",     "circle outline", "grey",   "high",   "arrow up"],
+                  ["TASK-7839", "feature",     "We need to bypass the neural TCP card!",                  "todo",        "circle",         "grey",   "high",   "arrow up"],
+                  ["TASK-5562", "bug",         "The SAS interface is down, bypass the open-source...",    "backlog",     "circle outline", "grey",   "medium", "arrow right"],
+                  ["TASK-8686", "feature",     "I'll parse the wireless SSL protocol, that should...",    "canceled",    "ban",            "red",    "medium", "arrow right"],
+                  ["TASK-1280", "bug",         "Use the digital TLS panel, then you can transmit...",     "done",        "check circle",   "green",  "high",   "arrow up"],
+                  ["TASK-7262", "feature",     "The UTF8 application is down, parse the neural...",       "done",        "check circle",   "green",  "low",    "arrow down"],
+                  ["TASK-1138", "feature",     "Generating the driver won't do anything, we need to...",  "in progress", "clock",          "blue",   "medium", "arrow right"],
+                  ["TASK-7184", "bug",         "We need to program the back-end THX pixel!",              "todo",        "circle",         "grey",   "low",    "arrow down"],
+                  ["TASK-5765", "documentation","The SQL firewall is down, navigate the primary...",      "done",        "check circle",   "green",  "medium", "arrow right"],
+                ].each do |id, label, title, status, status_icon, status_color, priority, priority_icon|
                   TableRow {
-                    TableCell { Text(weight: "semibold") { name } }
+                    TableCell { Text(size: "sm", color: "grey") { id } }
                     TableCell {
-                      HStack(spacing: -4) { (1..3).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{i}.jpg", avatar: true, style: "width: 24px; height: 24px; border: 2px solid #fff;") } }
+                      HStack(spacing: 3, align: "center") {
+                        Tag(size: "mini", basic: true) { label }
+                        Text(weight: "semibold", size: "sm") { title }
+                      }
                     }
-                    TableCell { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {}; p.label { "#{pct}%" } } }
-                    TableCell { Tag(size: "mini", color: color, basic: true) { status } }
-                    TableCell { Text(size: "xs", color: "grey") { deadline } }
+                    TableCell {
+                      HStack(spacing: 2, align: "center") {
+                        Icon(name: status_icon, color: status_color, size: "small")
+                        Text(size: "sm") { status.split(" ").map(&:capitalize).join(" ") }
+                      }
+                    }
+                    TableCell {
+                      HStack(spacing: 2, align: "center") {
+                        Icon(name: priority_icon, size: "small")
+                        Text(size: "sm") { priority.capitalize }
+                      }
+                    }
                     TableCell {
                       Dropdown(button: true, floating: true, compact: true, pointing: "top right", class: "icon basic mini") {
                         Icon(name: "ellipsis horizontal")
-                        MenuMenu(class: "menu") { MenuItem(icon: "eye") { "View" }; MenuItem(icon: "edit") { "Edit" } }
+                        MenuMenu(class: "menu") {
+                          MenuItem(icon: "edit") { "Edit" }
+                          MenuItem(icon: "copy") { "Make a copy" }
+                          MenuItem(icon: "star") { "Favorite" }
+                          Divider()
+                          MenuItem(icon: "trash", class: "red") { "Delete" }
+                        }
                       }
                     }
                   }
                 end
               }
-            }
-          }
-        }
 
-        Card(fluid: true) { |c|
-          c.description {
-            Text(size: "sm", color: "grey") { "Time Spent" }
-            Wrapper(class: "kpi-value") { "1,240h" }
-            Tag(color: "green", basic: true, size: "mini") { Icon(name: "arrow up"); text "+8%" }
-            Divider(hidden: true)
-            Wrapper(class: "kpi-chart-placeholder") {
-              [55, 42, 68, 50, 72, 45, 58, 65].each { |h| text "<div class=\"mini-bar\" style=\"height:#{h}%\"></div>".html_safe }
+              HStack(spacing: 3, justify: "between", align: "center", style: "margin-top: 0.75em;") {
+                Text(size: "xs", color: "grey") { "0 of 10 row(s) selected" }
+                HStack(spacing: 3, align: "center") {
+                  Text(size: "xs") { "Rows per page" }
+                  Dropdown(selection: true, compact: true, default_value: "10", class: "mini") {
+                    MenuItem(value: "10") { "10" }
+                    MenuItem(value: "20") { "20" }
+                    MenuItem(value: "30") { "30" }
+                    MenuItem(value: "50") { "50" }
+                  }
+                  Text(size: "xs") { "Page 1 of 5" }
+                  Button(icon: "angle double left", class: "basic icon mini", disabled: true)
+                  Button(icon: "chevron left", class: "basic icon mini", disabled: true)
+                  Button(icon: "chevron right", class: "basic icon mini")
+                  Button(icon: "angle double right", class: "basic icon mini")
+                }
+              }
             }
           }
         }

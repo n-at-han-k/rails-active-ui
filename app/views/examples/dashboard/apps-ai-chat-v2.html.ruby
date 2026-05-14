@@ -1,4 +1,4 @@
-# Shadcn UI Kit Dashboard — Project Dashboard
+# Shadcn UI Kit Dashboard — AI Chat V2
 # Translated from https://github.com/bundui/shadcn-ui-kit-dashboard
 
 text '<style>
@@ -68,7 +68,7 @@ Wrapper(class: "dash-layout") {
       Wrapper(class: "nav-item") { Icon(name: "shopping bag", inverted: true); LinkTo(href: "/examples/dashboard/ecommerce", style: "color: inherit; text-decoration: none;") { "E-commerce" } }
       Wrapper(class: "nav-item") { Icon(name: "credit card", inverted: true); LinkTo(href: "/examples/dashboard/payment", style: "color: inherit; text-decoration: none;") { "Payment" } }
       Wrapper(class: "nav-item") { Icon(name: "building", inverted: true); LinkTo(href: "/examples/dashboard/hotel", style: "color: inherit; text-decoration: none;") { "Hotel" } }
-      Wrapper(class: "nav-item active") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
+      Wrapper(class: "nav-item") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
       Wrapper(class: "nav-item") { Icon(name: "home", inverted: true); LinkTo(href: "/examples/dashboard/real-estate", style: "color: inherit; text-decoration: none;") { "Real Estate" } }
       Wrapper(class: "nav-item") { Icon(name: "dollar sign", inverted: true); LinkTo(href: "/examples/dashboard/sales", style: "color: inherit; text-decoration: none;") { "Sales" } }
       Wrapper(class: "nav-item") { Icon(name: "address book", inverted: true); LinkTo(href: "/examples/dashboard/crm", style: "color: inherit; text-decoration: none;") { "CRM" } }
@@ -97,7 +97,7 @@ Wrapper(class: "dash-layout") {
     Wrapper(class: "nav-section") {
       Wrapper(class: "nav-section-title") { "AI Apps" }
       Wrapper(class: "nav-item") { Icon(name: "brain", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-chat", style: "color: inherit; text-decoration: none;") { "AI Chat" } }
-      Wrapper(class: "nav-item") { Icon(name: "microchip", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-chat-v2", style: "color: inherit; text-decoration: none;") { "AI Chat V2" }; Wrapper(class: "nav-badge new") { "New" } }
+      Wrapper(class: "nav-item active") { Icon(name: "microchip", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-chat-v2", style: "color: inherit; text-decoration: none;") { "AI Chat V2" }; Wrapper(class: "nav-badge new") { "New" } }
       Wrapper(class: "nav-item") { Icon(name: "images", inverted: true); LinkTo(href: "/examples/dashboard/apps-ai-image-generator", style: "color: inherit; text-decoration: none;") { "Image Generator" } }
       Wrapper(class: "nav-item") { Icon(name: "volume up", inverted: true); LinkTo(href: "/examples/dashboard/apps-text-to-speech", style: "color: inherit; text-decoration: none;") { "Text to Speech" } }
     }
@@ -204,7 +204,7 @@ Wrapper(class: "dash-layout") {
 
       # Title bar
       Wrapper(class: "dash-title-bar") {
-        Header(size: :h2, style: "margin: 0;") { "Project Dashboard" }
+        Header(size: :h2, style: "margin: 0;") { "AI Chat V2" }
         Wrapper(style: "display: flex; gap: 0.5em; align-items: center;") {
           Button(class: "basic", icon: "calendar alternate outline") { " 17 Apr 2026 - 14 May 2026" }
           Button(color: "blue", icon: "download") { " Download" }
@@ -214,174 +214,106 @@ Wrapper(class: "dash-layout") {
       # Widget grid
       Wrapper(class: "dash-grid") {
 
-        # ── Row 1: Stat Cards ─────────────────────────────────────────
-        [
-          ["dollar sign", "blue", "Revenue", "$124,500", "+18%"],
-          ["briefcase", "green", "Active Projects", "24", "+3"],
-          ["trophy", "orange", "New Leads", "186", "+25%"],
-        ].each do |icon, color, label, val, change|
-          Card(fluid: true) { |c|
-            c.description {
-              HStack(spacing: 3, justify: "between", align: "start") {
-                Wrapper { Text(size: "sm", color: "grey") { label }; Wrapper(class: "kpi-value", style: "font-size: 1.4em;") { val } }
-                Icon(name: icon, color: color, size: "large", circular: true, inverted: true)
-              }
-              Tag(color: "green", basic: true, size: "mini") { change }
+        # ── Conversation sidebar ─────────────────────────────────────
+        Card(fluid: true) { |c|
+          c.header {
+            HStack(spacing: 3, justify: "between", align: "center") {
+              Header(size: :h4, style: "margin: 0;") { "Conversations" }
+              Button(color: "blue", size: "mini", icon: "plus") { " New Chat" }
             }
           }
-        end
+          c.description {
+            Input(icon: "search", icon_position: "left", placeholder: "Search conversations...", fluid: true, size: "mini")
+            Divider(hidden: true)
+            Header(size: :h6, sub: true, color: "grey") { "Today" }
+            List(selection: true, divided: true) {
+              ListItem(active: true) { Icon(name: "comment outline", color: "blue"); text " Explain server components" }
+              ListItem { Icon(name: "comment outline"); text " React vs Vue comparison" }
+              ListItem { Icon(name: "comment outline"); text " Write a REST API" }
+            }
+            Header(size: :h6, sub: true, color: "grey", style: "margin-top: 0.75em;") { "Yesterday" }
+            List(selection: true, divided: true) {
+              ListItem { Icon(name: "comment outline"); text " Debug async function" }
+              ListItem { Icon(name: "comment outline"); text " CSS Grid tutorial" }
+            }
+            Header(size: :h6, sub: true, color: "grey", style: "margin-top: 0.75em;") { "Last 7 Days" }
+            List(selection: true, divided: true) {
+              ListItem { Icon(name: "comment outline"); text " Database optimization" }
+              ListItem { Icon(name: "comment outline"); text " TypeScript generics" }
+              ListItem { Icon(name: "comment outline"); text " Docker setup guide" }
+            }
+          }
+        }
 
-        # ── Row 2: Project Overview Chart (span 2) | Success Metrics
+        # ── Chat panel (span 2) ──────────────────────────────────
         Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
+          Card(fluid: true, style: "min-height: 500px; display: flex; flex-direction: column;") { |c|
             c.header {
               HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Project Overview" }
-                Wrapper(style: "display: flex; gap: 0.35em;") {
-                  Button(class: "basic mini active") { "Monthly" }
-                  Button(class: "basic mini") { "Weekly" }
+                Header(size: :h4, style: "margin: 0;") { "Explain server components" }
+                HStack(spacing: 3) {
+                  Text(size: "xs", color: "grey") { "Model: " }
+                  Dropdown(selection: true, compact: true, default_value: "claude", class: "mini") {
+                    MenuItem(value: "claude") { "Claude 3.5 Sonnet" }
+                    MenuItem(value: "gpt4o") { "GPT-4o" }
+                    MenuItem(value: "o1") { "o1" }
+                    MenuItem(value: "gemini") { "Gemini 2.5 Pro" }
+                  }
                 }
               }
             }
             c.description {
-              Wrapper(class: "mini-line-placeholder", style: "height: 200px;") {}
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Success Metrics" } }
-          c.description {
-            # Avatar stack
-            HStack(spacing: -4) {
-              (1..6).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{(i % 4) + 1}.jpg", avatar: true, style: "border: 2px solid #fff;") }
-            }
-            Text(size: "xs", color: "grey", style: "margin-top: 0.5em;") { "+12 team members" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["Completed on time", "85%", "green", "arrow up"], ["Under budget", "72%", "green", "arrow up"], ["Client satisfaction", "94%", "green", "arrow up"], ["Resource utilization", "68%", "orange", "arrow down"]].each do |label, val, color, icon|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { label }
-                    HStack(spacing: 2, align: "center") { Text(weight: "semibold", color: color) { val }; Icon(name: icon, color: color, size: "small") }
-                  }
+              CommentGroup(minimal: true, size: "small") {
+                Comment { |cm|
+                  cm.avatar { Image(src: "/images/shadcn-dashboard/avatars/1.jpg") }
+                  cm.author { "You" }
+                  cm.text_slot { "Can you explain React Server Components?" }
                 }
-              end
-            }
-          }
-        }
-
-        # ── Row 3: Reminders (span 2) | Efficiency ────────────────
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Reminders" }
-                Button(class: "basic mini", icon: "plus") { " Add" }
-              }
-            }
-            c.description {
-              HStack(spacing: 8) {
-                [
-                  ["Team standup at 10:00 AM", "Today", "blue", "high"],
-                  ["Sprint review presentation", "Tomorrow", "orange", "medium"],
-                  ["Client demo - Phase 2", "May 16", "green", "high"],
-                ].each do |title, date, color, priority|
-                  Card(fluid: true) { |rc|
-                    rc.description {
-                      HStack(spacing: 3, justify: "between", align: "start") {
-                        Wrapper {
-                          Text(weight: "semibold", size: "sm") { title }
-                          Text(size: "xs", color: "grey") { date }
-                        }
-                        Tag(size: "mini", color: color, basic: true) { priority.capitalize }
-                      }
+                Comment { |cm|
+                  cm.avatar { Icon(name: "robot", size: "large", color: "blue") }
+                  cm.author { "Claude 3.5 Sonnet" }
+                  cm.text_slot {
+                    text "React Server Components (RSC) are a new paradigm that lets you render components on the server. Key benefits:"
+                    List(bulleted: true, size: "small", style: "margin-top: 0.5em;") {
+                      ListItem { Text(weight: "semibold") { "Zero bundle size: " }; text "Server components don't add to the client JS bundle" }
+                      ListItem { Text(weight: "semibold") { "Direct data access: " }; text "Query databases directly without API endpoints" }
+                      ListItem { Text(weight: "semibold") { "Streaming: " }; text "Components can stream content as it becomes available" }
                     }
                   }
-                end
-              }
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Project Efficiency" } }
-          c.description {
-            Wrapper(class: "kpi-value", style: "text-align: center;") { "78%" }
-            Text(size: "xs", color: "grey", style: "text-align: center; display: block;") { "Overall Efficiency" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["2024", 82, "blue"], ["2023", 75, "green"], ["2022", 68, "orange"]].each do |year, pct, color|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { year }
-                    Wrapper(style: "flex: 1; margin: 0 0.5em;") { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {} } }
-                    Text(weight: "semibold", size: "sm") { "#{pct}%" }
-                  }
-                }
-              end
-            }
-          }
-        }
-
-        # ── Row 4: Projects Table (span 3) ─────────────────────────
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Recent Projects" }
-                Input(icon: "search", icon_position: "left", placeholder: "Search projects...", size: "mini")
-              }
-            }
-            c.description {
-              Table(basic: "very", size: "small", selectable: true) { |t|
-                t.header {
-                  TableRow {
-                    TableCell(heading: true, width: 3) { "Project" }
-                    TableCell(heading: true, width: 2) { "Team" }
-                    TableCell(heading: true, width: 2) { "Progress" }
-                    TableCell(heading: true, width: 2) { "Status" }
-                    TableCell(heading: true, width: 2) { "Deadline" }
-                    TableCell(heading: true, width: 1) { "" }
-                  }
-                }
-                [
-                  ["Website Redesign",    85, "On Track",  "green",  "May 20"],
-                  ["Mobile App v2",       62, "At Risk",   "orange", "May 25"],
-                  ["API Integration",     94, "Completed", "blue",   "May 10"],
-                  ["Dashboard Analytics", 45, "On Track",  "green",  "Jun 1"],
-                  ["CRM Migration",       30, "Delayed",   "red",    "Jun 15"],
-                  ["Security Audit",      78, "On Track",  "green",  "May 18"],
-                ].each do |name, pct, status, color, deadline|
-                  TableRow {
-                    TableCell { Text(weight: "semibold") { name } }
-                    TableCell {
-                      HStack(spacing: -4) { (1..3).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{i}.jpg", avatar: true, style: "width: 24px; height: 24px; border: 2px solid #fff;") } }
-                    }
-                    TableCell { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {}; p.label { "#{pct}%" } } }
-                    TableCell { Tag(size: "mini", color: color, basic: true) { status } }
-                    TableCell { Text(size: "xs", color: "grey") { deadline } }
-                    TableCell {
-                      Dropdown(button: true, floating: true, compact: true, pointing: "top right", class: "icon basic mini") {
-                        Icon(name: "ellipsis horizontal")
-                        MenuMenu(class: "menu") { MenuItem(icon: "eye") { "View" }; MenuItem(icon: "edit") { "Edit" } }
-                      }
+                  cm.actions {
+                    HStack(spacing: 3) {
+                      Button(icon: "copy outline", class: "basic icon mini")
+                      Button(icon: "thumbs up outline", class: "basic icon mini")
+                      Button(icon: "thumbs down outline", class: "basic icon mini")
                     }
                   }
-                end
+                }
+                Comment { |cm|
+                  cm.avatar { Image(src: "/images/shadcn-dashboard/avatars/1.jpg") }
+                  cm.author { "You" }
+                  cm.text_slot { "How do they work with client components?" }
+                }
+                Comment { |cm|
+                  cm.avatar { Icon(name: "robot", size: "large", color: "blue") }
+                  cm.author { "Claude 3.5 Sonnet" }
+                  cm.text_slot { "Server and Client Components can be interleaved in the same component tree. You mark client components with the \"use client\" directive. Server components can import and render client components, but client components cannot import server components -- they can only receive them as props (children)." }
+                  cm.actions {
+                    HStack(spacing: 3) {
+                      Button(icon: "copy outline", class: "basic icon mini")
+                      Button(icon: "thumbs up outline", class: "basic icon mini")
+                      Button(icon: "thumbs down outline", class: "basic icon mini")
+                    }
+                  }
+                }
               }
             }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.description {
-            Text(size: "sm", color: "grey") { "Time Spent" }
-            Wrapper(class: "kpi-value") { "1,240h" }
-            Tag(color: "green", basic: true, size: "mini") { Icon(name: "arrow up"); text "+8%" }
-            Divider(hidden: true)
-            Wrapper(class: "kpi-chart-placeholder") {
-              [55, 42, 68, 50, 72, 45, 58, 65].each { |h| text "<div class=\"mini-bar\" style=\"height:#{h}%\"></div>".html_safe }
+            c.extra {
+              Message(type: "info", compact: true, size: "mini") { text "Use our faster AI on "; Text(weight: "semibold") { "Pro Plan" }; text " - "; LinkTo(href: "#") { "Upgrade" } }
+              Divider(hidden: true)
+              Input(placeholder: "Ask a follow-up question...", action: true, fluid: true) {
+                Button(icon: "microphone", class: "basic icon")
+                Button(color: "blue", icon: "paper plane")
+              }
             }
           }
         }

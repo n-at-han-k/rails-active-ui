@@ -1,4 +1,4 @@
-# Shadcn UI Kit Dashboard — Project Dashboard
+# Shadcn UI Kit Dashboard — Notes
 # Translated from https://github.com/bundui/shadcn-ui-kit-dashboard
 
 text '<style>
@@ -68,7 +68,7 @@ Wrapper(class: "dash-layout") {
       Wrapper(class: "nav-item") { Icon(name: "shopping bag", inverted: true); LinkTo(href: "/examples/dashboard/ecommerce", style: "color: inherit; text-decoration: none;") { "E-commerce" } }
       Wrapper(class: "nav-item") { Icon(name: "credit card", inverted: true); LinkTo(href: "/examples/dashboard/payment", style: "color: inherit; text-decoration: none;") { "Payment" } }
       Wrapper(class: "nav-item") { Icon(name: "building", inverted: true); LinkTo(href: "/examples/dashboard/hotel", style: "color: inherit; text-decoration: none;") { "Hotel" } }
-      Wrapper(class: "nav-item active") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
+      Wrapper(class: "nav-item") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
       Wrapper(class: "nav-item") { Icon(name: "home", inverted: true); LinkTo(href: "/examples/dashboard/real-estate", style: "color: inherit; text-decoration: none;") { "Real Estate" } }
       Wrapper(class: "nav-item") { Icon(name: "dollar sign", inverted: true); LinkTo(href: "/examples/dashboard/sales", style: "color: inherit; text-decoration: none;") { "Sales" } }
       Wrapper(class: "nav-item") { Icon(name: "address book", inverted: true); LinkTo(href: "/examples/dashboard/crm", style: "color: inherit; text-decoration: none;") { "CRM" } }
@@ -84,7 +84,7 @@ Wrapper(class: "dash-layout") {
     Wrapper(class: "nav-section") {
       Wrapper(class: "nav-section-title") { "Apps" }
       Wrapper(class: "nav-item") { Icon(name: "columns", inverted: true); LinkTo(href: "/examples/dashboard/apps-kanban", style: "color: inherit; text-decoration: none;") { "Kanban" } }
-      Wrapper(class: "nav-item") { Icon(name: "sticky note", inverted: true); LinkTo(href: "/examples/dashboard/apps-notes", style: "color: inherit; text-decoration: none;") { "Notes" }; Wrapper(class: "nav-badge") { "8" } }
+      Wrapper(class: "nav-item active") { Icon(name: "sticky note", inverted: true); LinkTo(href: "/examples/dashboard/apps-notes", style: "color: inherit; text-decoration: none;") { "Notes" }; Wrapper(class: "nav-badge") { "8" } }
       Wrapper(class: "nav-item") { Icon(name: "comment", inverted: true); LinkTo(href: "/examples/dashboard/apps-chat", style: "color: inherit; text-decoration: none;") { "Chats" }; Wrapper(class: "nav-badge") { "5" } }
       Wrapper(class: "nav-item") { Icon(name: "heart", inverted: true); LinkTo(href: "/examples/dashboard/apps-social-media", style: "color: inherit; text-decoration: none;") { "Social Media" }; Wrapper(class: "nav-badge new") { "New" } }
       Wrapper(class: "nav-item") { Icon(name: "mail", inverted: true); LinkTo(href: "/examples/dashboard/apps-mail", style: "color: inherit; text-decoration: none;") { "Mail" } }
@@ -204,7 +204,7 @@ Wrapper(class: "dash-layout") {
 
       # Title bar
       Wrapper(class: "dash-title-bar") {
-        Header(size: :h2, style: "margin: 0;") { "Project Dashboard" }
+        Header(size: :h2, style: "margin: 0;") { "Notes" }
         Wrapper(style: "display: flex; gap: 0.5em; align-items: center;") {
           Button(class: "basic", icon: "calendar alternate outline") { " 17 Apr 2026 - 14 May 2026" }
           Button(color: "blue", icon: "download") { " Download" }
@@ -214,174 +214,103 @@ Wrapper(class: "dash-layout") {
       # Widget grid
       Wrapper(class: "dash-grid") {
 
-        # ── Row 1: Stat Cards ─────────────────────────────────────────
-        [
-          ["dollar sign", "blue", "Revenue", "$124,500", "+18%"],
-          ["briefcase", "green", "Active Projects", "24", "+3"],
-          ["trophy", "orange", "New Leads", "186", "+25%"],
-        ].each do |icon, color, label, val, change|
-          Card(fluid: true) { |c|
-            c.description {
-              HStack(spacing: 3, justify: "between", align: "start") {
-                Wrapper { Text(size: "sm", color: "grey") { label }; Wrapper(class: "kpi-value", style: "font-size: 1.4em;") { val } }
-                Icon(name: icon, color: color, size: "large", circular: true, inverted: true)
-              }
-              Tag(color: "green", basic: true, size: "mini") { change }
-            }
-          }
-        end
-
-        # ── Row 2: Project Overview Chart (span 2) | Success Metrics
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Project Overview" }
-                Wrapper(style: "display: flex; gap: 0.35em;") {
-                  Button(class: "basic mini active") { "Monthly" }
-                  Button(class: "basic mini") { "Weekly" }
-                }
-              }
-            }
-            c.description {
-              Wrapper(class: "mini-line-placeholder", style: "height: 200px;") {}
-            }
-          }
-        }
-
+        # ── Notes sidebar ────────────────────────────────────────────
         Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Success Metrics" } }
+          c.header {
+            Button(color: "blue", fluid: true, icon: "pencil") { " Add Note" }
+          }
           c.description {
-            # Avatar stack
-            HStack(spacing: -4) {
-              (1..6).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{(i % 4) + 1}.jpg", avatar: true, style: "border: 2px solid #fff;") }
+            List(selection: true, divided: true) {
+              ListItem(active: true) { Icon(name: "sticky note", color: "blue"); text " Notes" }
+              ListItem { Icon(name: "archive"); text " Archive" }
+              ListItem { Icon(name: "edit"); text " Edit Labels" }
             }
-            Text(size: "xs", color: "grey", style: "margin-top: 0.5em;") { "+12 team members" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["Completed on time", "85%", "green", "arrow up"], ["Under budget", "72%", "green", "arrow up"], ["Client satisfaction", "94%", "green", "arrow up"], ["Resource utilization", "68%", "orange", "arrow down"]].each do |label, val, color, icon|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { label }
-                    HStack(spacing: 2, align: "center") { Text(weight: "semibold", color: color) { val }; Icon(name: icon, color: color, size: "small") }
-                  }
-                }
+            Divider()
+            Header(size: :h6, sub: true, color: "grey") { "Labels" }
+            List(selection: true) {
+              [["Family", "red"], ["Tasks", "blue"], ["Personal", "purple"], ["Meetings", "green"], ["Shopping", "orange"], ["Planning", "teal"], ["Travel", "yellow"]].each do |label, color|
+                ListItem { Icon(name: "circle", color: color, size: "tiny"); text " #{label}" }
               end
             }
           }
         }
 
-        # ── Row 3: Reminders (span 2) | Efficiency ────────────────
+        # ── Notes Grid (span 2) ──────────────────────────────────
         Wrapper(class: "span-2") {
           Card(fluid: true) { |c|
             c.header {
               HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Reminders" }
-                Button(class: "basic mini", icon: "plus") { " Add" }
+                Input(icon: "search", icon_position: "left", placeholder: "Search notes...", size: "mini")
+                HStack(spacing: 3) {
+                  Button(icon: "th", class: "basic icon mini active")
+                  Button(icon: "list", class: "basic icon mini")
+                }
               }
             }
             c.description {
-              HStack(spacing: 8) {
-                [
-                  ["Team standup at 10:00 AM", "Today", "blue", "high"],
-                  ["Sprint review presentation", "Tomorrow", "orange", "medium"],
-                  ["Client demo - Phase 2", "May 16", "green", "high"],
-                ].each do |title, date, color, priority|
-                  Card(fluid: true) { |rc|
-                    rc.description {
-                      HStack(spacing: 3, justify: "between", align: "start") {
-                        Wrapper {
-                          Text(weight: "semibold", size: "sm") { title }
-                          Text(size: "xs", color: "grey") { date }
-                        }
-                        Tag(size: "mini", color: color, basic: true) { priority.capitalize }
-                      }
-                    }
-                  }
-                end
-              }
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.header { Header(size: :h4, style: "margin: 0;") { "Project Efficiency" } }
-          c.description {
-            Wrapper(class: "kpi-value", style: "text-align: center;") { "78%" }
-            Text(size: "xs", color: "grey", style: "text-align: center; display: block;") { "Overall Efficiency" }
-            Divider(hidden: true)
-            List(divided: true) {
-              [["2024", 82, "blue"], ["2023", 75, "green"], ["2022", 68, "orange"]].each do |year, pct, color|
-                ListItem {
-                  HStack(spacing: 3, justify: "between", align: "center") {
-                    Text(size: "sm") { year }
-                    Wrapper(style: "flex: 1; margin: 0 0.5em;") { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {} } }
-                    Text(weight: "semibold", size: "sm") { "#{pct}%" }
+              Wrapper(style: "display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75em;") {
+                # Text note
+                Card(fluid: true, color: "blue") { |n|
+                  n.header { "Project Ideas" }
+                  n.description {
+                    Text(size: "sm") { "1. Build a CLI tool for project scaffolding\n2. Create a VS Code extension\n3. Open-source component library" }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "blue", size: "mini") { "Tasks" }; Tag(color: "purple", size: "mini") { "Personal" } }
                   }
                 }
-              end
-            }
-          }
-        }
-
-        # ── Row 4: Projects Table (span 3) ─────────────────────────
-        Wrapper(class: "span-2") {
-          Card(fluid: true) { |c|
-            c.header {
-              HStack(spacing: 3, justify: "between", align: "center") {
-                Header(size: :h4, style: "margin: 0;") { "Recent Projects" }
-                Input(icon: "search", icon_position: "left", placeholder: "Search projects...", size: "mini")
-              }
-            }
-            c.description {
-              Table(basic: "very", size: "small", selectable: true) { |t|
-                t.header {
-                  TableRow {
-                    TableCell(heading: true, width: 3) { "Project" }
-                    TableCell(heading: true, width: 2) { "Team" }
-                    TableCell(heading: true, width: 2) { "Progress" }
-                    TableCell(heading: true, width: 2) { "Status" }
-                    TableCell(heading: true, width: 2) { "Deadline" }
-                    TableCell(heading: true, width: 1) { "" }
+                # Image note
+                Card(fluid: true, color: "green") { |n|
+                  n.image { Image(src: "/images/shadcn-dashboard/products/03.jpeg", fluid: true) }
+                  n.header { "Design Inspiration" }
+                  n.description {
+                    Text(size: "sm") { "Collected references for the new dashboard redesign project." }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "green", size: "mini") { "Meetings" } }
                   }
                 }
-                [
-                  ["Website Redesign",    85, "On Track",  "green",  "May 20"],
-                  ["Mobile App v2",       62, "At Risk",   "orange", "May 25"],
-                  ["API Integration",     94, "Completed", "blue",   "May 10"],
-                  ["Dashboard Analytics", 45, "On Track",  "green",  "Jun 1"],
-                  ["CRM Migration",       30, "Delayed",   "red",    "Jun 15"],
-                  ["Security Audit",      78, "On Track",  "green",  "May 18"],
-                ].each do |name, pct, status, color, deadline|
-                  TableRow {
-                    TableCell { Text(weight: "semibold") { name } }
-                    TableCell {
-                      HStack(spacing: -4) { (1..3).each { |i| Image(src: "/images/shadcn-dashboard/avatars/#{i}.jpg", avatar: true, style: "width: 24px; height: 24px; border: 2px solid #fff;") } }
+                # Checklist note
+                Card(fluid: true, color: "orange") { |n|
+                  n.header { "Shopping List" }
+                  n.description {
+                    List {
+                      ListItem { Icon(name: "check square", color: "green"); text " Groceries" }
+                      ListItem { Icon(name: "check square", color: "green"); text " Coffee beans" }
+                      ListItem { Icon(name: "square outline"); text " Printer paper" }
+                      ListItem { Icon(name: "square outline"); text " USB cables" }
                     }
-                    TableCell { Progress(value: pct, total: 100, color: color, size: "tiny") { |p| p.bar {}; p.label { "#{pct}%" } } }
-                    TableCell { Tag(size: "mini", color: color, basic: true) { status } }
-                    TableCell { Text(size: "xs", color: "grey") { deadline } }
-                    TableCell {
-                      Dropdown(button: true, floating: true, compact: true, pointing: "top right", class: "icon basic mini") {
-                        Icon(name: "ellipsis horizontal")
-                        MenuMenu(class: "menu") { MenuItem(icon: "eye") { "View" }; MenuItem(icon: "edit") { "Edit" } }
-                      }
-                    }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "orange", size: "mini") { "Shopping" } }
                   }
-                end
+                }
+                # Text note
+                Card(fluid: true, color: "purple") { |n|
+                  n.header { "Meeting Notes - Q2 Review" }
+                  n.description {
+                    Text(size: "sm") { "Key takeaways from the quarterly review:\n- Revenue up 15%\n- New product launch on track\n- Hiring plan approved for Q3" }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "green", size: "mini") { "Meetings" }; Tag(color: "blue", size: "mini") { "Tasks" } }
+                  }
+                }
+                # Image note
+                Card(fluid: true, color: "teal") { |n|
+                  n.image { Image(src: "/images/shadcn-dashboard/products/05.jpeg", fluid: true) }
+                  n.header { "Travel Plans" }
+                  n.description {
+                    Text(size: "sm") { "Summer trip itinerary - flights and hotels booked." }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "yellow", size: "mini") { "Travel" }; Tag(color: "red", size: "mini") { "Family" } }
+                  }
+                }
+                # Checklist note
+                Card(fluid: true, color: "red") { |n|
+                  n.header { "Sprint Tasks" }
+                  n.description {
+                    List {
+                      ListItem { Icon(name: "check square", color: "green"); text " API endpoint for user profiles" }
+                      ListItem { Icon(name: "check square", color: "green"); text " Write unit tests" }
+                      ListItem { Icon(name: "square outline"); text " Code review for PR #234" }
+                      ListItem { Icon(name: "square outline"); text " Update documentation" }
+                      ListItem { Icon(name: "square outline"); text " Performance testing" }
+                    }
+                    HStack(spacing: 3, style: "margin-top: 0.5em;") { Tag(color: "blue", size: "mini") { "Tasks" }; Tag(color: "teal", size: "mini") { "Planning" } }
+                  }
+                }
               }
-            }
-          }
-        }
-
-        Card(fluid: true) { |c|
-          c.description {
-            Text(size: "sm", color: "grey") { "Time Spent" }
-            Wrapper(class: "kpi-value") { "1,240h" }
-            Tag(color: "green", basic: true, size: "mini") { Icon(name: "arrow up"); text "+8%" }
-            Divider(hidden: true)
-            Wrapper(class: "kpi-chart-placeholder") {
-              [55, 42, 68, 50, 72, 45, 58, 65].each { |h| text "<div class=\"mini-bar\" style=\"height:#{h}%\"></div>".html_safe }
             }
           }
         }

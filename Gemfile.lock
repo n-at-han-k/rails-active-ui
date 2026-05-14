@@ -1,7 +1,7 @@
 PATH
   remote: engines/rails-active-ui
   specs:
-    rails-active-ui (0.3.8)
+    rails-active-ui (0.4.0)
       rails (~> 8.1, >= 8.1.0)
 
 GEM
