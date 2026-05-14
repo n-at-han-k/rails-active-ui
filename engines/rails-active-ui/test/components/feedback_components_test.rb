@@ -161,28 +161,55 @@ class FeedbackComponentsTest < ComponentTestCase
     assert_includes html, "fluid"
   end
 
-  test "placeholder with header slot" do
+  test "placeholder with header" do
     html = render_inline(PlaceholderComponent) { |c|
-      c.header_slot { ctx.output_buffer << "lines".html_safe }
+      c.header { c.line }
     }
-
     assert_includes html, 'class="header"'
+    assert_includes html, 'class="line"'
   end
 
-  test "placeholder with paragraph slot" do
+  test "placeholder with image header" do
     html = render_inline(PlaceholderComponent) { |c|
-      c.paragraph { ctx.output_buffer << "lines".html_safe }
+      c.header(image: true) { c.line }
     }
+    assert_includes html, 'class="image header"'
+  end
 
+  test "placeholder with paragraph" do
+    html = render_inline(PlaceholderComponent) { |c|
+      c.paragraph { c.line }
+    }
     assert_includes html, 'class="paragraph"'
+    assert_includes html, 'class="line"'
   end
 
-  test "placeholder with image slot" do
+  test "placeholder with image" do
     html = render_inline(PlaceholderComponent) { |c|
-      c.image_slot { ctx.output_buffer << "img".html_safe }
+      c.image
     }
-
     assert_includes html, 'class="image"'
+  end
+
+  test "placeholder with square image" do
+    html = render_inline(PlaceholderComponent) { |c|
+      c.image :square
+    }
+    assert_includes html, 'class="square image"'
+  end
+
+  test "placeholder line with length" do
+    html = render_inline(PlaceholderComponent) { |c|
+      c.line :medium
+    }
+    assert_includes html, 'class="medium line"'
+  end
+
+  test "placeholder line with underscored length" do
+    html = render_inline(PlaceholderComponent) { |c|
+      c.line :very_short
+    }
+    assert_includes html, 'class="very short line"'
   end
 
   # --- ToastComponent ---

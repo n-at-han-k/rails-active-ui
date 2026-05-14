@@ -187,15 +187,24 @@ class FormComponentsTest < ComponentTestCase
     assert_includes html, "datetime"
   end
 
-  test "calendar with name" do
-    html = render_inline(CalendarComponent, name: "start_date")
-    assert_includes html, 'name="start_date"'
+  test "calendar inverted" do
+    html = render_inline(CalendarComponent, inverted: true)
+    assert_includes html, "inverted"
   end
 
-  test "calendar has icon and input" do
-    html = render_inline(CalendarComponent)
-    assert_includes html, "calendar icon"
-    assert_includes html, 'type="text"'
+  test "calendar disabled" do
+    html = render_inline(CalendarComponent, disabled: true)
+    assert_includes html, "disabled"
+  end
+
+  test "calendar size" do
+    html = render_inline(CalendarComponent, size: "small")
+    assert_includes html, "small"
+  end
+
+  test "calendar format data attribute" do
+    html = render_inline(CalendarComponent, format: "YYYY-MM-DD")
+    assert_includes html, "YYYY-MM-DD"
   end
 
   # --- SliderComponent ---

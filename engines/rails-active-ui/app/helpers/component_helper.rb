@@ -58,9 +58,11 @@ module ComponentHelper
     StepGroup:   "StepGroupComponent",
 
     Text:        "TextComponent",
+    ButtonGroup: "ButtonGroupComponent",
 
     # Collections
     Breadcrumb:  "BreadcrumbComponent",
+    Field:       "FieldComponent",
     Form:        "FormComponent",
     Grid:        "GridComponent",
     Menu:        "MenuComponent",
@@ -80,12 +82,15 @@ module ComponentHelper
     CommentReplyGroup: "CommentReplyGroupComponent",
     CommentReply:      "CommentReplyComponent",
     Feed:        "FeedComponent",
+    FeedItem:    "FeedItemComponent",
     Item:        "ItemComponent",
     Statistic:   "StatisticComponent",
 
     # Modules
-    Accordion:   "AccordionComponent",
-    Calendar:    "CalendarComponent",
+    Accordion:     "AccordionComponent",
+    AccordionItem: "AccordionItemComponent",
+    SubAccordion:  "SubAccordionComponent",
+    Calendar:      "CalendarComponent",
 
     Dimmer:      "DimmerComponent",
     Dropdown:    "DropdownComponent",
@@ -127,6 +132,10 @@ module ComponentHelper
 
   def text(content)
     output_buffer << content.to_s
+  end
+
+  def NbSpace
+    output_buffer << "&nbsp;".html_safe
   end
 
   def Partial(*args, **kwargs, &block)

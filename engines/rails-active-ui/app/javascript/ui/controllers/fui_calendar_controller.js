@@ -14,14 +14,15 @@ import { Controller } from "@hotwired/stimulus"
 //
 export default class extends Controller {
   static values = {
-    type:         { type: String, default: "date" },
-    closable:     { type: Boolean, default: true },
-    monthFirst:   { type: Boolean, default: true },
-    firstDayOfWeek: { type: Number, default: 0 },
-    today:        { type: Boolean, default: false },
-    formatInput:  { type: Boolean, default: true },
-    minDate:      { type: String, default: "" },
-    maxDate:      { type: String, default: "" },
+    type:           { type: String,  default: "date" },
+    format:         { type: String,  default: "" },
+    closable:       { type: Boolean, default: true },
+    monthFirst:     { type: Boolean, default: true },
+    firstDayOfWeek: { type: Number,  default: 0 },
+    today:          { type: Boolean, default: false },
+    formatInput:    { type: Boolean, default: true },
+    minDate:        { type: String,  default: "" },
+    maxDate:        { type: String,  default: "" },
   }
 
   connect() {
@@ -56,6 +57,15 @@ export default class extends Controller {
       },
       onShow: () => { this.dispatch("show") },
       onHide: () => { this.dispatch("hide") },
+    }
+
+    if (this.formatValue) {
+      opts.formatter = {
+        date: this.formatValue,
+        datetime: this.formatValue,
+        time: this.formatValue,
+        cellTime: this.formatValue,
+      }
     }
 
     if (this.minDateValue) opts.minDate = new Date(this.minDateValue)

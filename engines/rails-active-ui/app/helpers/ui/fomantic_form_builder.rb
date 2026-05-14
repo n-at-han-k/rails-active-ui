@@ -4,22 +4,25 @@
 #
 # A Rails FormBuilder wrapping every helper in Fomantic-UI markup.
 #
-# Usage in a view:
+# All text-like input helpers (text_field, email_field, password_field, etc.)
+# render a bare <input> element by default. Pass `field: true` to wrap the
+# input in a Fomantic <div class="field"> with optional label, error, hint.
 #
-#   <%= form_with model: @user, builder: FomanticFormBuilder do |f| %>
-#     <%= f.text_field :name %>
-#     <%= f.email_field :email, required: true %>
-#     <%= f.select :role, [['Admin', 'admin'], ['User', 'user']], dropdown: true %>
-#     <%= f.check_box :terms, label: 'I agree to the Terms and Conditions' %>
-#     <%= f.fields_group(equal_width: true) do %>
-#       <%= f.text_field :first_name %>
-#       <%= f.text_field :last_name %>
-#     <% end %>
-#     <%= f.submit 'Save', color: 'green' %>
-#   <% end %>
+# Usage:
 #
-# Field options (shared across all helpers):
-#   label:        String  – override label text (nil to suppress label)
+#   # Bare input (no wrapper):
+#   TextField(:email, placeholder: "E-mail address")
+#
+#   # Wrapped in <div class="field"> with auto-label:
+#   TextField(:email, field: true)
+#
+#   # Inside an Input wrapper for icon styling:
+#   Input(icon: "user", icon_position: "left") {
+#     TextField(:email, placeholder: "E-mail address")
+#   }
+#
+# Field options (only used when field: true):
+#   label:        String  – override label text (false to suppress label)
 #   required:     Boolean – adds "required" class and asterisk
 #   disabled:     Boolean – adds "disabled" class
 #   readonly:     Boolean – adds "read-only" class
@@ -29,7 +32,6 @@
 #   warning:      String  – warning message; adds "warning" class + inline message
 #   hint:         String  – rendered as a small grey note beneath the input
 #   field_class:  String  – extra classes on the wrapping .field div
-#   input_class:  String  – extra classes on the input element itself
 #
 module Ui
 class FomanticFormBuilder < ActionView::Helpers::FormBuilder
@@ -45,14 +47,46 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   %i[
     text_field email_field password_field
     number_field url_field telephone_field phone_field
-    search_field color_field date_field datetime_local_field
-    month_field week_field time_field range_field
+    search_field color_field range_field
   ].each do |method_name|
     define_method(method_name) do |attribute, options = {}|
-      fomantic_field(attribute, options) do |attr, opts|
-        opts[:class] = class_names("", opts.delete(:input_class))
-        super(attr, opts)
-      end
+      wrap_in_field = options.delete(:field)
+
+      input_html = super(attribute, options)
+
+      wrap_in_field ? fomantic_field(attribute, options, input_html) : input_html
+    end
+  end
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Date/time inputs — wrapped in Fomantic calendar
+  # ──────────────────────────────────────────────────────────────────────────
+
+  CALENDAR_TYPE_MAP = {
+    date_field:           "date",
+    datetime_local_field: "datetime",
+    time_field:           "time",
+    month_field:          "month",
+    week_field:           "date"
+  }.freeze
+
+  %i[date_field datetime_local_field time_field month_field week_field].each do |method_name|
+    define_method(method_name) do |attribute, options = {}|
+      wrap_in_field = options.delete(:field)
+      cal_type   = options.delete(:calendar_type) || CALENDAR_TYPE_MAP[method_name]
+      cal_format = options.delete(:calendar_format)
+      cal_icon   = options.delete(:icon) || "calendar"
+      min_date   = options.delete(:min_date)
+      max_date   = options.delete(:max_date)
+      cal_inverted = options.delete(:inverted)
+      cal_size   = options.delete(:calendar_size)
+
+      input_html = super(attribute, options)
+      result = calendar_wrap(input_html, cal_type,
+        format: cal_format, icon: cal_icon, min_date: min_date,
+        max_date: max_date, inverted: cal_inverted, size: cal_size)
+
+      wrap_in_field ? fomantic_field(attribute, options, result) : result
     end
   end
 
@@ -61,12 +95,13 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def text_area(attribute, options = {})
+    wrap_in_field = options.delete(:field)
     transparent = options.delete(:transparent)
-    fomantic_field(attribute, options) do |attr, opts|
-      input_class = class_names(("transparent" if transparent), opts.delete(:input_class))
-      opts[:class] = input_class.presence
-      super(attr, opts)
-    end
+
+    options[:class] = class_names(("transparent" if transparent), options[:class])
+    input_html = super(attribute, options)
+
+    wrap_in_field ? fomantic_field(attribute, options, input_html) : input_html
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -74,25 +109,27 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def emoji_field(attribute, options = {})
-    fomantic_field(attribute, options) do |attr, opts|
-      current = object&.public_send(attr) rescue nil
-      name = object_name ? "#{object_name}[#{attr}]" : attr.to_s
+    wrap_in_field = options.delete(:field)
 
-      @template.tag.div(data: { controller: "fui-emoji-picker" }) {
-        @template.safe_join([
-          @template.hidden_field_tag(name, current, data: { fui_emoji_picker_target: "input" }),
-          @template.tag.button(
-            type: "button",
-            class: "ui basic button",
-            data: { fui_emoji_picker_target: "preview", action: "click->fui-emoji-picker#toggle" }
-          ) { (current.presence || "Pick emoji").html_safe },
-          @template.tag.div(
-            style: "display:none; position:absolute; z-index:1000;",
-            data: { fui_emoji_picker_target: "dropdown" }
-          )
-        ])
-      }
-    end
+    current = object&.public_send(attribute) rescue nil
+    name = object_name ? "#{object_name}[#{attribute}]" : attribute.to_s
+
+    result = @template.tag.div(data: { controller: "fui-emoji-picker" }) {
+      @template.safe_join([
+        @template.hidden_field_tag(name, current, data: { fui_emoji_picker_target: "input" }),
+        @template.tag.button(
+          type: "button",
+          class: "ui basic button",
+          data: { fui_emoji_picker_target: "preview", action: "click->fui-emoji-picker#toggle" }
+        ) { (current.presence || "Pick emoji").html_safe },
+        @template.tag.div(
+          style: "display:none; position:absolute; z-index:1000;",
+          data: { fui_emoji_picker_target: "dropdown" }
+        )
+      ])
+    }
+
+    wrap_in_field ? fomantic_field(attribute, options, result) : result
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -100,13 +137,13 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def select(attribute, choices = nil, options = {}, html_options = {}, &block)
+    wrap_in_field = options.delete(:field)
     use_dropdown = options.delete(:dropdown)
-    fomantic_field(attribute, options) do |attr, opts|
-      merged_html = html_options.merge(class: class_names(html_options[:class], opts.delete(:input_class)))
-      raw_select  = super(attr, choices, opts, merged_html, &block)
 
-      use_dropdown ? dropdown_wrap(raw_select) : raw_select
-    end
+    raw_select = super(attribute, choices, options, html_options, &block)
+    result = use_dropdown ? dropdown_wrap(raw_select) : raw_select
+
+    wrap_in_field ? fomantic_field(attribute, options, result) : result
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -114,19 +151,19 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
+    wrap_in_field = options.delete(:field)
     label_text    = options.delete(:label) { label_for(attribute) }
-    kind          = options.delete(:kind) { :checkbox } # :checkbox | :slider | :toggle
+    kind          = options.delete(:kind) { :checkbox }
     size          = options.delete(:size)
     inverted      = options.delete(:inverted)
     fitted        = options.delete(:fitted)
     right_aligned = options.delete(:right_aligned)
 
-    fomantic_field(attribute, options.merge(suppress_label: true)) do |attr, opts|
-      opts.delete(:input_class)
-      checkbox_html = super(attr, opts, checked_value, unchecked_value)
-      checkbox_ui(checkbox_html, label_text, kind,
-                  size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
-    end
+    checkbox_html = super(attribute, options, checked_value, unchecked_value)
+    result = checkbox_ui(checkbox_html, label_text, kind,
+                size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
+
+    wrap_in_field ? fomantic_field(attribute, { suppress_label: true }, result) : result
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -134,19 +171,19 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def radio_button(attribute, value, options = {})
+    wrap_in_field = options.delete(:field)
     label_text    = options.delete(:label) { value.to_s.humanize }
-    kind          = options.delete(:kind) { :radio } # :radio | :slider | :toggle
+    kind          = options.delete(:kind) { :radio }
     size          = options.delete(:size)
     inverted      = options.delete(:inverted)
     fitted        = options.delete(:fitted)
     right_aligned = options.delete(:right_aligned)
 
-    fomantic_field(attribute, options.merge(suppress_label: true)) do |attr, opts|
-      opts.delete(:input_class)
-      radio_html = super(attr, value, opts)
-      checkbox_ui(radio_html, label_text, kind,
-                  size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
-    end
+    radio_html = super(attribute, value, options)
+    result = checkbox_ui(radio_html, label_text, kind,
+                size: size, inverted: inverted, fitted: fitted, right_aligned: right_aligned)
+
+    wrap_in_field ? fomantic_field(attribute, { suppress_label: true }, result) : result
   end
 
   # ──────────────────────────────────────────────────────────────────────────
@@ -154,14 +191,15 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   # ──────────────────────────────────────────────────────────────────────────
 
   def file_field(attribute, options = {})
-    fomantic_field(attribute, options) do |attr, opts|
-      opts.delete(:input_class)
-      super(attr, opts)
-    end
+    wrap_in_field = options.delete(:field)
+
+    input_html = super(attribute, options)
+
+    wrap_in_field ? fomantic_field(attribute, options, input_html) : input_html
   end
 
   # ──────────────────────────────────────────────────────────────────────────
-  # Hidden field (no wrapper)
+  # Hidden field (no wrapper ever)
   # ──────────────────────────────────────────────────────────────────────────
 
   def hidden_field(attribute, options = {})
@@ -194,7 +232,7 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # ──────────────────────────────────────────────────────────────────────────
-  # Label override — produces a plain <label> (called internally too)
+  # Label override — produces a plain <label>
   # ──────────────────────────────────────────────────────────────────────────
 
   def label(attribute, text = nil, options = {}, &block)
@@ -203,11 +241,6 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
 
   # ──────────────────────────────────────────────────────────────────────────
   # fields_group — wraps children in <div class="fields ...">
-  #
-  # Options:
-  #   equal_width: Boolean – adds "equal width"
-  #   inline:      Boolean – adds "inline"
-  #   count:       Integer – "N fields" (evenly divided)
   # ──────────────────────────────────────────────────────────────────────────
 
   def fields_group(options = {}, &block)
@@ -251,9 +284,9 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
 
   private
 
-  # ── Core field wrapper ─────────────────────────────────────────────────────
+  # ── Field wrapper (opt-in via field: true) ─────────────────────────────────
 
-  def fomantic_field(attribute, options, &block)
+  def fomantic_field(attribute, options, input_html)
     required       = options.delete(:required)
     disabled       = options.delete(:disabled)
     readonly_opt   = options.delete(:readonly)
@@ -286,8 +319,6 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
       text ? label(attribute, text) : nil
     end
 
-    input_html = block.call(attribute, options)
-
     note_html  = inline_note(error_msg || (has_error && first_error(attribute)), "red")
     note_html  = inline_note(warning_msg, "orange") if note_html.blank? && has_warning
     note_html  = inline_note(hint, "grey")          if note_html.blank? && hint
@@ -314,6 +345,27 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
     @template.tag.div(class: css, data: { controller: "fui-checkbox" }) do
       safe_join([ input_html, @template.tag.label(label_text.is_a?(String) ? label_text : nil) ])
     end
+  end
+
+  # ── Calendar wrapper ─────────────────────────────────────────────────────
+
+  def calendar_wrap(input_html, cal_type, format: nil, icon: "calendar",
+                    min_date: nil, max_date: nil, inverted: nil, size: nil)
+    data = { controller: "fui-calendar", fui_calendar_type_value: cal_type }
+    data[:fui_calendar_format_value]   = format   if format
+    data[:fui_calendar_min_date_value] = min_date if min_date
+    data[:fui_calendar_max_date_value] = max_date if max_date
+
+    cal_class = class_names("ui", size, ("inverted" if inverted), "calendar")
+
+    @template.tag.div(class: cal_class, data: data) {
+      @template.tag.div(class: "ui fluid input left icon") {
+        safe_join([
+          @template.tag.i(class: "#{icon} icon"),
+          input_html
+        ])
+      }
+    }
   end
 
   # ── Dropdown wrapper ───────────────────────────────────────────────────────
@@ -380,127 +432,10 @@ class FomanticFormBuilder < ActionView::Helpers::FormBuilder
     @template.safe_join(parts)
   end
 
-  # ── class_names helper (Rails 6.1+ ships this) ────────────────────────────
+  # ── class_names helper ────────────────────────────────────────────────────
 
   def class_names(*args)
     args.flatten.compact.reject { |v| v == false || v.to_s.strip.empty? }.join(" ")
   end
 end
-
-  # ─────────────────────────────────────────────────────────────────────────────
-  # Usage examples (views)
-  # ─────────────────────────────────────────────────────────────────────────────
-
-  # ── 1. Basic user registration form ──────────────────────────────────────────
-  #
-  # <%= form_with model: @user, builder: FomanticFormBuilder, class: "ui form" do |f| %>
-  #
-  #   <%# grouped equal-width row %>
-  #   <%= f.fields_group(equal_width: true) do %>
-  #     <%= f.text_field  :first_name, required: true %>
-  #     <%= f.text_field  :last_name,  required: true %>
-  #   <% end %>
-  #
-  #   <%= f.email_field    :email,    required: true %>
-  #   <%= f.password_field :password, required: true,
-  #                        hint: "Minimum 8 characters" %>
-  #
-  #   <%# Native select styled by Fomantic %>
-  #   <%= f.select :role, [["Admin", "admin"], ["Member", "member"]],
-  #                { prompt: "Select a role" } %>
-  #
-  #   <%# Fomantic dropdown widget (adds JS .dropdown() wrapper) %>
-  #   <%= f.select :country, country_options,
-  #                { dropdown: true, required: true } %>
-  #
-  #   <%= f.check_box :terms,
-  #                   label:    "I agree to the Terms and Conditions",
-  #                   required: true %>
-  #
-  #   <%# Error/success messages from model %>
-  #   <%= f.error_message "We had some issues",
-  #                       @user.errors.full_messages if @user.errors.any? %>
-  #
-  #   <%= f.submit "Sign up", color: "green" %>
-  # <% end %>
-
-
-  # ── 2. Inline field (label beside input) ─────────────────────────────────────
-  #
-  # <%= f.text_field :phone, label: "Phone Number", inline: true,
-  #                           width: "eight" %>
-
-
-  # ── 3. Width-constrained fields ───────────────────────────────────────────────
-  #
-  # <%= f.fields_group do %>
-  #   <%= f.text_field :first_name, width: "six"  %>
-  #   <%= f.text_field :middle,     width: "three" %>
-  #   <%= f.text_field :last_name,  width: "seven" %>
-  # <% end %>
-
-
-  # ── 4. Checkbox kinds ─────────────────────────────────────────────────────────
-  #
-  # <%= f.check_box :notifications, label: "Enable notifications", kind: :toggle %>
-  # <%= f.check_box :public,        label: "Publicly visible",     kind: :slider %>
-
-
-  # ── 5. Radio group ────────────────────────────────────────────────────────────
-  #
-  # <%= f.fields_group do %>
-  #   <%= f.radio_button :plan, "basic",   label: "Basic"   %>
-  #   <%= f.radio_button :plan, "pro",     label: "Pro"     %>
-  #   <%= f.radio_button :plan, "enterprise", label: "Enterprise" %>
-  # <% end %>
-
-
-  # ── 6. Textarea ───────────────────────────────────────────────────────────────
-  #
-  # <%= f.text_area :bio,         rows: 4 %>
-  # <%= f.text_area :description, rows: 2, transparent: true %>
-
-
-  # ── 7. Form-level state messages ──────────────────────────────────────────────
-  #
-  # <%= f.error_message   "Action Forbidden", ["Email already registered"] %>
-  # <%= f.success_message "All done!",        "Your profile has been updated." %>
-  # <%= f.warning_message "Heads up",         ["Please verify your email"] %>
-  # <%= f.info_message    "Password rules",   ["Must be at least 8 characters"] %>
-
-
-  # ── 8. Submit variations ──────────────────────────────────────────────────────
-  #
-  # <%= f.submit "Save",   color: "blue"  %>
-  # <%= f.submit "Delete", color: "red",   basic: true %>
-  # <%= f.submit "Go",     color: "green", size: "large", icon: "checkmark" %>
-
-
-  # ── 9. Opt-in per form (when default builder is not set) ──────────────────────
-  #
-  # <%= form_with model: @post, builder: FomanticFormBuilder, class: "ui form" do |f| %>
-  #   ...
-  # <% end %>
-
-
-  # ─────────────────────────────────────────────────────────────────────────────
-  # JavaScript initialisation (application.js or a Stimulus controller)
-  # ─────────────────────────────────────────────────────────────────────────────
-  #
-  # // Initialise all Fomantic dropdowns on the page
-  # document.addEventListener("DOMContentLoaded", () => {
-  #   $(".ui.dropdown").dropdown();
-  #   $(".ui.checkbox").checkbox();
-  #   $(".ui.calendar").calendar({ type: "date" });
-  # });
-  #
-  # // Or with a Stimulus controller:
-  # //
-  # // import { Controller } from "@hotwired/stimulus"
-  # // export default class extends Controller {
-  # //   connect() {
-  # //     $(this.element).find(".ui.dropdown").dropdown()
-  # //     $(this.element).find(".ui.checkbox").checkbox()
-  # //   }
-  # // }
 end

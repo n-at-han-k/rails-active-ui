@@ -1,173 +1,175 @@
-text '<style>
-  .hidden.menu { display: none; }
-  .masthead.segment {
-    min-height: 700px;
-    padding: 1em 0em;
-  }
-  .masthead .logo.item img { margin-right: 1em; }
-  .masthead .ui.menu .ui.button { margin-left: 0.5em; }
-  .masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
-  }
-  .masthead h2 { font-size: 1.7em; font-weight: normal; }
-  .ui.vertical.stripe {
-    padding: 8em 0em;
-  }
-  .ui.vertical.stripe h3 {
-    font-size: 2em;
-  }
-  .ui.vertical.stripe .button + h3,
-  .ui.vertical.stripe p + h3 {
-    margin-top: 3em;
-  }
-  .ui.vertical.stripe .floated.image { clear: both; }
-  .ui.vertical.stripe p { font-size: 1.33em; }
-  .ui.vertical.stripe .horizontal.divider { margin: 3em 0em; }
-  .quote.stripe.segment { padding: 0em; }
-  .quote.stripe.segment .grid .column { padding-top: 5em; padding-bottom: 5em; }
-  .footer.segment {
-    padding: 5em 0em;
-  }
-  .secondary.pointing.menu .toc.item { display: none; }
-  @media only screen and (max-width: 700px) {
-    .ui.fixed.menu { display: none !important; }
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu { display: none; }
-    .secondary.pointing.menu .toc.item { display: block; }
-    .masthead.segment { min-height: 350px; }
-    .masthead h1.ui.header { font-size: 2em; margin-top: 1.5em; }
-    .masthead h2 { margin-top: 0.5em; font-size: 1.5em; }
-  }
-</style>'.html_safe
-
-# Fixed top menu
-Menu(fixed: "top", inverted: true) {
-  Container {
-    MenuItem(href: "#") {
-      Image(src: "/icon.png", size: "mini")
-      text " Project Name"
+Wrapper(style: "contain: layout style;") {
+  text '<style>
+    .hidden.menu { display: none; }
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
     }
-    MenuItem(href: "#") { "Home" }
-    Dropdown {
-      text "Dropdown "
-      Icon(name: "dropdown")
-      MenuMenu {
-        MenuItem(href: "#") { "Link Item" }
-        MenuItem(href: "#") { "Link Item" }
-        Divider()
-        MenuItem(header: true) { "Header Item" }
-        MenuItem(dropdown: true) {
-          Icon(name: "dropdown")
-          text "Sub Menu"
-          MenuMenu {
-            MenuItem(href: "#") { "Link Item" }
-            MenuItem(href: "#") { "Link Item" }
+    .masthead .logo.item img { margin-right: 1em; }
+    .masthead .ui.menu .ui.button { margin-left: 0.5em; }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 { font-size: 1.7em; font-weight: normal; }
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image { clear: both; }
+    .ui.vertical.stripe p { font-size: 1.33em; }
+    .ui.vertical.stripe .horizontal.divider { margin: 3em 0em; }
+    .quote.stripe.segment { padding: 0em; }
+    .quote.stripe.segment .grid .column { padding-top: 5em; padding-bottom: 5em; }
+    .footer.segment {
+      padding: 5em 0em;
+    }
+    .secondary.pointing.menu .toc.item { display: none; }
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu { display: none !important; }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu { display: none; }
+      .secondary.pointing.menu .toc.item { display: block; }
+      .masthead.segment { min-height: 350px; }
+      .masthead h1.ui.header { font-size: 2em; margin-top: 1.5em; }
+      .masthead h2 { margin-top: 0.5em; font-size: 1.5em; }
+    }
+  </style>'.html_safe
+  
+  # Fixed top menu
+  Menu(fixed: "top", inverted: true) {
+    Container {
+      MenuItem(href: "#") {
+        Image(src: "/icon.png", size: "mini")
+        text " Project Name"
+      }
+      MenuItem(href: "#") { "Home" }
+      Dropdown {
+        text "Dropdown "
+        Icon(name: "dropdown")
+        MenuMenu {
+          MenuItem(href: "#") { "Link Item" }
+          MenuItem(href: "#") { "Link Item" }
+          Divider()
+          MenuItem(header: true) { "Header Item" }
+          MenuItem(dropdown: true) {
+            Icon(name: "dropdown")
+            text "Sub Menu"
+            MenuMenu {
+              MenuItem(href: "#") { "Link Item" }
+              MenuItem(href: "#") { "Link Item" }
+            }
+          }
+          MenuItem(href: "#") { "Link Item" }
+        }
+      }
+    }
+  }
+  
+  # Masthead
+  Segment(inverted: true, vertical: true) {
+    Container {
+      Menu(inverted: true, pointing: true, secondary: true, size: "large") {
+        MenuItem(href: "#", icon: "sidebar") { "" }
+        MenuItem(href: "#", active: true) { "Home" }
+        MenuItem(href: "#") { "Work" }
+        MenuItem(href: "#") { "Company" }
+        MenuItem(href: "#") { "Careers" }
+        MenuMenu(position: "right") {
+          Button(inverted: true) { "Log in" }
+          Button(inverted: true) { "Sign Up" }
+        }
+      }
+    }
+  }
+  
+  # Stripe 1
+  Segment(vertical: true) {
+    Grid(columns: 2, stackable: true, container: true) {
+      Row {
+        Column {
+          text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non enim in turpis pulvinar facilisis."
+          Header(size: :h3) { "Breaking The Grid, Grabs Your Attention" }
+          text "Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem conditions for the caused., or otherwise."
+        }
+        Column(width: 6, floated: "right") {
+          Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "large")
+        }
+      }
+  
+      Row {
+        Column(aligned: "center") {
+          Button(size: "huge") { "Check Them Out" }
+        }
+      }
+    }
+  }
+  
+  # Quote stripe
+  Segment(vertical: true) {
+    Grid(celled: "true", equal_width: true, stackable: true, container: true) {
+      Row {
+        Column {
+          Header(size: :h3) { "What a Company" }
+          text "That is what they all say about us"
+        }
+        Column {
+          Header(size: :h3) { "An Excellent Companion" }
+          text "That is what they all say about us"
+        }
+      }
+    }
+  }
+  
+  # Stripe 2
+  Segment(vertical: true) {
+    Container(text: true) {
+      Header(size: :h3) { "Did We Tell You About Our Bananas?" }
+      text "Yes I know you probably have, but I would like to elaborate on that."
+      Button(size: "large") { "I'm Still Quite Interested" }
+      Divider(horizontal: true, section: true) { "Or" }
+      Header(size: :h3) { "Did We Tell You About Our Bananas?" }
+      text "Yes I know you probably have, but I would like to elaborate on that."
+      Button(size: "large") { "I'm Still Quite Interested" }
+    }
+  }
+  
+  # Footer
+  Segment(inverted: true, vertical: true) {
+    Container {
+      Grid(divided: "true", inverted: true, stackable: true) {
+        Column(width: 3) {
+          Header(size: :h4, inverted: true) { "About" }
+          List(link: true, inverted: true) {
+            MenuItem(href: "#") { "Sitemap" }
+            MenuItem(href: "#") { "Contact Us" }
+            MenuItem(href: "#") { "Religious Coverage" }
+            MenuItem(href: "#") { "Gazettes" }
           }
         }
-        MenuItem(href: "#") { "Link Item" }
-      }
-    }
-  }
-}
-
-# Masthead
-Segment(inverted: true, vertical: true) {
-  Container {
-    Menu(inverted: true, pointing: true, secondary: true, size: "large") {
-      MenuItem(href: "#", icon: "sidebar") { "" }
-      MenuItem(href: "#", active: true) { "Home" }
-      MenuItem(href: "#") { "Work" }
-      MenuItem(href: "#") { "Company" }
-      MenuItem(href: "#") { "Careers" }
-      MenuMenu(position: "right") {
-        Button(inverted: true) { "Log in" }
-        Button(inverted: true) { "Sign Up" }
-      }
-    }
-  }
-}
-
-# Stripe 1
-Segment(vertical: true) {
-  Grid(columns: 2, stackable: true, container: true) {
-    Row {
-      Column {
-        text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non enim in turpis pulvinar facilisis."
-        Header(size: :h3) { "Breaking The Grid, Grabs Your Attention" }
-        text "Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem conditions for the caused., or otherwise."
-      }
-      Column(width: 6, floated: "right") {
-        Image(src: "https://fomantic-ui.com/images/wireframe/white-image.png", size: "large")
-      }
-    }
-
-    Row {
-      Column(aligned: "center") {
-        Button(size: "huge") { "Check Them Out" }
-      }
-    }
-  }
-}
-
-# Quote stripe
-Segment(vertical: true) {
-  Grid(celled: "true", equal_width: true, stackable: true, container: true) {
-    Row {
-      Column {
-        Header(size: :h3) { "What a Company" }
-        text "That is what they all say about us"
-      }
-      Column {
-        Header(size: :h3) { "An Excellent Companion" }
-        text "That is what they all say about us"
-      }
-    }
-  }
-}
-
-# Stripe 2
-Segment(vertical: true) {
-  Container(text: true) {
-    Header(size: :h3) { "Did We Tell You About Our Bananas?" }
-    text "Yes I know you probably have, but I would like to elaborate on that."
-    Button(size: "large") { "I'm Still Quite Interested" }
-    Divider(horizontal: true, section: true) { "Or" }
-    Header(size: :h3) { "Did We Tell You About Our Bananas?" }
-    text "Yes I know you probably have, but I would like to elaborate on that."
-    Button(size: "large") { "I'm Still Quite Interested" }
-  }
-}
-
-# Footer
-Segment(inverted: true, vertical: true) {
-  Container {
-    Grid(divided: "true", inverted: true, stackable: true) {
-      Column(width: 3) {
-        Header(size: :h4, inverted: true) { "About" }
-        List(link: true, inverted: true) {
-          MenuItem(href: "#") { "Sitemap" }
-          MenuItem(href: "#") { "Contact Us" }
-          MenuItem(href: "#") { "Religious Coverage" }
-          MenuItem(href: "#") { "Gazettes" }
+  
+        Column(width: 3) {
+          Header(size: :h4, inverted: true) { "Services" }
+          List(link: true, inverted: true) {
+            MenuItem(href: "#") { "Banana Pre-Order" }
+            MenuItem(href: "#") { "DNA FAQ" }
+            MenuItem(href: "#") { "How To Access" }
+            MenuItem(href: "#") { "Favorite X-Men" }
+          }
         }
-      }
-
-      Column(width: 3) {
-        Header(size: :h4, inverted: true) { "Services" }
-        List(link: true, inverted: true) {
-          MenuItem(href: "#") { "Banana Pre-Order" }
-          MenuItem(href: "#") { "DNA FAQ" }
-          MenuItem(href: "#") { "How To Access" }
-          MenuItem(href: "#") { "Favorite X-Men" }
+  
+        Column(width: 7) {
+          Header(size: :h4, inverted: true) { "Footer Header" }
+          text "Extra space for a call to action inside the footer that could help re-engage users."
         }
-      }
-
-      Column(width: 7) {
-        Header(size: :h4, inverted: true) { "Footer Header" }
-        text "Extra space for a call to action inside the footer that could help re-engage users."
       }
     }
   }

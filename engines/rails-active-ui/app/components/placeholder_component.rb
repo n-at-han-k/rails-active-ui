@@ -4,21 +4,51 @@
 #
 # Usage:
 #   Placeholder { |c|
-#     c.header_slot {
-#       text '<div class="line"></div><div class="line"></div>'.html_safe
+#     c.header(image: true) {
+#       c.line
+#       c.line
 #     }
 #     c.paragraph {
-#       text '<div class="line"></div><div class="line"></div>'.html_safe
+#       c.line :medium
+#       c.line :short
 #     }
+#   }
+#
+#   Placeholder { |c|
+#     c.image :square
+#   }
+#
+#   Placeholder { |c|
+#     c.line :full
+#     c.line :very_long
+#     c.line :long
+#     c.line :medium
+#     c.line :short
+#     c.line :very_short
 #   }
 
 class PlaceholderComponent < Component
   attribute :fluid,    :boolean, default: false
   attribute :inverted, :boolean, default: false
 
-  slot :header_slot
-  slot :paragraph
-  slot :image_slot
+  def line(length = nil)
+    css = class_names(length&.to_s&.tr("_", " "), "line")
+    @view_context.output_buffer << tag.div(class: css)
+  end
+
+  def header(image: false, &block)
+    css = class_names({ "image" => image }, "header")
+    @view_context.output_buffer << tag.div(class: css) { @view_context.capture(self, &block) }
+  end
+
+  def paragraph(&block)
+    @view_context.output_buffer << tag.div(class: "paragraph") { @view_context.capture(self, &block) }
+  end
+
+  def image(ratio = nil)
+    css = class_names(ratio, "image")
+    @view_context.output_buffer << tag.div(class: css)
+  end
 
   def to_s
     classes = class_names(
@@ -28,12 +58,6 @@ class PlaceholderComponent < Component
       "placeholder"
     )
 
-    header_el = @slots[:header_slot] ? tag.div(class: "header") { @slots[:header_slot] } : nil
-    para_el = @slots[:paragraph] ? tag.div(class: "paragraph") { @slots[:paragraph] } : nil
-    image_el = @slots[:image_slot] ? tag.div(class: "image") { @slots[:image_slot] } : nil
-
-    tag.div(class: classes) {
-      safe_join([ header_el, para_el, image_el, @content.presence ])
-    }
+    tag.div(**merge_html_options(class: classes)) { @content }
   end
 end

@@ -50,22 +50,51 @@ Wrapper(style: "contain: layout style;") {
 
 ## Text Content
 
-Two ways to output text:
+When a block contains ONLY a string, just return it:
 
 ```ruby
-# When the block contains ONLY a string — just return it:
 Button { "Save" }
 Header { "Page Title" }
 Tag(color: "red") { "Error" }
-
-# When mixing text with other components — use `text`:
-Button(color: "blue") {
-  Icon(name: "edit")
-  text " Add Reply"
-}
 ```
 
-Prefer `{ "string" }` over `{ text "string" }` for simple text-only blocks.
+When mixing text with other components, use `Text { "..." }` for each piece of text and `NbSpace()` for visual separation:
+
+```ruby
+Button(color: "blue") {
+  Icon(name: "edit")
+  NbSpace()
+  Text { "Add Reply" }
+}
+
+MenuItem {
+  Icon(name: "trash")
+  NbSpace()
+  Text { "Move to trash" }
+}
+
+MenuItem(value: "us") { Flag(name: "us"); NbSpace(); Text { "United States" } }
+```
+
+### Inline Wrappers
+
+`Text` renders a `<span>`. Use it for ALL inline text content -- after icons, flags, images, tags, or for Fomantic's `.text`, `.description`, `.content` spans:
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<span>...</span>` | `Text { "..." }` |
+| `<span class="text">...</span>` | `Text(class: "text") { "..." }` |
+| `<span class="description">...</span>` | `Text(class: "description") { "..." }` |
+| `<span class="content">...</span>` | `Text(class: "content") { "..." }` |
+| `<span class="ui red text">...</span>` | `Text(color: "red") { "..." }` |
+| `&nbsp;` | `NbSpace()` |
+| text after Icon/Flag/Image/Tag | `NbSpace()` then `Text { "..." }` |
+
+`Text` also supports `color`, `size`, and `weight` attributes for Fomantic-UI text styling.
+
+`Space` outputs a non-breaking space entity (`&nbsp;`). Use it between a visual element (Icon, Flag, Image, Tag) and its text label.
+
+**NEVER use `text " Something"` with a leading space in the string.** That's a hack. The correct pattern is always `NbSpace()` then `Text { "Something" }`.
 
 ## HTML to Component Mapping
 
@@ -75,6 +104,42 @@ Prefer `{ "string" }` over `{ text "string" }` for simple text-only blocks.
 2. CSS class modifiers become keyword arguments: `inverted` → `inverted: true`, `color` → `color: "red"`, `size` → `size: "large"`
 3. Extra CSS classes not covered by attributes use `class: "extra classes"`
 4. Components without arguments or blocks need empty parens: `Column()` not `Column` (Ruby treats bare PascalCase as constant lookup)
+5. Child components of a group use the `{Parent}Item` naming pattern: `MenuItem`, `ListItem`, `AccordionItem`, `FeedItem`. Not `FeedEvent`, `MenuEntry`, `ListElement`, etc.
+
+### Inline Elements
+
+Every HTML element must be a component call -- including plain HTML elements that appear inside Fomantic components. These are the components for common non-Fomantic elements:
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<a>Text</a>` | `LinkTo { "Text" }` |
+| `<a class="user">Name</a>` | `LinkTo(class: "user") { "Name" }` |
+| `<a href="/path">Link</a>` | `LinkTo(href: "/path") { "Link" }` |
+| `<a><img src="..."></a>` | `LinkTo { Image(src: "...") }` |
+| `<span class="ui purple text">` | `Text(color: "purple") { "..." }` |
+| `<div>` (generic wrapper) | `Wrapper(class: "...") { ... }` |
+| `<div data-text="Run">` | `Wrapper(data: { text: "Run" }) { ... }` |
+
+When converting mixed inline text and elements (e.g. `<a>Name</a> posted on <a>Page</a>`), interleave component calls with `NbSpace()` and `Text`:
+
+```ruby
+LinkTo { "Name" }
+NbSpace()
+Text { "posted on" }
+NbSpace()
+LinkTo { "Page" }
+```
+
+A common pattern in feeds and comments is a "like" link with an icon:
+
+```ruby
+# <a class="like"><i class="like icon"></i> 4 Likes</a>
+LinkTo(class: "like") {
+  Icon(name: "like")
+  NbSpace()
+  Text { "4 Likes" }
+}
+```
 
 ### Common Components
 
@@ -189,9 +254,183 @@ Comment { |c|
 }
 ```
 
+### Feed Components
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<div class="ui feed">` | `Feed { ... }` |
+| `<div class="ui small feed">` | `Feed(size: "small") { ... }` |
+| `<div class="ui inverted feed">` | `Feed(inverted: true) { ... }` |
+| `<div class="ui connected feed">` | `Feed(connected: true) { ... }` |
+| `<div class="ui divided feed">` | `Feed(divided: true) { ... }` |
+| `<div class="ui ordered feed">` | `Feed(ordered: true) { ... }` |
+| `<div class="ui disabled feed">` | `Feed(disabled: true) { ... }` |
+| `<div class="event">` | `FeedItem { \|e\| ... }` |
+| `<div class="disabled event">` | `FeedItem(disabled: true) { \|e\| ... }` |
+
+FeedItem uses slots:
+
+```ruby
+Feed {
+  FeedItem { |e|
+    e.label { Image(src: "/images/avatar/small/elliot.jpg") }
+    e.summary {
+      LinkTo(class: "user") { "Elliot Fu" }
+      NbSpace()
+      Text { "added you as a friend" }
+    }
+    e.date_inline { "1 Hour Ago" }
+    e.extra_text { "Some additional context" }
+    e.extra_images {
+      LinkTo { Image(src: "/images/wireframe/image.png") }
+    }
+    e.meta {
+      LinkTo(class: "like") {
+        Icon(name: "like")
+        NbSpace()
+        Text { "4 Likes" }
+      }
+    }
+  }
+}
+```
+
+Available slots: `label`, `summary`, `date` (top of content), `date_inline` (inside summary), `extra_text`, `extra_images`, `meta`.
+
+### Accordion Components
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<div class="ui accordion">` | `Accordion { ... }` |
+| `<div class="ui styled accordion">` | `Accordion(styled: true) { ... }` |
+| `<div class="ui styled fluid accordion">` | `Accordion(styled: true, fluid: true) { ... }` |
+| `<div class="ui inverted accordion">` | `Accordion(inverted: true) { ... }` |
+| `<div class="ui tree accordion">` | `Accordion(tree: true) { ... }` |
+| `<div class="active title">` + `<div class="active content">` | `AccordionItem(active: true) { \|i\| i.title { ... }; i.content { ... } }` |
+| `<div class="accordion">` (nested) | `SubAccordion { ... }` |
+
+AccordionItem uses slots:
+
+```ruby
+Accordion(styled: true) {
+  AccordionItem(active: true) { |i|
+    i.title { "What is a dog?" }
+    i.content {
+      Paragraph { "A dog is a type of domesticated animal." }
+    }
+  }
+  AccordionItem { |i|
+    i.title { "How do you acquire a dog?" }
+    i.content {
+      Paragraph { "From pet shops, private owners, or shelters." }
+    }
+  }
+}
+```
+
+For nested accordions, use `SubAccordion` inside a content slot:
+
+```ruby
+Accordion(tree: true) {
+  AccordionItem(active: true) { |i|
+    i.title { "Level 1" }
+    i.content {
+      SubAccordion {
+        AccordionItem { |i2|
+          i2.title { "Level 1A" }
+          i2.content { "Level 1A Contents" }
+        }
+      }
+    }
+  }
+}
+```
+
+### Dropdown Components
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<div class="ui dropdown">` | `Dropdown { ... }` |
+| `<div class="ui selection dropdown">` | `Dropdown(selection: true) { ... }` |
+| `<div class="ui search selection dropdown">` | `Dropdown(search: true, selection: true) { ... }` |
+| `<div class="ui multiple search selection dropdown">` | `Dropdown(multiple: true, search: true, selection: true) { ... }` |
+| `<div class="ui clearable selection dropdown">` | `Dropdown(clearable: true, selection: true) { ... }` |
+| `<div class="ui fluid dropdown">` | `Dropdown(fluid: true) { ... }` |
+| `<div class="ui floating dropdown">` | `Dropdown(floating: true) { ... }` |
+| `<div class="ui inline dropdown">` | `Dropdown(inline: true) { ... }` |
+| `<div class="ui compact dropdown">` | `Dropdown(compact: true) { ... }` |
+| `<div class="ui scrolling dropdown">` | `Dropdown(scrolling: true) { ... }` |
+| `<div class="ui loading dropdown">` | `Dropdown(loading: true) { ... }` |
+| `<div class="ui disabled dropdown">` | `Dropdown(disabled: true) { ... }` |
+| `<div class="ui floating labeled search icon button dropdown">` | `Dropdown(floating: true, labeled: true, search: true, button: true) { ... }` |
+| `<div class="ui top left pointing dropdown">` | `Dropdown(pointing: "top left") { ... }` |
+| `<div class="default text">Placeholder</div>` | `placeholder: "Placeholder"` attribute on Dropdown |
+| `<input type="hidden" name="x">` | `name: "x"` attribute on Dropdown |
+| `<input type="hidden" value="v">` | `default_value: "v"` attribute on Dropdown |
+| `<div class="scrolling menu">` (inside dropdown) | `SubMenu(class: "scrolling") { ... }` |
+| `<div class="inverted menu">` (inside dropdown) | `SubMenu(class: "inverted") { ... }` |
+| `<div class="header">` (inside dropdown menu) | `MenuItem(header: true) { ... }` |
+| `<div class="item" data-value="x">` (inside dropdown) | `MenuItem(value: "x") { ... }` |
+
+Dropdown items are regular `MenuItem` calls. The Dropdown component renders the hidden input, search input, text/placeholder, dropdown icon, and menu wrapper automatically -- you only provide the menu contents in the block.
+
+```ruby
+Dropdown(search: true, selection: true, fluid: true, name: "country", placeholder: "Select Country") {
+  MenuItem(value: "us") { Flag(name: "us"); NbSpace(); Text { "United States" } }
+  MenuItem(value: "ca") { Flag(name: "ca"); NbSpace(); Text { "Canada" } }
+  MenuItem(value: "gb") { Flag(name: "gb"); NbSpace(); Text { "United Kingdom" } }
+}
+```
+
+For dropdowns with a scrolling sub-section, search input, and headers inside the menu:
+
+```ruby
+Dropdown(floating: true, labeled: true, button: true, placeholder: "Filter Posts") {
+  Input(icon: "search", placeholder: "Search tags...")
+  Divider()
+  MenuItem(header: true) {
+    Icon(name: "tags")
+    NbSpace()
+    Text { "Filter by tag" }
+  }
+  SubMenu(class: "scrolling") {
+    MenuItem {
+      Tag(color: "red", circular: true, empty: true)
+      NbSpace()
+      Text { "Important" }
+    }
+    MenuItem {
+      Tag(color: "blue", circular: true, empty: true)
+      NbSpace()
+      Text { "Announcement" }
+    }
+  }
+}
+```
+
+### ButtonGroup Components
+
+| HTML | Ruby DSL |
+|------|----------|
+| `<div class="ui buttons">` | `ButtonGroup { ... }` |
+| `<div class="ui teal buttons">` | `ButtonGroup(color: "teal") { ... }` |
+| `<div class="ui icon buttons">` | `ButtonGroup(icon: true) { ... }` |
+| `<div class="ui vertical buttons">` | `ButtonGroup(vertical: true) { ... }` |
+| `<div class="ui basic buttons">` | `ButtonGroup(basic: true) { ... }` |
+
+```ruby
+ButtonGroup(color: "teal") {
+  Button { "Save" }
+  Dropdown(floating: true, button: true) {
+    MenuItem { Icon(name: "edit"); NbSpace(); Text { "Edit Post" } }
+    MenuItem { Icon(name: "delete"); NbSpace(); Text { "Remove Post" } }
+  }
+}
+```
+
 ### Form / Checkbox Components
 
-Checkboxes go through the Rails form builder, not standalone components. Wrap in `Form(url: "#")`:
+Checkboxes and radio buttons go through the Rails form builder. Always wrap in `Form(url: "#")`:
 
 | HTML | Ruby DSL |
 |------|----------|
@@ -251,25 +490,90 @@ Menu(class: "centered") { ... }
 Menu(class: "wrapped wrapping") { ... }
 ```
 
-## What NOT to Do
+## Rules
 
-1. **Don't modify components** to add attributes — use `class:` passthrough for one-off CSS classes
-2. **Don't use `{ text "string" }` when `{ "string" }` works** — prefer the shorter form
-3. **Don't write bare PascalCase without parens or a block** — `Column` is a constant lookup, `Column()` is a method call
-4. **Don't use `Edit` on existing content** when appending to a file — use `cat >>` to append safely
-5. **Don't create standalone checkbox/radio components** — use the form builder via `Form(url: "#") { CheckBox(...) }`
+0. **NEVER use `tag.*` helpers in view files.** No `tag.div`, `tag.span`, `tag.i`, `tag.input`, `tag.label`, or any other `tag.*` call belongs in a `.html.ruby` view. Every HTML element must be rendered through a component call. If no component exists for the structure you need, create one first (or use an existing component with `class:` passthrough). There are zero exceptions. The `tag.*` helpers exist for use inside component `to_s` methods only -- never in views.
+
+1. **Every HTML element with a class becomes a component call.** If the HTML has `<div class="title">`, that's a component. If it has `<div class="content">`, that's a component. If no component exists yet, create one before writing the example view.
+
+2. **Repeated structural patterns inside a parent get their own child component.** A parent with repeating children (accordion with panels, feed with events, list with items) always follows this structure:
+   - **Parent**: thin wrapper rendering `@content` — it has no knowledge of its children
+   - **Child**: self-contained component rendering its own element with its own CSS classes
+
+3. **When a child has multiple named regions, use slots.** If a child element contains distinct sub-regions (title + content, avatar + author + text, header + body + actions), declare them as slots. The view yields `self` and callers fill each region:
+
+   ```ruby
+   AccordionItem(active: true) { |i|
+     i.title { "Section Title" }
+     i.content { Paragraph { "Panel content" } }
+   }
+   ```
+
+   Other slot examples: `Comment` (avatar, author, metadata, text_slot, actions), `FeedItem` (label, summary, date, meta), `Modal` (header, content, actions).
+
+4. **Nested variants of a parent use a `Sub{Component}`.** When a component can nest inside itself with different markup (no `ui` prefix, no Stimulus controller), create a `Sub{Component}` following the `SubMenu` / `SubAccordion` pattern.
+
+5. **Use `Text { "..." }` for inline text content, not lowercase `text`.** When text appears alongside other components (after an Icon, Flag, Image, Tag, etc.), wrap it in `Text { "..." }` and precede it with `NbSpace()` for visual separation. Never use `text " Something"` with a leading space -- use `NbSpace()` then `Text { "Something" }`.
+
+6. **Use `class:` passthrough for one-off CSS classes.** Reserve component attributes for commonly reused modifiers.
+
+7. **Prefer `{ "string" }` over `Text { "string" }` for text-only blocks.** When a component block contains nothing but a string, just return it directly: `Button { "Save" }` not `Button { Text { "Save" } }`.
+
+8. **Always use parens or a block for PascalCase calls.** `Column()` is a method call. `Column` is a constant lookup.
+
+9. **Use the form builder for checkboxes and radio buttons.** Always wrap in `Form(url: "#") { CheckBox(...) }`.
 
 ## Process for Converting a Page
 
 1. **Save the HTML** from the Fomantic-UI docs page
 2. **Identify the examples** — look for content inside `<div class="main ui container">`, skip nav/sidebar/footer
 3. **Map each example section** to a `Header` + `Wrapper` block
-4. **Translate HTML to component calls** using the mapping tables above
-5. **Check for missing component attributes** — if needed, either:
+4. **Identify every structural pattern** — before writing any view code, check that every repeated HTML structure (title/content pairs, label/value groups, header/body/actions) has a corresponding component. If not, create the component first.
+5. **Translate HTML to component calls** using the mapping tables above
+6. **Check for missing component attributes** — if needed, either:
    - Add the attribute to the component (if it's a common pattern)
    - Use `class: "..."` passthrough (if it's rare/one-off)
-   - Create new components if the structure requires it (e.g. `CommentGroup`, `TagGroup`)
-6. **Test** by visiting `http://localhost:3000/examples/{category}/{component}`
+7. **Test** by visiting `http://localhost:3000/examples/{category}/{component}`
+
+## Prohibited Patterns
+
+These patterns are **never** acceptable in `.html.ruby` views. Every one of these has a component equivalent:
+
+| WRONG (raw tag helper) | RIGHT (component call) |
+|------------------------|----------------------|
+| `tag.div(class: "header") { ... }` | `MenuItem(header: true) { ... }` |
+| `tag.div(class: "item") { ... }` | `MenuItem { ... }` |
+| `tag.div(class: "vertical item") { ... }` | `MenuItem(class: "vertical") { ... }` |
+| `tag.div(class: "scrolling menu") { ... }` | `SubMenu(class: "scrolling") { ... }` |
+| `tag.div(class: "left menu") { ... }` | `SubMenu(position: "left") { ... }` |
+| `tag.div(class: "right menu") { ... }` | `SubMenu(position: "right") { ... }` |
+| `tag.div(class: "inverted menu") { ... }` | `SubMenu(class: "inverted") { ... }` |
+| `tag.span { "..." }` | `Text { "..." }` |
+| `tag.span(class: "text") { "..." }` | `Text(class: "text") { "..." }` |
+| `tag.span(class: "description") { "..." }` | `Text(class: "description") { "..." }` |
+| `tag.i(class: "search icon")` | `Icon(name: "search")` |
+| `tag.i(class: "dropdown icon")` | `Icon(name: "dropdown")` |
+| `tag.i(class: "attention right floated icon")` | `Icon(name: "attention", class: "right floated")` |
+| `tag.div(class: "ui red empty circular label")` | `Tag(color: "red", circular: true, empty: true)` |
+| `tag.div(class: "ui teal buttons") { ... }` | `ButtonGroup(color: "teal") { ... }` |
+| `tag.div(class: "ui icon buttons") { ... }` | `ButtonGroup(icon: true) { ... }` |
+| `tag.div(class: "ui icon search input") { ... }` | `Input(icon: "search", placeholder: "...")` |
+| `tag.div(class: "ui left search icon input") { ... }` | `Input(icon: "search", icon_position: "left", placeholder: "...")` |
+| `tag.input(type: "text", placeholder: "...")` | `Input(placeholder: "...")` |
+| `tag.label { "Name" }` | `Input(label: "Name", ...)` |
+| `tag.div(class: "two fields") { ... }` | `FieldsGroup(class: "two") { ... }` |
+| `tag.div(class: "content") { ... }` | `Text(class: "content") { ... }` or `ListContent { ... }` |
+| `tag.div(class: "ui segment") { ... }` | `Segment { ... }` |
+| `text " Something"` (leading space hack) | `NbSpace()` then `Text { "Something" }` |
+| `text "Something"` after a component | `Text { "Something" }` (use `NbSpace()` before if separation needed) |
+
+**The decision process when you encounter HTML without an obvious component:**
+
+1. Check the mapping tables in this guide first
+2. Check `COMPONENT_MAP` in `component_helper.rb` for existing components
+3. Check if an existing component accepts `class:` passthrough for the CSS class you need
+4. If none of the above work, **create a new component** before writing the view
+5. `tag.*` is never the answer in a view file
 
 ## Component Registry
 
