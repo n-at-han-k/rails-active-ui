@@ -45,14 +45,14 @@ class HeaderComponent < Component
 
     if image && @slots[:header_image]
       # Image header: image outside content div, text + sub header inside content div
-      tag.public_send(tag_name, class: classes) {
+      tag.public_send(tag_name, **merge_html_options(class: classes)) {
         safe_join([
           @slots[:header_image],
           tag.div(class: "content") { @content }
         ])
       }
     else
-      tag.public_send(tag_name, class: classes) {
+      tag.public_send(tag_name, **merge_html_options(class: classes)) {
         safe_join([ icon_el, @content ])
       }
     end

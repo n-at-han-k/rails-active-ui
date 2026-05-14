@@ -28,7 +28,7 @@ class HStackComponent < Component
     opts[:class] = classes.join(" ") unless classes.empty?
     opts[:style] = style_parts unless style_parts.empty?
 
-    tag.div(**opts) { @content }
+    tag.div(**merge_html_options(**opts)) { @content }
   end
 
   private

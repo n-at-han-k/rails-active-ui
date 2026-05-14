@@ -19,6 +19,6 @@ class ApiComponent < Component
     data[:fui_api_action_value] = action_val if action_val
     data[:fui_api_state_context_value] = state_context if state_context
 
-    tag.div(data: data) { @content }
+    tag.div(**merge_html_options(data: data)) { @content }
   end
 end

@@ -48,9 +48,9 @@ class StepComponent < Component
     end
 
     if href
-      tag.a(class: classes, href: href) { inner }
+      tag.a(**merge_html_options(class: classes, href: href)) { inner }
     else
-      tag.div(class: classes) { inner }
+      tag.div(**merge_html_options(class: classes)) { inner }
     end
   end
 end

@@ -36,7 +36,7 @@ class ButtonToComponent < Component
 
     @view_context.button_to(
       url,
-      html_opts.merge(class: classes)
+      merge_html_options(**html_opts, class: classes)
     ) { @content }
   end
 end

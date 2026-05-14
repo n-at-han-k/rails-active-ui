@@ -31,9 +31,9 @@ class ListComponent < Component
     )
 
     if ordered
-      tag.ol(class: classes) { @content }
+      tag.ol(**merge_html_options(class: classes)) { @content }
     else
-      tag.div(class: classes) { @content }
+      tag.div(**merge_html_options(class: classes)) { @content }
     end
   end
 end

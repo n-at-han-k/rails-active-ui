@@ -23,6 +23,6 @@ class AdComponent < Component
     opts = { class: classes }
     opts[:data] = { text: test } if test
 
-    tag.div(**opts) { @content }
+    tag.div(**merge_html_options(**opts)) { @content }
   end
 end

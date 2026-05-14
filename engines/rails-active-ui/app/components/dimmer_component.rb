@@ -25,6 +25,6 @@ class DimmerComponent < Component
 
     content_el = @content.present? ? tag.div(class: "content") { @content } : nil
 
-    tag.div(class: classes, data: { controller: "fui-dimmer" }) { content_el }
+    tag.div(**merge_html_options(class: classes, data: { controller: "fui-dimmer" })) { content_el }
   end
 end

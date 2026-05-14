@@ -41,7 +41,7 @@ class ProgressComponent < Component
     bar_el = tag.div(class: "bar", style: "width:#{percent}%") { @slots[:bar] }
     label_el = @slots[:label] ? tag.div(class: "label") { @slots[:label] } : nil
 
-    tag.div(class: classes, data: { controller: "fui-progress", percent: percent }) {
+    tag.div(**merge_html_options(class: classes, data: { controller: "fui-progress", percent: percent })) {
       safe_join([ bar_el, label_el, @content.presence ])
     }
   end

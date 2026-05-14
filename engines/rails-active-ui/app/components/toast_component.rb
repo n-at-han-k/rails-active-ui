@@ -31,6 +31,6 @@ class ToastComponent < Component
     data[:fui_toast_compact_value] = "true" if compact
     data[:fui_toast_show_progress_value] = "true" if show_progress
 
-    tag.div(data: data) { @content }
+    tag.div(**merge_html_options(data: data)) { @content }
   end
 end

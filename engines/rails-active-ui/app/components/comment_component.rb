@@ -39,7 +39,7 @@ class CommentComponent < Component
 
     content_el = content_parts.any? ? tag.div(class: "content") { safe_join(content_parts) } : nil
 
-    tag.div(class: classes) {
+    tag.div(**merge_html_options(class: classes)) {
       safe_join([ avatar_el, content_el, @content.presence ])
     }
   end

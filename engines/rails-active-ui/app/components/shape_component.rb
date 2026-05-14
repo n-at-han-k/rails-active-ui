@@ -20,6 +20,6 @@ class ShapeComponent < Component
       "shape"
     )
 
-    tag.div(class: classes, data: { controller: "fui-shape" }) { @content }
+    tag.div(**merge_html_options(class: classes, data: { controller: "fui-shape" })) { @content }
   end
 end

@@ -41,6 +41,6 @@ class ImageComponent < Component
     opts[:height] = height if height
     opts[:style] = "flex-shrink:0" unless shrink
 
-    tag.img(**opts)
+    tag.img(**merge_html_options(**opts))
   end
 end

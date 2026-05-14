@@ -29,9 +29,9 @@ class ListItemComponent < Component
     inner = safe_join([ icon_el, @content ])
 
     if href
-      tag.a(inner, **opts, href: href)
+      tag.a(inner, **merge_html_options(**opts, href: href))
     else
-      tag.div(inner, **opts)
+      tag.div(inner, **merge_html_options(**opts))
     end
   end
 end

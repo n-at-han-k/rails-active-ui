@@ -59,6 +59,6 @@ class MenuComponent < Component
       "menu"
     )
 
-    tag.div(class: classes) { @content }
+    tag.div(**merge_html_options(class: classes)) { @content }
   end
 end

@@ -17,6 +17,6 @@ class StickyComponent < Component
     data[:fui_sticky_pushing_value] = "true" if pushing
     data[:fui_sticky_offset_value] = offset if offset > 0
 
-    tag.div(class: "ui sticky", data: data) { @content }
+    tag.div(**merge_html_options(class: "ui sticky", data: data)) { @content }
   end
 end

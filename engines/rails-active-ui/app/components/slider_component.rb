@@ -39,7 +39,7 @@ class SliderComponent < Component
 
     name_el = name ? tag.input(type: "hidden", name: name, value: value) : nil
 
-    tag.div(class: classes, data: data) {
+    tag.div(**merge_html_options(class: classes, data: data)) {
       safe_join([ name_el, @content ])
     }
   end

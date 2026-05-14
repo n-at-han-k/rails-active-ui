@@ -7,6 +7,6 @@
 
 class SiteComponent < Component
   def to_s
-    tag.div(data: { controller: "fui-site" }) { @content }
+    tag.div(**merge_html_options(data: { controller: "fui-site" })) { @content }
   end
 end

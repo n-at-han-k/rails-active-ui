@@ -19,7 +19,7 @@ class TransitionComponent < Component
       "transition"
     )
 
-    tag.div(
+    tag.div(**merge_html_options(
       class: classes,
       style: "animation-duration:#{duration}ms",
       data: {
@@ -27,6 +27,6 @@ class TransitionComponent < Component
         fui_transition_animation_value: animation,
         fui_transition_duration_value: duration
       }
-    ) { @content }
+    )) { @content }
   end
 end

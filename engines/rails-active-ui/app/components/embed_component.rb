@@ -25,7 +25,7 @@ class EmbedComponent < Component
     icon_el = tag.i(class: "#{icon} icon")
     placeholder_el = placeholder ? tag.img(class: "placeholder", src: placeholder) : nil
 
-    tag.div(class: "ui embed", data: data) {
+    tag.div(**merge_html_options(class: "ui embed", data: data)) {
       safe_join([ icon_el, placeholder_el, @content ])
     }
   end

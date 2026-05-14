@@ -18,6 +18,6 @@ class StyleComponent < Component
   end
 
   def to_s
-    tag.style { @css&.html_safe }
+    tag.style(**merge_html_options) { @css&.html_safe }
   end
 end

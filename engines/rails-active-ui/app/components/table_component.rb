@@ -106,7 +106,7 @@ class TableComponent < Component
 
     footer_el = @slots[:footer] ? tag.tfoot { @slots[:footer] } : nil
 
-    tag.table(class: classes) {
+    tag.table(**merge_html_options(class: classes)) {
       safe_join([
         tag.thead { tag.tr { safe_join(head_cells) } },
         tag.tbody { safe_join(body_rows) },
@@ -120,7 +120,7 @@ class TableComponent < Component
     footer_el = @slots[:footer] ? tag.tfoot { @slots[:footer] } : nil
     body_el = @content.presence ? tag.tbody { @content } : nil
 
-    tag.table(class: classes) {
+    tag.table(**merge_html_options(class: classes)) {
       safe_join([ header_el, body_el, footer_el ])
     }
   end

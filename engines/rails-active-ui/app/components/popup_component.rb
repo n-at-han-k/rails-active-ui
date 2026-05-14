@@ -26,6 +26,6 @@ class PopupComponent < Component
     data[:fui_popup_variation_value] = variation if variation
     data[:fui_popup_on_value] = on if on != "hover"
 
-    tag.span(data: data) { @content }
+    tag.span(**merge_html_options(data: data)) { @content }
   end
 end

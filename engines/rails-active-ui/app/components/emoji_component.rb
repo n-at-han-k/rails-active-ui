@@ -10,6 +10,6 @@ class EmojiComponent < Component
   attribute :name, :string, default: nil
 
   def to_s
-    tag.em(class: "small", data: { emoji: ":#{name}:" })
+    tag.em(**merge_html_options(class: "small", data: { emoji: ":#{name}:" }))
   end
 end

@@ -50,7 +50,7 @@ class TagComponent < Component
     icon_el = icon ? tag.i(class: "#{icon} icon") : nil
     detail_el = detail ? tag.div(class: "detail") { detail } : nil
 
-    tag.div(class: classes) {
+    tag.div(**merge_html_options(class: classes)) {
       safe_join([ icon_el, @content, detail_el ])
     }
   end

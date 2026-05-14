@@ -166,11 +166,20 @@ def copy_propshaft_assets(output_dir)
     assembly.load_path.assets.each do |asset|
       # The digested name is what appears in HTML (e.g., "semantic.min-abc123.css")
       digested_name = asset.digested_path.to_s
+      logical_name = asset.logical_path.to_s
       source_path = asset.path
 
       dest = assets_dir.join(digested_name)
       FileUtils.mkdir_p(dest.dirname)
       FileUtils.cp(source_path, dest)
+
+      # Also copy with the original (undigested) name. Fomantic UI's CSS
+      # references fonts via relative url() paths (e.g., themes/default/
+      # assets/fonts/icons.woff2) which Propshaft does not rewrite inside
+      # CSS files. The undigested copy ensures those references resolve.
+      undigested_dest = assets_dir.join(logical_name)
+      FileUtils.mkdir_p(undigested_dest.dirname)
+      FileUtils.cp(source_path, undigested_dest)
     end
   else
     # Fallback: just copy from the public/assets directory if it exists

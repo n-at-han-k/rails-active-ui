@@ -12,6 +12,6 @@
 
 class ListDescriptionComponent < Component
   def to_s
-    tag.div(class: "description") { @content }
+    tag.div(**merge_html_options(class: "description")) { @content }
   end
 end

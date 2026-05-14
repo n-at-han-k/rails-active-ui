@@ -1,3 +1,28 @@
+examples_dir = Rails.root.join("app/views/examples")
+entries = Dir.glob(examples_dir.join("**/*")).select { |f| File.file?(f) }.sort
+grouped = {}
+
+entries.each do |file|
+  relative = Pathname.new(file).relative_path_from(examples_dir).to_s
+  parts = relative.split("/")
+  name = File.basename(parts.last).split(".").first
+  next if name.start_with?("_") || name == "index"
+  next unless parts.length > 1
+
+  folder = parts.first
+  grouped[folder] ||= []
+  grouped[folder] << { name: name, path: parts.map { |p| File.basename(p).split(".").first }.join("/") }
+end
+
+section_order = %w[examples elements collections modules views]
+section_icons = {
+  "examples"    => "browser",
+  "elements"    => "cube",
+  "collections" => "cubes",
+  "modules"     => "puzzle piece",
+  "views"       => "eye",
+}
+
 Container {
   Header(size: :h1, dividing: true) { "Fomantic-UI Examples" }
 
@@ -5,50 +30,20 @@ Container {
   LinkTo(href: "https://github.com/fomantic/Fomantic-UI/tree/develop/examples") { "Fomantic-UI examples" }
   text "."
 
-  List(divided: true, relaxed: true, size: "big") {
-    MenuItem(icon: "sign in") {
-      LinkTo(href: "/examples/login") { "Login" }
-      text " — A simple login form"
+  section_order.each do |folder|
+    next unless grouped[folder]
+
+    Header(size: :h2, dividing: true) {
+      Icon(section_icons[folder] || "folder")
+      text folder.titleize
     }
 
-    MenuItem(icon: "home") {
-      LinkTo(href: "/examples/homepage") { "Homepage" }
-      text " — A homepage with sidebar navigation"
+    List(divided: true, relaxed: true, size: "big") {
+      grouped[folder].sort_by { |i| i[:name] }.each do |item|
+        MenuItem {
+          LinkTo(href: "/examples/#{item[:path]}") { item[:name].titleize }
+        }
+      end
     }
-
-    MenuItem(icon: "pin") {
-      LinkTo(href: "/examples/fixed") { "Fixed Menu" }
-      text " — A fixed top menu layout"
-    }
-
-    MenuItem(icon: "attach") {
-      LinkTo(href: "/examples/attached") { "Attached Content" }
-      text " — Segments, tables, menus, and headers attached together"
-    }
-
-    MenuItem(icon: "sticky note") {
-      LinkTo(href: "/examples/sticky") { "Sticky" }
-      text " — Sticky menu and lazy-loaded images"
-    }
-
-    MenuItem(icon: "grid layout") {
-      LinkTo(href: "/examples/grid") { "Grid" }
-      text " — Grid system patterns and variations"
-    }
-
-    MenuItem(icon: "exchange") {
-      LinkTo(href: "/examples/bootstrap") { "Bootstrap Migration" }
-      text " — Bootstrap-equivalent patterns in Fomantic-UI"
-    }
-
-    MenuItem(icon: "mobile alternate") {
-      LinkTo(href: "/examples/responsive") { "Responsive" }
-      text " — Responsive grid and element patterns"
-    }
-
-    MenuItem(icon: "dashboard") {
-      LinkTo(href: "/examples/dashboard") { "Admin Dashboard" }
-      text " — Admin dashboard with sidebar, cards, table, and statistics"
-    }
-  }
+  end
 }

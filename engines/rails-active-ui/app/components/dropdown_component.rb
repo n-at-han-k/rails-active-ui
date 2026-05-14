@@ -56,7 +56,7 @@ class DropdownComponent < Component
     end
     menu_el = tag.div(class: "menu") { @content }
 
-    tag.div(class: classes, data: data) {
+    tag.div(**merge_html_options(class: classes, data: data)) {
       safe_join([
         tag.input(**hidden_opts),
         search_el,

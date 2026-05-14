@@ -20,6 +20,6 @@ class StateComponent < Component
     data[:fui_state_class_active_value] = class_active if class_active
     data[:fui_state_class_inactive_value] = class_inactive if class_inactive
 
-    tag.div(data: data) { @content }
+    tag.div(**merge_html_options(data: data)) { @content }
   end
 end

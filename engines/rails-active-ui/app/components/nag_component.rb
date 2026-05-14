@@ -18,7 +18,7 @@ class NagComponent < Component
 
     close_el = tag.i(class: "close icon")
 
-    tag.div(class: classes, data: { controller: "fui-nag" }) {
+    tag.div(**merge_html_options(class: classes, data: { controller: "fui-nag" })) {
       safe_join([ close_el, @content ])
     }
   end

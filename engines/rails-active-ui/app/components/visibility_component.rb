@@ -17,6 +17,6 @@ class VisibilityComponent < Component
     data[:fui_visibility_offset_value] = offset if offset > 0
     data[:fui_visibility_once_value] = "true" if once
 
-    tag.div(data: data) { @content }
+    tag.div(**merge_html_options(data: data)) { @content }
   end
 end

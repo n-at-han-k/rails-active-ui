@@ -20,9 +20,9 @@ class ListHeaderComponent < Component
 
   def to_s
     if href
-      tag.a(class: "header", href: href) { @content }
+      tag.a(**merge_html_options(class: "header", href: href)) { @content }
     else
-      tag.div(class: "header") { @content }
+      tag.div(**merge_html_options(class: "header")) { @content }
     end
   end
 end

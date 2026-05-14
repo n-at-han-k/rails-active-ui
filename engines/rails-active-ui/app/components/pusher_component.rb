@@ -13,6 +13,6 @@
 
 class PusherComponent < Component
   def to_s
-    tag.div(class: "pusher") { @content }
+    tag.div(**merge_html_options(class: "pusher")) { @content }
   end
 end

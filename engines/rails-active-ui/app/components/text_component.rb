@@ -35,7 +35,7 @@ class TextComponent < Component
     opts[:class] = fui_classes if fui_classes
     opts[:style] = style_parts.join(";") if style_parts.any?
 
-    tag.span(**opts) { @content }
+    tag.span(**merge_html_options(**opts)) { @content }
   end
 
   private

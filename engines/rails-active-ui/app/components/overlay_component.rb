@@ -11,6 +11,6 @@
 
 class OverlayComponent < Component
   def to_s
-    tag.div(class: "overlay") { @content }
+    tag.div(**merge_html_options(class: "overlay")) { @content }
   end
 end

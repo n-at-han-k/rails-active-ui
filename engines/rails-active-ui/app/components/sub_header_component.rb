@@ -10,6 +10,6 @@
 
 class SubHeaderComponent < Component
   def to_s
-    tag.div(class: "sub header") { @content }
+    tag.div(**merge_html_options(class: "sub header")) { @content }
   end
 end

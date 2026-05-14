@@ -10,6 +10,6 @@ class FlagComponent < Component
   attribute :country, :string, default: nil
 
   def to_s
-    tag.i(class: "#{country} flag")
+    tag.i(**merge_html_options(class: "#{country} flag"))
   end
 end

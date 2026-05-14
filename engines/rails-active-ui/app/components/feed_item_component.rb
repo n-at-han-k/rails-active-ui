@@ -77,7 +77,7 @@ class FeedItemComponent < Component
       tag.div(class: "content") { safe_join([ *content_parts, @content.presence ]) }
     end
 
-    tag.div(class: classes) {
+    tag.div(**merge_html_options(class: classes)) {
       safe_join([ label_el, content_el ])
     }
   end

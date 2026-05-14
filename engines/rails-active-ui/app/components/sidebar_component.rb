@@ -28,6 +28,6 @@ class SidebarComponent < Component
       "menu"
     )
 
-    tag.div(class: classes, data: { controller: "fui-sidebar", fui_sidebar_transition_value: transition }) { @content }
+    tag.div(**merge_html_options(class: classes, data: { controller: "fui-sidebar", fui_sidebar_transition_value: transition })) { @content }
   end
 end

@@ -52,9 +52,9 @@ class TableCellComponent < Component
     opts[:rowspan] = rowspan if rowspan
 
     if heading
-      tag.th(**opts) { @content }
+      tag.th(**merge_html_options(**opts)) { @content }
     else
-      tag.td(**opts) { @content }
+      tag.td(**merge_html_options(**opts)) { @content }
     end
   end
 end

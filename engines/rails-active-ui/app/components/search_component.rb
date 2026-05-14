@@ -37,7 +37,7 @@ class SearchComponent < Component
     }
     results_el = tag.div(class: "results")
 
-    tag.div(class: classes, data: data) {
+    tag.div(**merge_html_options(class: classes, data: data)) {
       safe_join([ input_wrapper, results_el, @content ])
     }
   end
