@@ -34,7 +34,7 @@ Container {
     next unless grouped[folder]
 
     Header(size: :h2, dividing: true) {
-      Icon(section_icons[folder] || "folder")
+      Icon(name: section_icons[folder] || "folder")
       text folder.titleize
     }
 

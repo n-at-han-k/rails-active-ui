@@ -77,8 +77,6 @@ text '<style>
   .payment-type { border: 2px solid rgba(34,36,38,.15); border-radius: 0.5em; padding: 0.75em; text-align: center; cursor: pointer; font-size: 0.85em; font-weight: 500; transition: border-color 0.15s; }
   .payment-type:first-child { border-color: #2185d0; }
   .payment-type i.icon { font-size: 1.3em; display: block; margin-bottom: 0.3em; }
-
-  /* no extra styles needed for status badges — using Tag(color:, basic:) */
 </style>'.html_safe
 
 Wrapper(class: "dash-layout") {
