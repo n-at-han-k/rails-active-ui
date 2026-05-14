@@ -32,8 +32,9 @@ class ItemComponent < Component
 
     content_el = content_parts.any? ? tag.div(class: "content") { safe_join(content_parts) } : nil
 
+    loose_content = @slots.values.any? ? nil : @content.presence
     tag.div(**merge_html_options(class: "item")) {
-      safe_join([ image_el, content_el, @content.presence ])
+      safe_join([ image_el, content_el, loose_content ])
     }
   end
 end

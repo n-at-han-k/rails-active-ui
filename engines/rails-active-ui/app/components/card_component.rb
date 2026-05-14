@@ -45,7 +45,9 @@ class CardComponent < Component
     content_el = content_parts.any? ? tag.div(class: "content") { safe_join(content_parts) } : nil
     extra_el = @slots[:extra] ? tag.div(class: "extra content") { @slots[:extra] } : nil
 
-    inner = safe_join([ image_el, content_el, @content.presence, extra_el ])
+    # Only include @content when no slots are used (block-only mode)
+    loose_content = @slots.values.any? ? nil : @content.presence
+    inner = safe_join([ image_el, content_el, loose_content, extra_el ])
 
     if href
       tag.a(**merge_html_options(class: classes, href: href)) { inner }

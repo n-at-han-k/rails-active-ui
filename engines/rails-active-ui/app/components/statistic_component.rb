@@ -36,8 +36,9 @@ class StatisticComponent < Component
     value_el = @slots[:value] ? tag.div(class: "value") { @slots[:value] } : nil
     label_el = @slots[:label] ? tag.div(class: "label") { @slots[:label] } : nil
 
+    loose_content = @slots.values.any? ? nil : @content.presence
     tag.div(**merge_html_options(class: classes)) {
-      safe_join([ value_el, label_el, @content.presence ])
+      safe_join([ value_el, label_el, loose_content ])
     }
   end
 end

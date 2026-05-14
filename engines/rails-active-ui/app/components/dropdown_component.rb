@@ -28,6 +28,8 @@ class DropdownComponent < Component
   attribute :disabled,      :boolean, default: false
   attribute :action,        :string,  default: nil
 
+  slot :trigger
+
   def to_s
     classes = class_names(
       "ui",
@@ -49,9 +51,10 @@ class DropdownComponent < Component
     hidden_opts[:name] = name if name
 
     search_el = search ? tag.input(class: "search") : nil
+    trigger_el = @slots[:trigger]
     text_el = if inline
       tag.div(class: "text") { tag.h2(class: "ui header") { placeholder || "" } }
-    else
+    elsif !trigger_el
       tag.div(class: "text") { placeholder || "" }
     end
     menu_el = tag.div(class: "menu") { @content }
@@ -60,6 +63,7 @@ class DropdownComponent < Component
       safe_join([
         tag.input(**hidden_opts),
         search_el,
+        trigger_el,
         text_el,
         tag.i(class: "dropdown icon"),
         menu_el

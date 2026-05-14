@@ -73,8 +73,9 @@ class FeedItemComponent < Component
       content_parts << tag.div(class: "meta") { @slots[:meta] }
     end
 
-    content_el = if content_parts.any? || @content.present?
-      tag.div(class: "content") { safe_join([ *content_parts, @content.presence ]) }
+    loose_content = @slots.values.any? ? nil : @content.presence
+    content_el = if content_parts.any? || loose_content.present?
+      tag.div(class: "content") { safe_join([ *content_parts, loose_content ]) }
     end
 
     tag.div(**merge_html_options(class: classes)) {

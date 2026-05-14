@@ -93,20 +93,20 @@ Wrapper(class: "dash-layout") {
     # Dashboards section
     Wrapper(class: "nav-section") {
       Wrapper(class: "nav-section-title") { "Dashboards" }
-      Wrapper(class: "nav-item active") { Icon(name: "chart pie", inverted: true); text "Classic Dashboard" }
-      Wrapper(class: "nav-item") { Icon(name: "shopping bag", inverted: true); text "E-commerce" }
-      Wrapper(class: "nav-item") { Icon(name: "credit card", inverted: true); text "Payment" }
-      Wrapper(class: "nav-item") { Icon(name: "building", inverted: true); text "Hotel" }
-      Wrapper(class: "nav-item") { Icon(name: "folder", inverted: true); text "Project Management" }
-      Wrapper(class: "nav-item") { Icon(name: "home", inverted: true); text "Real Estate" }
-      Wrapper(class: "nav-item") { Icon(name: "dollar sign", inverted: true); text "Sales" }
-      Wrapper(class: "nav-item") { Icon(name: "address book", inverted: true); text "CRM" }
-      Wrapper(class: "nav-item") { Icon(name: "chart bar", inverted: true); text "Website Analytics" }
-      Wrapper(class: "nav-item") { Icon(name: "folder open", inverted: true); text "File Manager" }
-      Wrapper(class: "nav-item") { Icon(name: "bitcoin", inverted: true); text "Crypto" }
-      Wrapper(class: "nav-item") { Icon(name: "graduation cap", inverted: true); text "Academy" }
-      Wrapper(class: "nav-item") { Icon(name: "heartbeat", inverted: true); text "Hospital" }
-      Wrapper(class: "nav-item") { Icon(name: "chart line", inverted: true); text "Finance" }
+      Wrapper(class: "nav-item active") { Icon(name: "chart pie", inverted: true); LinkTo(href: "/examples/dashboard/default", style: "color: inherit; text-decoration: none;") { "Classic Dashboard" } }
+      Wrapper(class: "nav-item") { Icon(name: "shopping bag", inverted: true); LinkTo(href: "/examples/dashboard/ecommerce", style: "color: inherit; text-decoration: none;") { "E-commerce" } }
+      Wrapper(class: "nav-item") { Icon(name: "credit card", inverted: true); LinkTo(href: "/examples/dashboard/payment", style: "color: inherit; text-decoration: none;") { "Payment" } }
+      Wrapper(class: "nav-item") { Icon(name: "building", inverted: true); LinkTo(href: "/examples/dashboard/hotel", style: "color: inherit; text-decoration: none;") { "Hotel" } }
+      Wrapper(class: "nav-item") { Icon(name: "folder", inverted: true); LinkTo(href: "/examples/dashboard/project-management", style: "color: inherit; text-decoration: none;") { "Project Management" } }
+      Wrapper(class: "nav-item") { Icon(name: "home", inverted: true); LinkTo(href: "/examples/dashboard/real-estate", style: "color: inherit; text-decoration: none;") { "Real Estate" } }
+      Wrapper(class: "nav-item") { Icon(name: "dollar sign", inverted: true); LinkTo(href: "/examples/dashboard/sales", style: "color: inherit; text-decoration: none;") { "Sales" } }
+      Wrapper(class: "nav-item") { Icon(name: "address book", inverted: true); LinkTo(href: "/examples/dashboard/crm", style: "color: inherit; text-decoration: none;") { "CRM" } }
+      Wrapper(class: "nav-item") { Icon(name: "chart bar", inverted: true); LinkTo(href: "/examples/dashboard/website-analytics", style: "color: inherit; text-decoration: none;") { "Website Analytics" } }
+      Wrapper(class: "nav-item") { Icon(name: "folder open", inverted: true); LinkTo(href: "/examples/dashboard/file-manager", style: "color: inherit; text-decoration: none;") { "File Manager" } }
+      Wrapper(class: "nav-item") { Icon(name: "bitcoin", inverted: true); LinkTo(href: "/examples/dashboard/crypto", style: "color: inherit; text-decoration: none;") { "Crypto" } }
+      Wrapper(class: "nav-item") { Icon(name: "graduation cap", inverted: true); LinkTo(href: "/examples/dashboard/academy", style: "color: inherit; text-decoration: none;") { "Academy" } }
+      Wrapper(class: "nav-item") { Icon(name: "heartbeat", inverted: true); LinkTo(href: "/examples/dashboard/hospital-management", style: "color: inherit; text-decoration: none;") { "Hospital" } }
+      Wrapper(class: "nav-item") { Icon(name: "chart line", inverted: true); LinkTo(href: "/examples/dashboard/finance", style: "color: inherit; text-decoration: none;") { "Finance" } }
     }
 
     # Apps section

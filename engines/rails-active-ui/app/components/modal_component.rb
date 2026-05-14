@@ -74,8 +74,9 @@ class ModalComponent < Component
     opts = merge_html_options(class: classes, data: data)
     opts[:id] = id if id
 
+    loose_content = @slots.values.any? ? nil : @content.presence
     tag.div(**opts) {
-      safe_join([ close_el, header_el, content_el, @content.presence, actions_el ])
+      safe_join([ close_el, header_el, content_el, loose_content, actions_el ])
     }
   end
 end

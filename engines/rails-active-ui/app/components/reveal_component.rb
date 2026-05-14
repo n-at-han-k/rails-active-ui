@@ -32,8 +32,9 @@ class RevealComponent < Component
     visible_el = @slots[:visible] ? tag.div(class: "visible content") { @slots[:visible] } : nil
     hidden_el  = @slots[:hidden]  ? tag.div(class: "hidden content") { @slots[:hidden] } : nil
 
+    loose_content = @slots.values.any? ? nil : @content
     tag.div(**merge_html_options(class: classes)) {
-      safe_join([ visible_el, hidden_el, @content ])
+      safe_join([ visible_el, hidden_el, loose_content ])
     }
   end
 end

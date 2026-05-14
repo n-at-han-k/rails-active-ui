@@ -34,8 +34,9 @@ class FlyoutComponent < Component
     content_el = @slots[:content] ? tag.div(class: "content") { @slots[:content] } : nil
     actions_el = @slots[:actions] ? tag.div(class: "actions") { @slots[:actions] } : nil
 
+    loose_content = @slots.values.any? ? nil : @content.presence
     tag.div(**merge_html_options(class: classes, data: data)) {
-      safe_join([ close_el, header_el, content_el, @content.presence, actions_el ])
+      safe_join([ close_el, header_el, content_el, loose_content, actions_el ])
     }
   end
 end
